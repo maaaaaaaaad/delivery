@@ -9,4 +9,6 @@ export class UsersService {
     @InjectRepository(UsersEntity)
     private readonly usersService: Repository<UsersService>,
   ) {}
+
+  async createAccount() {}
 }

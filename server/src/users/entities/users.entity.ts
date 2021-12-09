@@ -1,7 +1,8 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { Column, Entity } from 'typeorm'
-import { RequiredEntity } from '../../common/required.entity'
+import { RequiredEntity } from '../../common/entites/required.entity'
 import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator'
+import { UserRole } from '../types/role.type'
 
 @InputType({ isAbstract: true })
 @ObjectType()
@@ -31,4 +32,8 @@ export class UsersEntity extends RequiredEntity {
   @MinLength(2)
   @MaxLength(12)
   nickname: string
+
+  @Column()
+  @Field((type) => String)
+  role: UserRole
 }
