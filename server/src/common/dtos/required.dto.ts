@@ -5,6 +5,6 @@ export class RequiredOutputDto {
   @Field((type) => Boolean)
   access: boolean
 
-  @Field((type) => String)
-  errorMessage: string
+  @Field((type) => String, { nullable: true })
+  errorMessage?: string
 }
