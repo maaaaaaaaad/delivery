@@ -10,6 +10,6 @@ export class LoginInputDto extends PickType(UsersEntity, [
 
 @ObjectType()
 export class LoginOutputDto extends RequiredOutputDto {
-  @Field((type) => String)
+  @Field((type) => String, { nullable: true })
   access_token?: string
 }

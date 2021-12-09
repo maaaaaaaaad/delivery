@@ -49,7 +49,10 @@ export class UsersService {
     password,
   }: LoginInputDto): Promise<LoginOutputDto> {
     try {
-      const user = await this.users.findOne({ accountId })
+      const user = await this.users.findOne(
+        { accountId },
+        { select: ['accountId', 'password'] },
+      )
 
       if (!user) {
         return {

@@ -15,10 +15,22 @@ type CreateOutputDto {
   errorMessage: String
 }
 
+input LoginInputDto {
+  accountId: String!
+  password: String!
+}
+
+type LoginOutputDto {
+  access: Boolean!
+  access_token: String
+  errorMessage: String
+}
+
 type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
 }
 
 type Query {
   greeting(input: String!): String!
+  loginAccount(input: LoginInputDto!): LoginOutputDto!
 }
