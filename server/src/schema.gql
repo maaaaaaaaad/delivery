@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateInputDto {
+  accountId: String!
+  email: String!
+  nickname: String!
+  password: String!
+  role: String!
+}
+
+type CreateOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
+type Mutation {
+  createAccount(input: CreateInputDto!): CreateOutputDto!
+}
+
 type Query {
   greeting(input: String!): String!
 }

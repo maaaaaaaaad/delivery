@@ -21,24 +21,10 @@ export class UsersService {
     try {
       const find = await this.users.findOne({ accountId })
 
-      if (find.accountId === accountId) {
+      if (find) {
         return {
           access: false,
-          errorMessage: 'Already to user account id',
-        }
-      }
-
-      if (find.email === email) {
-        return {
-          access: false,
-          errorMessage: 'Already to user email',
-        }
-      }
-
-      if (find.nickname === nickname) {
-        return {
-          access: false,
-          errorMessage: 'Already to user nickname',
+          errorMessage: 'Already to user',
         }
       }
 
@@ -52,7 +38,7 @@ export class UsersService {
     } catch (e) {
       return {
         access: false,
-        errorMessage: e.meesage,
+        errorMessage: e.message,
       }
     }
   }
