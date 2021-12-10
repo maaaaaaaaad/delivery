@@ -21,7 +21,6 @@ export class UsersService {
   }: CreateInputDto): Promise<CreateOutputDto> {
     try {
       const user = await this.users.findOne({ accountId })
-
       if (user) {
         return {
           access: false,

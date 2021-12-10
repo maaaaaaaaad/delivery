@@ -5,6 +5,7 @@ import { join } from 'path'
 import { UsersModule } from './users/users.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersEntity } from './users/entities/users.entity'
+import { JwtModule } from './jwt/jwt.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UsersEntity } from './users/entities/users.entity'
       sortSchema: true,
     }),
     UsersModule,
+    JwtModule,
   ],
   controllers: [],
   providers: [],
