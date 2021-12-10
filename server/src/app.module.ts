@@ -5,7 +5,7 @@ import { join } from 'path'
 import { UsersModule } from './users/users.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersEntity } from './users/entities/users.entity'
-import { JwtModule } from './jwt/jwt.module';
+import { JwtModule } from './jwt/jwt.module'
 
 @Module({
   imports: [
@@ -28,7 +28,9 @@ import { JwtModule } from './jwt/jwt.module';
       sortSchema: true,
     }),
     UsersModule,
-    JwtModule,
+    JwtModule.forRoot({
+      jwtSecretKey: process.env.JWT_SECRET_KEY,
+    }),
   ],
   controllers: [],
   providers: [],

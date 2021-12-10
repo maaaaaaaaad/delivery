@@ -4,12 +4,14 @@ import { UsersEntity } from './entities/users.entity'
 import { Repository } from 'typeorm'
 import { CreateInputDto, CreateOutputDto } from './dtos/create.dto'
 import { LoginInputDto, LoginOutputDto } from './dtos/login.dto'
+import { JwtService } from '../jwt/jwt.service'
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UsersEntity)
     private readonly users: Repository<UsersEntity>,
+    private readonly jwt: JwtService,
   ) {}
 
   async createAccount({
@@ -68,11 +70,11 @@ export class UsersService {
         }
       }
 
-      const token = 'Login! your token: 7777'
+      const access_token = this.jwt.sign(user.id)
 
       return {
         access: true,
-        access_token: token,
+        access_token,
       }
     } catch (e) {
       return {
