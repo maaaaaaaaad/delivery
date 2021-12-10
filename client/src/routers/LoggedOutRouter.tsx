@@ -2,11 +2,22 @@ import React from 'react'
 import { isLoggedInVar } from '../apollo'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
+import { gql, useMutation, useQuery } from '@apollo/client'
 
 type ILoginFormInput = {
   accountId: string
   password: string
 }
+
+const USER_LOGIN = gql`
+  mutation loginAccount($accountId: String!, $password: String!) {
+    loginAccount(input: { accountId: $accountId, password: $password }) {
+      access
+      access_token
+      errorMessage
+    }
+  }
+`
 
 const LoggedOutRouter = () => {
   const onClick = () => {
@@ -19,7 +30,18 @@ const LoggedOutRouter = () => {
     formState: { errors },
   } = useForm<ILoginFormInput>()
 
-  const onSubmit: SubmitHandler<ILoginFormInput> = (data) => console.log(data)
+  const [login, { data, loading }] = useMutation(USER_LOGIN)
+
+  const onSubmit = async ({ accountId, password }: ILoginFormInput) => {
+    await login({
+      variables: {
+        accountId,
+        password,
+      },
+    })
+    console.log(loading)
+    console.log(JSON.stringify(data))
+  }
 
   return (
     <section>

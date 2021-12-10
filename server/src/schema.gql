@@ -33,11 +33,11 @@ type LoginOutputDto {
 
 type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
+  loginAccount(input: LoginInputDto!): LoginOutputDto!
 }
 
 type Query {
   greeting(input: String!): String!
-  loginAccount(input: LoginInputDto!): LoginOutputDto!
   userState: UsersEntity!
 }
 

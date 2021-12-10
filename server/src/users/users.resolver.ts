@@ -23,7 +23,7 @@ export class UsersResolver {
     return await this.usersService.createAccount(createInputDto)
   }
 
-  @Query((returns) => LoginOutputDto)
+  @Mutation((returns) => LoginOutputDto)
   async loginAccount(
     @Args('input') loginInputDto: LoginInputDto,
   ): Promise<LoginOutputDto> {
