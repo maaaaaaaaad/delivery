@@ -60,10 +60,11 @@ export class UsersService {
         }
       }
 
-      if (user.password !== password) {
+      const confirmPassword = await user.confirmPassword(password)
+      if (!confirmPassword) {
         return {
           access: false,
-          errorMessage: 'Incorrect password!',
+          errorMessage: 'The passwords do not match',
         }
       }
 
