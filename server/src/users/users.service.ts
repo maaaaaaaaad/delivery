@@ -52,7 +52,7 @@ export class UsersService {
     try {
       const user = await this.users.findOne(
         { accountId },
-        { select: ['accountId', 'password'] },
+        { select: ['id', 'accountId', 'password'] },
       )
 
       if (!user) {
@@ -69,7 +69,6 @@ export class UsersService {
           errorMessage: 'The passwords do not match',
         }
       }
-
       const access_token = this.jwt.sign(user.id)
 
       return {
@@ -82,5 +81,9 @@ export class UsersService {
         errorMessage: e.message,
       }
     }
+  }
+
+  async findByTokenPk(primaryKey: number): Promise<UsersEntity> {
+    return this.users.findOne({ id: primaryKey })
   }
 }
