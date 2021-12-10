@@ -1,12 +1,20 @@
 import React from 'react'
 import { isLoggedInVar } from '../apollo'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
-import { gql, useMutation, useQuery } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client'
 
 type ILoginFormInput = {
   accountId: string
   password: string
+}
+
+type LoginMutationResult = {
+  loginAccount: {
+    access: boolean
+    access_token: string
+    errorMessage: string
+  }
 }
 
 const USER_LOGIN = gql`
@@ -30,7 +38,19 @@ const LoggedOutRouter = () => {
     formState: { errors },
   } = useForm<ILoginFormInput>()
 
-  const [login, { data, loading }] = useMutation(USER_LOGIN)
+  const [login] = useMutation(USER_LOGIN, {
+    onCompleted: (data: LoginMutationResult) => {
+      const {
+        loginAccount: { access, access_token, errorMessage },
+      } = data
+      console.log(access, access_token, errorMessage)
+    },
+    onError: (e: Error) => {
+      if (e.message === 'Failed to fetch') {
+        window.alert('Cannot connected to server...')
+      }
+    },
+  })
 
   const onSubmit = async ({ accountId, password }: ILoginFormInput) => {
     await login({
@@ -39,8 +59,6 @@ const LoggedOutRouter = () => {
         password,
       },
     })
-    console.log(loading)
-    console.log(JSON.stringify(data))
   }
 
   return (
