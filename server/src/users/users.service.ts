@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @InjectRepository(UsersEntity)
     private readonly users: Repository<UsersEntity>,
-    private readonly jwt: JwtService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async createAccount({
@@ -69,7 +69,7 @@ export class UsersService {
           errorMessage: 'The passwords do not match',
         }
       }
-      const access_token = this.jwt.sign(user.id)
+      const access_token = this.jwtService.sign(user.id)
 
       return {
         access: true,
