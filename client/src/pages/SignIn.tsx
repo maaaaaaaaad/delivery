@@ -5,7 +5,7 @@ import { gql, useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-type ILoginFormInput = {
+type SignInFormInput = {
   accountId: string
   password: string
 }
@@ -35,7 +35,7 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILoginFormInput>()
+  } = useForm<SignInFormInput>()
 
   const [login] = useMutation(USER_LOGIN, {
     onCompleted: (data: LoginMutationResult) => {
@@ -52,7 +52,7 @@ const SignIn = () => {
     },
   })
 
-  const onSubmit = async ({ accountId, password }: ILoginFormInput) => {
+  const onSubmit = async ({ accountId, password }: SignInFormInput) => {
     await login({
       variables: {
         accountId,
@@ -66,7 +66,7 @@ const SignIn = () => {
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <h1>LoggedOutRouter!</h1>
+      <h1>User Sign In!</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input
