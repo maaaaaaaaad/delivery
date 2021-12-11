@@ -27,7 +27,15 @@ const SignUp = () => {
   })
 
   const onSubmit = () => {
-    console.log(getValues())
+    const { accountId, password, email, nickname, role } = getValues()
+    const appendValues = {
+      accountId,
+      password,
+      email,
+      nickname,
+      role,
+    }
+    console.log(appendValues)
   }
 
   return (
@@ -122,6 +130,7 @@ const SignUp = () => {
               id="client"
               type="radio"
               name="role"
+              value="client"
             />
             Client
           </label>
@@ -131,6 +140,7 @@ const SignUp = () => {
               id="owner"
               type="radio"
               name="role"
+              value="owner"
             />
             Owner
           </label>
@@ -140,6 +150,7 @@ const SignUp = () => {
               id="driver"
               type="radio"
               name="role"
+              value="driver"
             />
             Driver
           </label>
