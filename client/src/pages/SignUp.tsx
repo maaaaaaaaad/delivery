@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
@@ -50,6 +50,10 @@ const SignUp = () => {
           <input
             {...register('accountId', {
               required: 'You must specify a account id',
+              pattern: {
+                value: /^[A-za-z0-9]{4,15}$/,
+                message: 'Please insert a valid account id',
+              },
             })}
             type="text"
             name="accountId"
@@ -96,6 +100,10 @@ const SignUp = () => {
           <input
             {...register('email', {
               required: 'You must specify a email',
+              pattern: {
+                value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
+                message: 'Please insert a valid email address',
+              },
             })}
             type="email"
             name="email"
@@ -109,6 +117,10 @@ const SignUp = () => {
           <input
             {...register('nickname', {
               required: 'You must specify a nickname',
+              pattern: {
+                value: /^[A-za-z0-9]{2,12}$/,
+                message: 'Please insert a valid nickname',
+              },
             })}
             type="text"
             name="nickname"
