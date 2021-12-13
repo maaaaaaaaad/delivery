@@ -91,4 +91,14 @@ export class UsersService {
     const user = await this.users.findOne({ accountId })
     return !!user
   }
+
+  async checkEmail(email: string): Promise<boolean> {
+    const user = await this.users.findOne({ email })
+    return !!user
+  }
+
+  async checkNickname(nickname: string): Promise<boolean> {
+    const user = await this.users.findOne({ nickname })
+    return !!user
+  }
 }
