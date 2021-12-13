@@ -2,48 +2,10 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
-import { gql, useMutation } from '@apollo/client'
-
-type UserRole = 'client' | 'owner' | 'driver'
-
-type SignUpFormInput = {
-  accountId: string
-  password: string
-  confirmPassword: string
-  email: string
-  nickname: string
-  role: UserRole
-}
-
-type SignUpMutationResult = {
-  createAccount: {
-    access: boolean
-    errorMessage: string
-  }
-}
-
-const USER_CREATE_ACCOUNT = gql`
-  mutation createAccount(
-    $accountId: String!
-    $password: String!
-    $email: String!
-    $nickname: String!
-    $role: String!
-  ) {
-    createAccount(
-      input: {
-        accountId: $accountId
-        password: $password
-        email: $email
-        nickname: $nickname
-        role: $role
-      }
-    ) {
-      access
-      errorMessage
-    }
-  }
-`
+import { useMutation } from '@apollo/client'
+import { USER_CREATE_ACCOUNT } from '../graphQl/mutations.gql'
+import { SignUpFormInput } from '../interfaces/users/sign-up.interface'
+import { SignUpMutationResult } from '../graphQl/types/users/sign-up.type'
 
 const SignUp = () => {
   const [createAccount] = useMutation(USER_CREATE_ACCOUNT, {

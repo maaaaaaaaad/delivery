@@ -1,32 +1,12 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import FormError from '../components/error/FormError'
-import { gql, useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-
-type SignInFormInput = {
-  accountId: string
-  password: string
-}
-
-type LoginMutationResult = {
-  loginAccount: {
-    access: boolean
-    access_token: string
-    errorMessage: string
-  }
-}
-
-const USER_LOGIN = gql`
-  mutation loginAccount($accountId: String!, $password: String!) {
-    loginAccount(input: { accountId: $accountId, password: $password }) {
-      access
-      access_token
-      errorMessage
-    }
-  }
-`
+import { USER_LOGIN } from '../graphQl/mutations.gql'
+import { SignInFormInput } from '../interfaces/users/sign-in.interface'
+import { LoginMutationResult } from '../graphQl/types/users/sign-in.type'
 
 const SignIn = () => {
   const [error, setError] = useState<string>('')
