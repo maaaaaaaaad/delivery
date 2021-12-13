@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Helmet } from 'react-helmet'
+import { Helmet } from 'react-helmet-async'
 import FormError from '../components/error/FormError'
 import { useMutation } from '@apollo/client'
 import { useForm } from 'react-hook-form'
@@ -17,7 +17,9 @@ const SignIn = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormInput>()
+  } = useForm<SignInFormInput>({
+    mode: 'onChange',
+  })
 
   const [login] = useMutation(USER_LOGIN, {
     onCompleted: (data: LoginMutationResult) => {
@@ -62,10 +64,8 @@ const SignIn = () => {
             placeholder="account id"
             autoComplete="off"
           />
-          {errors.accountId?.message ? (
+          {errors.accountId?.message && (
             <FormError errorMessage={errors.accountId.message} />
-          ) : (
-            'Account Id'
           )}
         </div>
         <div>
@@ -76,10 +76,8 @@ const SignIn = () => {
             name="password"
             placeholder="password"
           />
-          {errors.password?.message ? (
+          {errors.password?.message && (
             <FormError errorMessage={errors.password.message} />
-          ) : (
-            'Password'
           )}
         </div>
         <input type="submit" value="sign" />
