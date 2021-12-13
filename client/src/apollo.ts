@@ -1,6 +1,9 @@
 import { ApolloClient, InMemoryCache, makeVar } from '@apollo/client'
+import { LOCALSTORAGE_TOKEN_KEY } from './constants/users/token.constant'
 
-export const isLoggedInVar = makeVar(false)
+const token = localStorage.getItem(LOCALSTORAGE_TOKEN_KEY)
+export const isLoggedInVar = makeVar(Boolean(token))
+const userToken = makeVar(token)
 
 export const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_SERVER,
@@ -10,6 +13,9 @@ export const client = new ApolloClient({
         fields: {
           isLoggedIn: {
             read: (): boolean => isLoggedInVar(),
+          },
+          readToken: {
+            read: () => userToken(),
           },
         },
       },

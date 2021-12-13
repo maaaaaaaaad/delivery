@@ -6,8 +6,10 @@ import { useMutation } from '@apollo/client'
 import { USER_CREATE_ACCOUNT } from '../graphQl/mutations.gql'
 import { SignUpFormInput } from '../interfaces/users/sign-up.interface'
 import { SignUpMutationResult } from '../graphQl/types/users/sign-up.type'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+  const navigator = useNavigate()
   const [createAccount] = useMutation(USER_CREATE_ACCOUNT, {
     onCompleted: (data: SignUpMutationResult) => {
       const {
@@ -15,6 +17,7 @@ const SignUp = () => {
       } = data
       console.log(access, errorMessage)
       window.alert(`Successful create user account!`)
+      navigator('/')
     },
     onError: (e: Error) => {
       console.log(e.message)

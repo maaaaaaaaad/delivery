@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import { USER_LOGIN } from '../graphQl/mutations.gql'
 import { SignInFormInput } from '../interfaces/users/sign-in.interface'
 import { LoginMutationResult } from '../graphQl/types/users/sign-in.type'
+import { LOCALSTORAGE_TOKEN_KEY } from '../constants/users/token.constant'
+import { isLoggedInVar } from '../apollo'
 
 const SignIn = () => {
   const [error, setError] = useState<string>('')
@@ -22,7 +24,10 @@ const SignIn = () => {
       const {
         loginAccount: { access, access_token, errorMessage },
       } = data
-      console.log(access, access_token, errorMessage)
+      if (access && access_token) {
+        localStorage.setItem(LOCALSTORAGE_TOKEN_KEY, access_token)
+        isLoggedInVar(true)
+      }
       setError(errorMessage)
     },
     onError: (e: Error) => {
