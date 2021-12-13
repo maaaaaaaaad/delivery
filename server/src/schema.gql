@@ -32,12 +32,14 @@ type LoginOutputDto {
 }
 
 type Mutation {
+  checkAccountId(input: String!): Boolean!
+  checkEmail(input: String!): Boolean!
+  checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
 }
 
 type Query {
-  checkAccountId(input: String!): Boolean!
   greeting(input: String!): String!
   userState: UsersEntity!
 }

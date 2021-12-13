@@ -36,18 +36,18 @@ export class UsersResolver {
     return authUser
   }
 
-  @Query((returns) => Boolean)
-  async checkAccountId(@Args('input') accountId: string) {
+  @Mutation((returns) => Boolean)
+  async checkAccountId(@Args('input') accountId: string): Promise<boolean> {
     return await this.usersService.checkAccountId(accountId)
   }
 
-  @Query((returns) => Boolean)
-  async checkEmail(@Args('input') email: string) {
+  @Mutation((returns) => Boolean)
+  async checkEmail(@Args('input') email: string): Promise<boolean> {
     return await this.usersService.checkEmail(email)
   }
 
-  @Query((returns) => Boolean)
-  async checkNickname(@Args('input') nickname: string) {
+  @Mutation((returns) => Boolean)
+  async checkNickname(@Args('input') nickname: string): Promise<boolean> {
     return await this.usersService.checkNickname(nickname)
   }
 }

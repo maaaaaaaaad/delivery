@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
 import { useMutation } from '@apollo/client'
-import { USER_CREATE_ACCOUNT } from '../graphQl/mutations.gql'
+import { CHECK_ACCOUNT_ID, USER_CREATE_ACCOUNT } from '../graphQl/mutations.gql'
 import { SignUpFormInput } from '../interfaces/users/sign-up.interface'
 import { SignUpMutationResult } from '../graphQl/types/users/sign-up.type'
 import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
+  const [verify, setVerify] = useState({
+    accountId: false,
+    email: false,
+    nickname: false,
+  })
   const navigator = useNavigate()
   const [createAccount] = useMutation(USER_CREATE_ACCOUNT, {
     onCompleted: (data: SignUpMutationResult) => {
@@ -24,6 +29,17 @@ const SignUp = () => {
     },
   })
 
+  const [verifyAccountId] = useMutation(CHECK_ACCOUNT_ID, {
+    onCompleted: (data) => {
+      const { checkAccountId } = data
+      if (!checkAccountId) {
+        setVerify({ ...verify, accountId: true })
+        console.log(verify)
+      }
+    },
+    onError: (e: Error) => console.log(e.message),
+  })
+
   const {
     register,
     handleSubmit,
@@ -35,10 +51,10 @@ const SignUp = () => {
     defaultValues: { role: 'client' },
   })
 
-  const onCheckAccountId = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onCheckAccountId = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const accountId = getValues('accountId')
-    /*Mutation*/
+    await verifyAccountId({ variables: { accountId } })
   }
 
   const onSubmit = async () => {

@@ -32,3 +32,9 @@ export const USER_LOGIN = gql`
     }
   }
 `
+
+export const CHECK_ACCOUNT_ID = gql`
+  mutation checkAccountId($accountId: String!) {
+    checkAccountId(input: $accountId)
+  }
+`
