@@ -2,6 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useForm } from 'react-hook-form'
 import FormError from '../components/error/FormError'
+import { gql, useMutation } from '@apollo/client'
 
 type UserRole = 'client' | 'owner' | 'driver'
 
@@ -14,7 +15,50 @@ type SignUpFormInput = {
   role: UserRole
 }
 
+type SignUpMutationResult = {
+  createAccount: {
+    access: boolean
+    errorMessage: string
+  }
+}
+
+const USER_CREATE_ACCOUNT = gql`
+  mutation createAccount(
+    $accountId: String!
+    $password: String!
+    $email: String!
+    $nickname: String!
+    $role: String!
+  ) {
+    createAccount(
+      input: {
+        accountId: $accountId
+        password: $password
+        email: $email
+        nickname: $nickname
+        role: $role
+      }
+    ) {
+      access
+      errorMessage
+    }
+  }
+`
+
 const SignUp = () => {
+  const [createAccount] = useMutation(USER_CREATE_ACCOUNT, {
+    onCompleted: (data: SignUpMutationResult) => {
+      const {
+        createAccount: { access, errorMessage },
+      } = data
+      console.log(access, errorMessage)
+      window.alert(`Successful create user account!`)
+    },
+    onError: (e: Error) => {
+      console.log(e.message)
+    },
+  })
+
   const {
     register,
     handleSubmit,
@@ -26,7 +70,7 @@ const SignUp = () => {
     defaultValues: { role: 'client' },
   })
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const { accountId, password, email, nickname, role } = getValues()
     const appendValues = {
       accountId,
@@ -35,7 +79,9 @@ const SignUp = () => {
       nickname,
       role,
     }
-    console.log(appendValues)
+    await createAccount({
+      variables: appendValues,
+    })
   }
 
   return (
