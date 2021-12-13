@@ -40,4 +40,14 @@ export class UsersResolver {
   async checkAccountId(@Args('input') accountId: string) {
     return await this.usersService.checkAccountId(accountId)
   }
+
+  @Query((returns) => Boolean)
+  async checkEmail(@Args('input') email: string) {
+    return await this.usersService.checkEmail(email)
+  }
+
+  @Query((returns) => Boolean)
+  async checkNickname(@Args('input') nickname: string) {
+    return await this.usersService.checkNickname(nickname)
+  }
 }
