@@ -35,4 +35,9 @@ export class UsersResolver {
   async userState(@AuthUser() authUser: UsersEntity): Promise<UsersEntity> {
     return authUser
   }
+
+  @Query((returns) => Boolean)
+  async checkAccountId(@Args('input') accountId: string) {
+    return await this.usersService.checkAccountId(accountId)
+  }
 }

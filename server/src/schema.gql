@@ -37,6 +37,7 @@ type Mutation {
 }
 
 type Query {
+  checkAccountId(input: String!): Boolean!
   greeting(input: String!): String!
   userState: UsersEntity!
 }

@@ -84,6 +84,11 @@ export class UsersService {
   }
 
   async findByTokenPk(primaryKey: number): Promise<UsersEntity> {
-    return this.users.findOne({ id: primaryKey })
+    return await this.users.findOne({ id: primaryKey })
+  }
+
+  async checkAccountId(accountId: string): Promise<boolean> {
+    const user = await this.users.findOne({ accountId })
+    return !!user
   }
 }

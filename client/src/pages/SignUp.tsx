@@ -35,6 +35,12 @@ const SignUp = () => {
     defaultValues: { role: 'client' },
   })
 
+  const onCheckAccountId = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const accountId = getValues('accountId')
+    /*Mutation*/
+  }
+
   const onSubmit = async () => {
     const { accountId, password, email, nickname, role } = getValues()
     const appendValues = {
@@ -71,7 +77,7 @@ const SignUp = () => {
             placeholder="Account ID"
             autoComplete="off"
           />
-          <button>Check</button>
+          <button onClick={onCheckAccountId}>Check</button>
           {errors.accountId && (
             <FormError errorMessage={errors.accountId.message!} />
           )}
