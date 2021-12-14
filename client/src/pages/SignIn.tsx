@@ -33,9 +33,7 @@ const SignIn = () => {
       setError(errorMessage)
     },
     onError: (e: Error) => {
-      if (e.message === 'Failed to fetch') {
-        window.alert('Cannot connected to server...')
-      }
+      console.log(e.message)
     },
   })
 

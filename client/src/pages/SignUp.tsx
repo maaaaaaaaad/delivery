@@ -14,7 +14,9 @@ const SignUp = () => {
     email: false,
     nickname: false,
   })
+
   const navigator = useNavigate()
+
   const [createAccount] = useMutation(USER_CREATE_ACCOUNT, {
     onCompleted: (data: SignUpMutationResult) => {
       const {

@@ -1,21 +1,29 @@
 import React from 'react'
-import { isLoggedInVar } from '../apollo'
-import { LOCALSTORAGE_TOKEN_KEY } from '../constants/users/token.constant'
 import { Helmet } from 'react-helmet-async'
+import { useQuery } from '@apollo/client'
+import { GET_USER_SELF } from '../graphQl/query.gql'
 
 const LoggedInRouter = () => {
-  const onClick = () => {
-    localStorage.removeItem(LOCALSTORAGE_TOKEN_KEY)
-    isLoggedInVar(false)
+  const { data, loading, error } = useQuery(GET_USER_SELF)
+
+  if (!data || loading || error) {
+    return (
+      <div>
+        <span>Loading...</span>
+      </div>
+    )
   }
+
+  const {
+    userState: { nickname },
+  } = data
 
   return (
     <section>
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <h1>LoggedInRouter!</h1>
-      <button onClick={onClick}>click!</button>
+      <h1>Hello {nickname}!</h1>
     </section>
   )
 }
