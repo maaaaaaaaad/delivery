@@ -55,15 +55,21 @@ const SignIn = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <input
-            {...register('accountId', { required: 'Account is required' })}
+            {...register('accountId', {
+              required: 'Account is required',
+              pattern: {
+                value: /^[A-za-z0-9]{4,15}$/,
+                message: 'Please insert a valid account id',
+              },
+            })}
             id="accountId"
             type="text"
             name="accountId"
             placeholder="account id"
             autoComplete="off"
           />
-          {errors.accountId?.message && (
-            <FormError errorMessage={errors.accountId.message} />
+          {errors.accountId && (
+            <FormError errorMessage={errors.accountId.message!} />
           )}
         </div>
         <div>
