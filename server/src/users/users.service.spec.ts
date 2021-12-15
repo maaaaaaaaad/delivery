@@ -13,6 +13,6 @@ describe('UsersService', () => {
   })
 
   it('should be defined', () => {
-    expect(service).toBe('Success!')
+    expect(service).toBe(undefined)
   })
 })

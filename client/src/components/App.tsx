@@ -1,15 +1,14 @@
 import React from 'react'
-import { useReactiveVar } from '@apollo/client'
-import LoggedInRouter from '../routers/LoggedInRouter'
-import LoggedOutRouter from '../routers/LoggedOutRouter'
-import { isLoggedInVar } from '../apollo'
+import { Helmet } from 'react-helmet-async'
 
-function App() {
-  const isLoggedIn: boolean = useReactiveVar(isLoggedInVar)
-
+const App = () => {
   return (
-    <section className="App">
-      {isLoggedIn ? <LoggedInRouter /> : <LoggedOutRouter />}
+    <section>
+      <Helmet>
+        <title>HOME</title>
+      </Helmet>
+
+      <h1>HOME</h1>
     </section>
   )
 }

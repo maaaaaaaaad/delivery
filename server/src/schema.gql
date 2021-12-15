@@ -7,7 +7,7 @@ input CreateInputDto {
   email: String!
   nickname: String!
   password: String!
-  role: String!
+  role: String = "client"
 }
 
 type CreateOutputDto {

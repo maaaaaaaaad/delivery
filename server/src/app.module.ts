@@ -12,7 +12,6 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersEntity } from './users/entities/users.entity'
 import { JwtModule } from './jwt/jwt.module'
 import { JwtMiddleware } from './jwt/jwt.middleware'
-import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [

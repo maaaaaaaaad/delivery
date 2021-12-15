@@ -13,6 +13,8 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-helmet": "^6.1.4",
     "@types/react-router-dom": "^5.3.2",
+    "apollo": "^2.33.9",
+    "global": "^4.4.0",
     "graphql": "^16.1.0",
     "mock-apollo-client": "^1.2.0",
     "react": "^17.0.2",
@@ -25,7 +27,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "apollo": "rm -rf src/__api__ && apollo client:codegen src/__api__ --target=typescript --outputFlat",
+    "start": "yarn apollo:codegen & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
