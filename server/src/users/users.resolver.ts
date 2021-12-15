@@ -6,6 +6,7 @@ import { UsersEntity } from './entities/users.entity'
 import { UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../auth/auth.guard'
 import { AuthUser } from '../auth/auth.decorator'
+import { EditProfileInputDto, EditProfileOutputDto } from './dtos/edit.dto'
 
 @Resolver()
 export class UsersResolver {
@@ -30,10 +31,19 @@ export class UsersResolver {
     return await this.usersService.loginAccount(loginInputDto)
   }
 
-  @Query((returns) => UsersEntity)
   @UseGuards(AuthGuard)
+  @Query((returns) => UsersEntity)
   async userState(@AuthUser() authUser: UsersEntity): Promise<UsersEntity> {
     return authUser
+  }
+
+  @Mutation((returns) => EditProfileOutputDto)
+  @UseGuards(AuthGuard)
+  async editProfile(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') editProfileInput: EditProfileInputDto,
+  ) {
+    return await this.usersService.editProfile(authUser.id, editProfileInput)
   }
 
   @Mutation((returns) => Boolean)

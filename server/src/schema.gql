@@ -20,6 +20,18 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input EditProfileInputDto {
+  email: String
+  nickname: String
+  password: String
+}
+
+type EditProfileOutputDto {
+  access: Boolean!
+  errorMessage: String
+  user: UsersEntity!
+}
+
 input LoginInputDto {
   accountId: String!
   password: String!
@@ -36,6 +48,7 @@ type Mutation {
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
+  editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
 }
 
