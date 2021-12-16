@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import SignUpModal from '../common/modals/SignUp.modal'
+import JoinModal from '../common/modals/Join.modal'
 
 const IntroSection = () => {
   const [onModal, setOnModal] = useState<boolean>(false)
@@ -10,7 +10,7 @@ const IntroSection = () => {
 
   return (
     <section className="intro text-white w-full h-screen snap-start">
-      {onModal && <SignUpModal onOpenSignUpModal={onOpenSignUpModal} />}
+      {onModal && <JoinModal onOpenSignUpModal={onOpenSignUpModal} />}
       <div className="overlay center flex-col">
         <h1 className="text-5xl font-bold mb-5">
           <span className="text-green-500 font">DELIVERY</span>
@@ -18,7 +18,7 @@ const IntroSection = () => {
         </h1>
         <div>
           <button onClick={onOpenSignUpModal} className="utilBtn">
-            SIGN UP
+            JOIN
           </button>
         </div>
       </div>
