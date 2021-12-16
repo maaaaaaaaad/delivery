@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
 import { MAIN_VIDEO } from '../common/constatns'

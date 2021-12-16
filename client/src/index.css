@@ -19,8 +19,16 @@
   }
 }
 
+.utilBtn {
+  @apply rounded-xl text-white p-2 bg-opacity-40 text-lg mt-6 border-2 border-white hover:border-green-500 hover:text-green-500;
+}
+
 .center {
   @apply flex justify-center items-center;
+}
+
+.signField {
+  @apply border-2 border-green-500 rounded-lg outline-none h-10 w-full text-black text-center;
 }
 
 .logo h2 {
