@@ -1,13 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Helmet } from 'react-helmet-async'
 
-const Home = () => {
+const IntroSection = () => {
   return (
-    <section className="intro text-white">
-      <Helmet>
-        <title>HOME | DELIVERY</title>
-      </Helmet>
+    <section className="intro text-white w-full h-screen snap-start">
       <div className="overlay center flex-col">
         <h1 className="text-5xl font-bold mb-5">
           <span className="text-green-500">DELIVERY</span>
@@ -22,4 +18,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default IntroSection

@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 import { MAIN_VIDEO } from '../common/constatns'
 import Header from '../pages/Header'
-import Home from '../pages/Home'
+import IntroSection from '../pages/IntroSection'
+import SecondSection from '../pages/SecondSection'
+import FooterSection from '../pages/FooterSection'
 
 const App = () => {
   const [join, setJoin] = useState<boolean>(false)
-  const [position, setPosition] = useState<number>(0)
-
-  const onScroll = () => {
-    setPosition(window.scrollY)
-    console.log(position)
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const onJoin = () => {
     setJoin(true)
@@ -26,6 +17,9 @@ const App = () => {
   const lobby = () => {
     return (
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
+        <Helmet>
+          <title>HOME</title>
+        </Helmet>
         <div className="relative z-30 p-5 text-center">
           <h1 className="text-5xl text-white">Welcome to my website</h1>
           <button
@@ -49,31 +43,21 @@ const App = () => {
 
   const main = () => {
     return (
-      <>
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </BrowserRouter>
-        <section>
-          <div>HHHHHH</div>
+      <BrowserRouter>
+        <Helmet>
+          <title>HOME | DELIVERY</title>
+        </Helmet>
+        <Header />
+        <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
+          <IntroSection />
+          <SecondSection />
+          <FooterSection />
         </section>
-      </>
+      </BrowserRouter>
     )
   }
 
-  return (
-    <section>
-      <Helmet>
-        <title>HOME</title>
-      </Helmet>
-      {join ? main() : lobby()}
-    </section>
-  )
+  return <section>{join ? main() : lobby()}</section>
 }
 
 export default App
