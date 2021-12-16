@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { MAIN_VIDEO } from '../common/constatns'
+import Header from '../pages/Header'
+import Home from '../pages/Home'
 
 const App = () => {
   const [join, setJoin] = useState<boolean>(false)
+  const [position, setPosition] = useState<number>(0)
+
+  const onScroll = () => {
+    setPosition(window.scrollY)
+    console.log(position)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const onJoin = () => {
     setJoin(true)
   }
 
-  const header = () => {
+  const lobby = () => {
     return (
       <header className="relative flex items-center justify-center h-screen overflow-hidden">
         <div className="relative z-30 p-5 text-center">
@@ -26,14 +41,29 @@ const App = () => {
           muted
           loop
         >
-          <source src="assets/videos/main.mp4" type="video/mp4" />
+          <source src={MAIN_VIDEO} type="video/mp4" />
         </video>
       </header>
     )
   }
 
   const main = () => {
-    return <main>Main!</main>
+    return (
+      <>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+        <section>
+          <div>HHHHHH</div>
+        </section>
+      </>
+    )
   }
 
   return (
@@ -41,7 +71,7 @@ const App = () => {
       <Helmet>
         <title>HOME</title>
       </Helmet>
-      {join ? main() : header()}
+      {join ? main() : lobby()}
     </section>
   )
 }
