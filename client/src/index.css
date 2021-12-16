@@ -19,6 +19,10 @@
   }
 }
 
+.font {
+  font-family: 'Bakbak One', cursive;
+}
+
 .utilBtn {
   @apply rounded-xl text-white p-2 bg-opacity-40 text-lg mt-6 border-2 border-white hover:border-green-500 hover:text-green-500;
 }

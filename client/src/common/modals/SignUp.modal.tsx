@@ -138,7 +138,7 @@ const SignUpModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
               <div>
                 <input
                   {...register('role')}
-                  className="border-2 border-green-500"
+                  className="border-2 border-green-500 cursor-pointer"
                   type="radio"
                   name="role"
                   value="client"
@@ -148,7 +148,7 @@ const SignUpModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
               <div>
                 <input
                   {...register('role')}
-                  className="border-2 border-green-500"
+                  className="border-2 border-green-500 cursor-pointer"
                   type="radio"
                   name="role"
                   value="owner"
@@ -158,7 +158,7 @@ const SignUpModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
               <div>
                 <input
                   {...register('role')}
-                  className="border-2 border-green-500"
+                  className="border-2 border-green-500 cursor-pointer"
                   type="radio"
                   name="role"
                   value="driver"

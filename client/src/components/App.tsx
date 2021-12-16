@@ -11,7 +11,7 @@ const App = () => {
   const [join, setJoin] = useState<boolean>(false)
 
   const onJoin = () => {
-    setJoin(true)
+    setJoin(!join)
   }
 
   const lobby = () => {
@@ -21,10 +21,13 @@ const App = () => {
           <title>HOME</title>
         </Helmet>
         <div className="relative z-30 p-5 text-center">
-          <h1 className="text-5xl text-white">Welcome to my website</h1>
+          <h1 className="text-5xl text-white">
+            Welcome to{' '}
+            <span className="text-green-500 font-bold font">DELIVERY</span>
+          </h1>
           <button
             onClick={onJoin}
-            className="bg-blue-900 rounded-xl text-white p-5 bg-opacity-40 text-3xl mt-6 border-2 border-white hover:bg-opacity-100"
+            className="bg-green-500 rounded-xl text-white p-5 bg-opacity-40 text-3xl mt-6 border-2 border-white hover:bg-opacity-100"
           >
             Click to join!
           </button>
@@ -47,7 +50,7 @@ const App = () => {
         <Helmet>
           <title>HOME | DELIVERY</title>
         </Helmet>
-        <Header />
+        <Header onJoin={onJoin} />
         <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
           <IntroSection />
           <SecondSection />

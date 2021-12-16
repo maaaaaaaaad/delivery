@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+interface OnJoinProp {
+  onJoin: () => void
+}
+
+const Header: React.FC<OnJoinProp> = ({ onJoin }) => {
   return (
     <>
       <header className="flex justify-between px-5 py-3 absolute w-full text-white">
         <div className="logo">
           <h2 className="text-3xl">
-            <Link to="/">HOME</Link>
+            <button onClick={onJoin}>HOME</button>
           </h2>
         </div>
 
