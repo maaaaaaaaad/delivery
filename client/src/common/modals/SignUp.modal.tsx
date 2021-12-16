@@ -1,5 +1,5 @@
 import React from 'react'
-import SignUpFormError from '../error/SignUpFormError'
+import FormError from '../error/FormError'
 import { useForm } from 'react-hook-form'
 import { User } from '../interfaces/user.interface'
 
@@ -44,7 +44,7 @@ const SignUpModal = () => {
               placeholder="Account ID (4~12 char)"
             />
             {errors.accountId && (
-              <SignUpFormError errorMessage={errors.accountId.message!} />
+              <FormError errorMessage={errors.accountId.message!} />
             )}
           </div>
           <div className="mt-5">
@@ -63,7 +63,7 @@ const SignUpModal = () => {
               placeholder="Password (8~20 char)"
             />
             {errors.password && (
-              <SignUpFormError errorMessage={errors.password.message!} />
+              <FormError errorMessage={errors.password.message!} />
             )}
           </div>
           <div className="mt-5">
@@ -78,7 +78,7 @@ const SignUpModal = () => {
               placeholder="Confirm password"
             />
             {errors.confirmPassword && (
-              <SignUpFormError errorMessage={errors.confirmPassword.message!} />
+              <FormError errorMessage={errors.confirmPassword.message!} />
             )}
           </div>
           <div className="mt-5">
@@ -95,9 +95,7 @@ const SignUpModal = () => {
               autoComplete="off"
               placeholder="Email (ex: deliver@gmail.com)"
             />
-            {errors.email && (
-              <SignUpFormError errorMessage={errors.email.message!} />
-            )}
+            {errors.email && <FormError errorMessage={errors.email.message!} />}
           </div>
           <div className="mt-5">
             <input
@@ -114,7 +112,7 @@ const SignUpModal = () => {
               placeholder="Nickname (4~10 char)"
             />
             {errors.nickname && (
-              <SignUpFormError errorMessage={errors.nickname.message!} />
+              <FormError errorMessage={errors.nickname.message!} />
             )}
           </div>
         </div>
