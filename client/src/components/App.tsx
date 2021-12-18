@@ -22,7 +22,7 @@ const App = () => {
         </Helmet>
         <div className="relative z-30 p-5 text-center">
           <h1 className="text-5xl text-white">
-            Welcome to{' '}
+            Welcome to
             <span className="text-green-500 font-bold font">DELIVERY</span>
           </h1>
           <button

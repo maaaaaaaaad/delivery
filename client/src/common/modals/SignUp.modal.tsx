@@ -2,12 +2,41 @@ import React from 'react'
 import FormError from '../error/FormError'
 import { useForm } from 'react-hook-form'
 import { User } from '../interfaces/user.interface'
+import { gql, useMutation } from '@apollo/client'
 
 interface SignUpInputForm extends User {
   confirmPassword: string
 }
 
+export const CREATE_ACCOUNT = gql`
+  mutation createAccount(
+    $accountId: String!
+    $password: String!
+    $email: String!
+    $nickname: String!
+    $role: String!
+  ) {
+    createAccount(
+      input: {
+        accountId: $accountId
+        password: $password
+        email: $email
+        nickname: $nickname
+        role: $role
+      }
+    ) {
+      access
+      errorMessage
+    }
+  }
+`
+
 const SignUpModal = () => {
+  const [createAccount] = useMutation(CREATE_ACCOUNT, {
+    onCompleted: (data) => console.log(data),
+    onError: (error) => console.log(error.message),
+  })
+
   const {
     register,
     watch,
@@ -19,7 +48,18 @@ const SignUpModal = () => {
     defaultValues: { role: 'client' },
   })
 
-  const onSubmit = () => {}
+  const onSubmit = async () => {
+    const { accountId, password, email, nickname, role } = getValues()
+    await createAccount({
+      variables: {
+        accountId,
+        password,
+        email,
+        nickname,
+        role,
+      },
+    })
+  }
 
   return (
     <>
