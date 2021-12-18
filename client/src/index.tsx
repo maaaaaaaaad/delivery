@@ -4,12 +4,16 @@ import './index.css'
 import App from './components/App'
 import reportWebVitals from './reportWebVitals'
 import { HelmetProvider } from 'react-helmet-async'
+import { ApolloProvider } from '@apollo/client'
+import { client } from './apollo'
 
 ReactDOM.render(
   <React.StrictMode>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
+    <ApolloProvider client={client}>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 )
