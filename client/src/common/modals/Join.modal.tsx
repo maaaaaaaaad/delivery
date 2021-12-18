@@ -23,7 +23,11 @@ const JoinModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
     <>
       <section className="w-full h-screen z-10 fixed top-0 left-0 center">
         <div className="w-1/2 h-5/6 bg-white rounded-2xl center flex-col">
-          {changeForm ? <SignUpModal /> : <SignInModal />}
+          {changeForm ? (
+            <SignUpModal onChangeForm={onChangeForm} />
+          ) : (
+            <SignInModal />
+          )}
           <div className="mt-5">
             <button
               className="w-52 py-2 rounded-lg bg-red-400"
