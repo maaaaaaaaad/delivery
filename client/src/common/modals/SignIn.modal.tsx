@@ -2,13 +2,19 @@ import React from 'react'
 import FormError from '../error/FormError'
 import { useForm } from 'react-hook-form'
 import { User } from '../interfaces/user.interface'
+import { useMutation } from '@apollo/client'
+import { LOGIN_ACCOUNT } from '../../graphql/mutations/user.mutation'
+import { LoginAccountOutput } from '../../graphql/type/output.type'
 
 interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
 
-const SignInModal = () => {
+interface OnModalProp {
+  onOpenSignModal: () => void
+}
+
+const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
   const {
     register,
-    watch,
     getValues,
     handleSubmit,
     formState: { errors },
@@ -16,7 +22,22 @@ const SignInModal = () => {
     mode: 'onChange',
   })
 
-  const onSignIn = () => {}
+  const [loginAccount] = useMutation<LoginAccountOutput>(LOGIN_ACCOUNT, {
+    onCompleted: ({ loginAccount }) => {
+      console.log(loginAccount)
+    },
+    onError: (error) => console.log(error.message),
+  })
+
+  const onSignIn = async () => {
+    const { accountId, password } = getValues()
+    await loginAccount({
+      variables: {
+        accountId,
+        password,
+      },
+    })
+  }
 
   return (
     <>

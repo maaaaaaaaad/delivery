@@ -22,3 +22,13 @@ export const CREATE_ACCOUNT = gql`
     }
   }
 `
+
+export const LOGIN_ACCOUNT = gql`
+  mutation loginAccount($accountId: String!, $password: String!) {
+    loginAccount(input: { accountId: $accountId, password: $password }) {
+      access
+      access_token
+      errorMessage
+    }
+  }
+`

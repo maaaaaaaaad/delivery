@@ -3,16 +3,16 @@ import SignUpModal from './SignUp.modal'
 import SignInModal from './SignIn.modal'
 
 interface OnModalProp {
-  onOpenSignUpModal: () => void
+  onOpenSignModal: () => void
 }
 
-const JoinModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
+const JoinModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(true)
   const [changeForm, setChangeForm] = useState<boolean>(false)
 
   const modalClose = (): void => {
     setModalOpen(!modalOpen)
-    onOpenSignUpModal()
+    onOpenSignModal()
   }
 
   const onChangeForm = (): void => {
@@ -21,12 +21,12 @@ const JoinModal: React.FC<OnModalProp> = ({ onOpenSignUpModal }) => {
 
   return (
     <>
-      <section className="w-full h-screen z-10 fixed top-0 left-0 center">
+      <section className="w-full h-screen z-10 fixed top-0 left-0 center bg-black bg-opacity-40">
         <div className="w-1/2 h-5/6 bg-white rounded-2xl center flex-col">
           {changeForm ? (
             <SignUpModal onChangeForm={onChangeForm} />
           ) : (
-            <SignInModal />
+            <SignInModal onOpenSignModal={onOpenSignModal} />
           )}
           <div className="mt-5">
             <button
