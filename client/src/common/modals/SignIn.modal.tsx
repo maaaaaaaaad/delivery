@@ -17,6 +17,8 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
     register,
     getValues,
     handleSubmit,
+    reset,
+    setFocus,
     formState: { errors },
   } = useForm<SignInInputForm>({
     mode: 'onChange',
@@ -26,11 +28,18 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
     onCompleted: ({ loginAccount }) => {
       const { access, access_token, errorMessage } = loginAccount
       if (!access) {
+        reset()
+        setFocus('accountId')
         return window.alert(errorMessage)
       }
-      console.log(access_token)
+      window.localStorage.setItem('token', access_token!)
+      onOpenSignModal()
     },
-    onError: (error) => console.log(error.message),
+    onError: (error) => {
+      reset()
+      setFocus('accountId')
+      console.log(error.message)
+    },
   })
 
   const onSignIn = async () => {
