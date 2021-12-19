@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import JoinModal from '../common/modals/Join.modal'
 
 const IntroSection = () => {
@@ -12,6 +12,7 @@ const IntroSection = () => {
   useEffect(() => {
     const getToken = window.localStorage.getItem('token')
     getToken && setToken(getToken)
+    console.log('intro!!!')
   })
 
   return (
