@@ -24,7 +24,11 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
 
   const [loginAccount] = useMutation<LoginAccountOutput>(LOGIN_ACCOUNT, {
     onCompleted: ({ loginAccount }) => {
-      console.log(loginAccount)
+      const { access, access_token, errorMessage } = loginAccount
+      if (!access) {
+        return window.alert(errorMessage)
+      }
+      console.log(access_token)
     },
     onError: (error) => console.log(error.message),
   })
