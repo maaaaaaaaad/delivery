@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import JoinModal from '../common/modals/Join.modal'
-import { isLoggedInVar } from '../apollo'
+import { isLoggedInVar, me } from '../apollo'
 import { Link } from 'react-router-dom'
 
 const IntroSection = () => {
@@ -19,14 +19,14 @@ const IntroSection = () => {
           <span className="text-3xl ml-3">by MAD</span>
         </h1>
         <div>
-          {isLoggedInVar() ? (
+          {isLoggedInVar() && me() ? (
             <div>
-              {/*<Link*/}
-              {/*  to={`me/${nickname}`}*/}
-              {/*  className="text-2xl text-blue-200 underline"*/}
-              {/*>*/}
-              {/*  {nickname}*/}
-              {/*</Link>*/}
+              <Link
+                to={`me/${me()!['nickname']}`}
+                className="text-2xl text-blue-200 underline"
+              >
+                {me()!['nickname']}
+              </Link>
             </div>
           ) : (
             <button onClick={onOpenSignModal} className="utilBtn">

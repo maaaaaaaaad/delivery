@@ -7,13 +7,15 @@ import { useQuery } from '@apollo/client'
 import { USER_STATE } from '../graphql/mutations/user.queries'
 import FormLoading from './loading/formLoading'
 import Routers from '../routes/Routers'
-import { me } from '../apollo'
+import { isLoggedInVar, me } from '../apollo'
 
 const App = () => {
   const [join, setJoin] = useState<boolean>(false)
   const { data, loading, error } = useQuery(USER_STATE)
 
-  !loading && me(data.userState)
+  if (isLoggedInVar() && !loading) {
+    me(data.userState)
+  }
 
   const onJoin = () => {
     setJoin(!join)
