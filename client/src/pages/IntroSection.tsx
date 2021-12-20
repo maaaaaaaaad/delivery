@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import JoinModal from '../common/modals/Join.modal'
 import { isLoggedInVar } from '../apollo'
+import { Link } from 'react-router-dom'
 
-interface NicknameProp {
-  nickname: string
-}
-
-const IntroSection: React.FC<NicknameProp> = ({ nickname }) => {
+const IntroSection = () => {
   const [onModal, setOnModal] = useState<boolean>(false)
 
   const onOpenSignModal = () => {
@@ -23,7 +20,14 @@ const IntroSection: React.FC<NicknameProp> = ({ nickname }) => {
         </h1>
         <div>
           {isLoggedInVar() ? (
-            <div>Hello {nickname}</div>
+            <div>
+              {/*<Link*/}
+              {/*  to={`me/${nickname}`}*/}
+              {/*  className="text-2xl text-blue-200 underline"*/}
+              {/*>*/}
+              {/*  {nickname}*/}
+              {/*</Link>*/}
+            </div>
           ) : (
             <button onClick={onOpenSignModal} className="utilBtn">
               JOIN

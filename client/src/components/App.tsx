@@ -3,16 +3,17 @@ import { Helmet } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
 import { MAIN_VIDEO } from '../common/constatns'
 import Header from '../pages/Header'
-import IntroSection from '../pages/IntroSection'
-import SecondSection from '../pages/SecondSection'
-import FooterSection from '../pages/FooterSection'
 import { useQuery } from '@apollo/client'
-import { USER_STATE_GET_NICKNAME } from '../graphql/mutations/user.queries'
+import { USER_STATE } from '../graphql/mutations/user.queries'
 import FormLoading from './loading/formLoading'
+import Routers from '../routes/Routers'
+import { me } from '../apollo'
 
 const App = () => {
   const [join, setJoin] = useState<boolean>(false)
-  const { data, loading, error } = useQuery(USER_STATE_GET_NICKNAME)
+  const { data, loading, error } = useQuery(USER_STATE)
+
+  !loading && me(data.userState)
 
   const onJoin = () => {
     setJoin(!join)
@@ -62,11 +63,7 @@ const App = () => {
             message={'please wait'}
           />
         ) : (
-          <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
-            <IntroSection nickname={data.userState.nickname} />
-            <SecondSection />
-            <FooterSection />
-          </section>
+          <Routers />
         )}
       </BrowserRouter>
     )
