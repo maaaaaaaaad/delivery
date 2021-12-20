@@ -1,17 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-interface OnJoinProp {
-  onJoin: () => void
-}
+const Header = () => {
+  const router = useNavigate()
 
-const Header: React.FC<OnJoinProp> = ({ onJoin }) => {
+  const onClick = () => {
+    router('/')
+  }
+
   return (
     <>
       <header className="flex justify-between px-5 py-3 absolute w-full text-white">
         <div className="logo">
           <h2 className="text-3xl">
-            <button onClick={onJoin}>HOME</button>
+            <button onClick={onClick}>HOME</button>
           </h2>
         </div>
 
