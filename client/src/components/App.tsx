@@ -6,9 +6,13 @@ import Header from '../pages/Header'
 import IntroSection from '../pages/IntroSection'
 import SecondSection from '../pages/SecondSection'
 import FooterSection from '../pages/FooterSection'
+import { useQuery } from '@apollo/client'
+import { USER_STATE_GET_NICKNAME } from '../graphql/mutations/user.queries'
+import FormLoading from './loading/formLoading'
 
 const App = () => {
   const [join, setJoin] = useState<boolean>(false)
+  const { data, loading, error } = useQuery(USER_STATE_GET_NICKNAME)
 
   const onJoin = () => {
     setJoin(!join)
@@ -51,11 +55,19 @@ const App = () => {
           <title>HOME | DELIVERY</title>
         </Helmet>
         <Header onJoin={onJoin} />
-        <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
-          <IntroSection />
-          <SecondSection />
-          <FooterSection />
-        </section>
+        {!loading ? (
+          <FormLoading
+            title={'Checking User'}
+            description={'find user from server'}
+            message={'please wait'}
+          />
+        ) : (
+          <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
+            <IntroSection />
+            <SecondSection />
+            <FooterSection />
+          </section>
+        )}
       </BrowserRouter>
     )
   }
