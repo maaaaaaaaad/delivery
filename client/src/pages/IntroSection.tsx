@@ -22,10 +22,10 @@ const IntroSection = () => {
           {isLoggedInVar() && me() ? (
             <div>
               <Link
-                to={`me/${me()!['nickname']}`}
+                to={`me/${me()!.nickname}`}
                 className="text-2xl text-blue-200 underline"
               >
-                {me()!['nickname']}
+                {me()!.nickname}
               </Link>
             </div>
           ) : (

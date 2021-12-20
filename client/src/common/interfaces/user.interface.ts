@@ -4,4 +4,6 @@ export interface User {
   email: string
   nickname: string
   role: string
+  createAt: string
+  updateAt: string
 }
