@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import JoinModal from '../common/modals/Join.modal'
 import { isLoggedInVar } from '../apollo'
 
-const IntroSection = () => {
+interface NicknameProp {
+  nickname: string
+}
+
+const IntroSection: React.FC<NicknameProp> = ({ nickname }) => {
   const [onModal, setOnModal] = useState<boolean>(false)
 
   const onOpenSignModal = () => {
@@ -19,7 +23,7 @@ const IntroSection = () => {
         </h1>
         <div>
           {isLoggedInVar() ? (
-            <div>Hello User</div>
+            <div>Hello {nickname}</div>
           ) : (
             <button onClick={onOpenSignModal} className="utilBtn">
               JOIN

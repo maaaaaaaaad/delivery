@@ -55,7 +55,7 @@ const App = () => {
           <title>HOME | DELIVERY</title>
         </Helmet>
         <Header onJoin={onJoin} />
-        {!loading ? (
+        {loading ? (
           <FormLoading
             title={'Checking User'}
             description={'find user from server'}
@@ -63,7 +63,7 @@ const App = () => {
           />
         ) : (
           <section className="max-h-screen overflow-y-scroll snap snap-y snap-mandatory">
-            <IntroSection />
+            <IntroSection nickname={data.userState.nickname} />
             <SecondSection />
             <FooterSection />
           </section>
