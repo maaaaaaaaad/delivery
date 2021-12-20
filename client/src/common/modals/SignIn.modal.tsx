@@ -5,6 +5,8 @@ import { User } from '../interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { LOGIN_ACCOUNT } from '../../graphql/mutations/user.mutation'
 import { LoginAccountOutput } from '../../graphql/type/output.type'
+import { isLoggedInVar } from '../../apollo'
+import { ACCESS_TOKEN } from '../constatns'
 
 interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
 
@@ -32,7 +34,8 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
         setFocus('accountId')
         return window.alert(errorMessage)
       }
-      window.localStorage.setItem('token', access_token!)
+      window.localStorage.setItem(ACCESS_TOKEN, access_token!)
+      isLoggedInVar(true)
       onOpenSignModal()
     },
     onError: (error) => {

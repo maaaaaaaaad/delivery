@@ -29,7 +29,7 @@ const App = () => {
             onClick={onJoin}
             className="bg-green-500 rounded-xl text-white p-5 bg-opacity-40 text-3xl mt-6 border-2 border-white hover:bg-opacity-100"
           >
-            Click to join!
+            Getting Start
           </button>
         </div>
         <video

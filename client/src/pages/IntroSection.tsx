@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import JoinModal from '../common/modals/Join.modal'
+import { isLoggedInVar } from '../apollo'
 
 const IntroSection = () => {
   const [onModal, setOnModal] = useState<boolean>(false)
-  const [token, setToken] = useState<string | null>(null)
 
   const onOpenSignModal = () => {
     setOnModal(!onModal)
   }
-
-  useEffect(() => {
-    const getToken = window.localStorage.getItem('token')
-    getToken && setToken(getToken)
-    console.log('intro!!!')
-  })
 
   return (
     <section className="intro text-white w-full h-screen snap-start">
@@ -24,7 +18,7 @@ const IntroSection = () => {
           <span className="text-3xl ml-3">by MAD</span>
         </h1>
         <div>
-          {token ? (
+          {isLoggedInVar() ? (
             <div>Hello User</div>
           ) : (
             <button onClick={onOpenSignModal} className="utilBtn">
