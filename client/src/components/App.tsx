@@ -13,7 +13,6 @@ const App = () => {
   const { data, loading, error } = useQuery<UserStateOutput>(USER_STATE)
 
   if (isLoggedInVar() && !loading) {
-    console.log(data)
     me(data!.userState)
   }
 

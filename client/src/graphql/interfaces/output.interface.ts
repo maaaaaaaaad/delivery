@@ -10,5 +10,5 @@ export interface LoginAccountOutput {
 }
 
 export interface UserStateOutput {
-  userState: User
+  userState: Omit<User, 'password'>
 }
