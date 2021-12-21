@@ -12,21 +12,23 @@ const Header = () => {
     <>
       <header className="flex justify-between px-5 py-3 absolute w-full text-white">
         <div className="logo">
-          <h2 className="text-3xl">
+          <h2 className="text-4xl">
             <button onClick={onClick}>HOME</button>
           </h2>
         </div>
 
         <nav>
           <ul className="flex">
-            <li className="mr-5">
+            <li className="mr-5 router-link">
               <Link to="/">Lorem1</Link>
             </li>
-            <li className="mr-5">
+            <li className="mr-5 router-link">
               <Link to="/">Lorem2</Link>
             </li>
             <li>
-              <Link to="/">Lorem3</Link>
+              <Link className="router-link" to="/">
+                Lorem3
+              </Link>
             </li>
           </ul>
         </nav>

@@ -33,7 +33,7 @@ const Profile = () => {
   return (
     <>
       {editProfileModal ? (
-        <EditProfile />
+        <EditProfile onEditProfileModal={onEditProfileModal} />
       ) : (
         <>
           {modal ? (

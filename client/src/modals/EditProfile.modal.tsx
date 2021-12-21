@@ -4,11 +4,17 @@ import { useForm } from 'react-hook-form'
 import { User } from '../common/interfaces/user.interface'
 
 interface EditProfileInputForm
-  extends Omit<User, 'role' | 'createAt' | 'updateAt' | 'accountId'> {
+  extends Pick<User, 'password' | 'email' | 'nickname'> {
   confirmPassword: string
 }
 
-const EditProfile: React.FC = () => {
+interface OnEditProfileModalProp {
+  onEditProfileModal: () => void
+}
+
+const EditProfile: React.FC<OnEditProfileModalProp> = ({
+  onEditProfileModal,
+}) => {
   const {
     register,
     watch,
@@ -106,7 +112,10 @@ const EditProfile: React.FC = () => {
           </div>
         </form>
         <div className="mt-5">
-          <button className="w-52 py-2 rounded-lg bg-red-400">
+          <button
+            onClick={onEditProfileModal}
+            className="w-52 py-2 rounded-lg bg-red-400"
+          >
             <span className="text-white">CLOSE</span>
           </button>
         </div>
