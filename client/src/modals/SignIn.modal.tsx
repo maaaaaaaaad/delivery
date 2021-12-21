@@ -1,12 +1,12 @@
 import React from 'react'
-import FormError from '../../components/error/FormError'
+import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
-import { User } from '../interfaces/user.interface'
+import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
-import { LOGIN_ACCOUNT } from '../../graphql/mutations/user.mutation'
-import { LoginAccountOutput } from '../../graphql/interfaces/output.interface'
-import { isLoggedInVar, me } from '../../apollo'
-import { ACCESS_TOKEN } from '../constatns'
+import { LOGIN_ACCOUNT } from '../graphql/mutations/user.mutation'
+import { LoginAccountOutput } from '../graphql/interfaces/output.interface'
+import { isLoggedInVar, me } from '../apollo'
+import { ACCESS_TOKEN } from '../common/constatns'
 
 interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
 

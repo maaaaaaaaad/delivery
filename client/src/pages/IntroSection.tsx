@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import JoinModal from '../common/modals/Join.modal'
+import JoinModal from '../modals/Join.modal'
 import { isLoggedInVar, me } from '../apollo'
 import { Link } from 'react-router-dom'
 
