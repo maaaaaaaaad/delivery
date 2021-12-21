@@ -13,6 +13,16 @@ const Profile = () => {
     router('/')
   }
 
+  const copyBoard = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const email = e.currentTarget.textContent
+    try {
+      email && (await navigator.clipboard.writeText(email))
+      window.alert(`Success copy this ${email}`)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   return (
     <section className="bg-black text-white h-screen center flex-col">
       <div className="center">
@@ -23,9 +33,14 @@ const Profile = () => {
             {user!.nickname}
           </p>
           <p className="pb-5">
-            <span className="font-medium text-2xl underline cursor-pointer">
-              {user!.email}
-            </span>
+            <abbr title="Copy this!">
+              <span
+                onClick={copyBoard}
+                className="font-medium text-2xl underline cursor-pointer hover:text-blue-300"
+              >
+                {user!.email}
+              </span>
+            </abbr>
           </p>
           <p>
             <span className="font-medium text-2xl">
