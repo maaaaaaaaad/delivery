@@ -19,7 +19,7 @@ const ConfirmLogOut: React.FC<ConfirmProp> = ({ title, onModal }) => {
 
   return (
     <section className="bg-black h-screen w-full center z-50">
-      <div className="w-1/3 h-1/4 border-2 border-white rounded-lg center flex-col">
+      <div className="w-1/3 h-1/4 center flex-col">
         <p className="p-5">
           <span className="text-4xl text-green-500 tracking-widest">
             {title}
