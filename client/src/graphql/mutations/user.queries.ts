@@ -7,6 +7,7 @@ export const USER_STATE = gql`
       email
       role
       createAt
+      updateAt
       nickname
     }
   }

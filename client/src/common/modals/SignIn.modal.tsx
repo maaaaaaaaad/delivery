@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { User } from '../interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { LOGIN_ACCOUNT } from '../../graphql/mutations/user.mutation'
-import { LoginAccountOutput } from '../../graphql/type/output.type'
-import { isLoggedInVar } from '../../apollo'
+import { LoginAccountOutput } from '../../graphql/interfaces/output.interface'
+import { isLoggedInVar, me } from '../../apollo'
 import { ACCESS_TOKEN } from '../constatns'
 
 interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
@@ -28,7 +28,7 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
 
   const [loginAccount] = useMutation<LoginAccountOutput>(LOGIN_ACCOUNT, {
     onCompleted: ({ loginAccount }) => {
-      const { access, access_token, errorMessage } = loginAccount
+      const { access, access_token, errorMessage, user } = loginAccount
       if (!access) {
         reset()
         setFocus('accountId')
@@ -36,6 +36,7 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
       }
       window.localStorage.setItem(ACCESS_TOKEN, access_token!)
       isLoggedInVar(true)
+      me(user)
       onOpenSignModal()
     },
     onError: (error) => {

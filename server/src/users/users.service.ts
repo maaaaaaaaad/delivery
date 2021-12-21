@@ -53,7 +53,18 @@ export class UsersService {
     try {
       const user = await this.users.findOne(
         { accountId },
-        { select: ['id', 'accountId', 'password'] },
+        {
+          select: [
+            'id',
+            'accountId',
+            'password',
+            'email',
+            'role',
+            'nickname',
+            'createAt',
+            'updateAt',
+          ],
+        },
       )
 
       if (!user) {
@@ -75,6 +86,7 @@ export class UsersService {
       return {
         access: true,
         access_token,
+        user,
       }
     } catch (e) {
       return {

@@ -29,6 +29,15 @@ export const LOGIN_ACCOUNT = gql`
       access
       access_token
       errorMessage
+      user {
+        accountId
+        password
+        email
+        nickname
+        role
+        createAt
+        updateAt
+      }
     }
   }
 `

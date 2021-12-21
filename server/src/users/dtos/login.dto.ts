@@ -12,4 +12,7 @@ export class LoginInputDto extends PickType(UsersEntity, [
 export class LoginOutputDto extends RequiredOutputDto {
   @Field((type) => String, { nullable: true })
   access_token?: string
+
+  @Field((type) => UsersEntity, { nullable: true })
+  user?: UsersEntity
 }

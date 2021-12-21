@@ -3,7 +3,7 @@ import FormError from '../../components/error/FormError'
 import { useForm } from 'react-hook-form'
 import { User } from '../interfaces/user.interface'
 import { useMutation } from '@apollo/client'
-import { CreateAccountOutput } from '../../graphql/type/output.type'
+import { CreateAccountOutput } from '../../graphql/interfaces/output.interface'
 import { CREATE_ACCOUNT } from '../../graphql/mutations/user.mutation'
 
 interface ChangeFormProp {
