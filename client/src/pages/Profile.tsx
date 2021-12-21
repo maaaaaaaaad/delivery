@@ -1,8 +1,9 @@
 import React from 'react'
-import { me } from '../apollo'
+import { isLoggedInVar, me } from '../apollo'
 import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../images/defaultImg.png'
 import Avatar from '../components/images/avatar'
+import { ACCESS_TOKEN } from '../common/constatns'
 
 const Profile = () => {
   const router = useNavigate()
@@ -20,6 +21,15 @@ const Profile = () => {
       window.alert(`Success copy this ${email}`)
     } catch (e) {
       console.log(e)
+    }
+  }
+
+  const onLogOut = () => {
+    const check = window.confirm('Are you sure log out?')
+    if (check) {
+      window.localStorage.removeItem(ACCESS_TOKEN)
+      isLoggedInVar(false)
+      router('/')
     }
   }
 
@@ -52,6 +62,14 @@ const Profile = () => {
               Update At {user!.updateAt}
             </span>
           </p>
+          <div>
+            <button className="utilBtn">
+              <span>Edit</span>
+            </button>
+            <button onClick={onLogOut} className="utilBtn ml-5">
+              <span>LOG OUT</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>

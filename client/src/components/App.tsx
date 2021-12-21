@@ -10,7 +10,7 @@ import { isLoggedInVar, me } from '../apollo'
 import { UserStateOutput } from '../graphql/interfaces/output.interface'
 
 const App = () => {
-  const { data, loading, error } = useQuery<UserStateOutput>(USER_STATE)
+  const { data, loading } = useQuery<UserStateOutput>(USER_STATE)
 
   if (isLoggedInVar() && !loading) {
     me(data!.userState)
