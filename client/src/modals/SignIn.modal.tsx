@@ -36,8 +36,20 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
       }
       window.localStorage.setItem(ACCESS_TOKEN, access_token!)
       isLoggedInVar(true)
-      me(user)
-      onOpenSignModal()
+      if (user) {
+        const { accountId, email, nickname, role, createAt, updateAt } = user
+        const userSave = {
+          accountId,
+          email,
+          nickname,
+          role,
+          createAt,
+          updateAt,
+        }
+        me(userSave)
+        console.log(me())
+        onOpenSignModal()
+      }
     },
     onError: (error) => {
       reset()

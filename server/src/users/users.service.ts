@@ -101,18 +101,7 @@ export class UsersService {
     { email, password, nickname }: EditProfileInputDto,
   ): Promise<EditProfileOutputDto> {
     try {
-      const user = await this.users.findOne(primaryKey, {
-        select: [
-          'id',
-          'accountId',
-          'password',
-          'email',
-          'role',
-          'nickname',
-          'createAt',
-          'updateAt',
-        ],
-      })
+      const user = await this.users.findOne(primaryKey)
 
       if (email) {
         user.email = email

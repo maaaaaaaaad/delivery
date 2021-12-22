@@ -52,6 +52,9 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
 
   const onSubmit = async () => {
     const { password, email, nickname } = getValues()
+    if (!password && !email && !nickname)
+      return window.alert('Please write form to min one!')
+
     await editProfile({
       variables: {
         password,
