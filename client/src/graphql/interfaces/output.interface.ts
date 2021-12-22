@@ -12,3 +12,7 @@ export interface LoginAccountOutput {
 export interface UserStateOutput {
   userState: Omit<User, 'password'>
 }
+
+export interface EditProfileOutput {
+  editProfile: Omit<CommonOutput, 'access_token'>
+}

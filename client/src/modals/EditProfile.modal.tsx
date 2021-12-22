@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
+import { EditProfileOutput } from '../graphql/interfaces/output.interface'
+import { me } from '../apollo'
 
 interface EditProfileInputForm
   extends Pick<User, 'password' | 'email' | 'nickname'> {
@@ -17,8 +19,11 @@ interface OnEditProfileModalProp {
 const EditProfile: React.FC<OnEditProfileModalProp> = ({
   onEditProfileModal,
 }) => {
-  const [editProfile] = useMutation(EDIT_PROFILE, {
-    onCompleted: (data) => {},
+  const [editProfile] = useMutation<EditProfileOutput>(EDIT_PROFILE, {
+    onCompleted: ({ editProfile }) => {
+      const { access, errorMessage, user } = editProfile
+      console.log(user)
+    },
     onError: (error) => {},
   })
 
@@ -32,7 +37,16 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
     mode: 'onChange',
   })
 
-  const onSubmit = async () => {}
+  const onSubmit = async () => {
+    const { password, email, nickname } = getValues()
+    await editProfile({
+      variables: {
+        password,
+        email,
+        nickname,
+      },
+    })
+  }
 
   return (
     <section className="bg-black h-screen w-full center">
@@ -45,7 +59,6 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
             <div className="mt-5">
               <input
                 {...register('password', {
-                  required: 'You must specify a password',
                   pattern: {
                     value: /(?=.*\d)(?=.*[a-z]).{8,20}/,
                     message: 'Password must have at least 8~20 characters',

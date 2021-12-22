@@ -50,8 +50,13 @@ export const EDIT_PROFILE = gql`
       access
       errorMessage
       user {
+        accountId
+        password
         email
         nickname
+        role
+        createAt
+        updateAt
       }
     }
   }
