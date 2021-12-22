@@ -14,5 +14,5 @@ export interface UserStateOutput {
 }
 
 export interface EditProfileOutput {
-  editProfile: Omit<CommonOutput, 'access_token'>
+  editProfile: CommonOutput
 }

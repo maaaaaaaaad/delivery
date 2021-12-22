@@ -5,7 +5,9 @@ import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 import { EditProfileOutput } from '../graphql/interfaces/output.interface'
-import { me } from '../apollo'
+import { isLoggedInVar, me } from '../apollo'
+import { ACCESS_TOKEN } from '../common/constatns'
+import { useNavigate } from 'react-router-dom'
 
 interface EditProfileInputForm
   extends Pick<User, 'password' | 'email' | 'nickname'> {
@@ -19,12 +21,23 @@ interface OnEditProfileModalProp {
 const EditProfile: React.FC<OnEditProfileModalProp> = ({
   onEditProfileModal,
 }) => {
+  const navigate = useNavigate()
+
   const [editProfile] = useMutation<EditProfileOutput>(EDIT_PROFILE, {
     onCompleted: ({ editProfile }) => {
       const { access, errorMessage, user } = editProfile
-      console.log(user)
+      if (!access) {
+        console.log(errorMessage)
+      }
+      me(user)
+      console.log(me())
+      window.localStorage.removeItem(ACCESS_TOKEN)
+      isLoggedInVar(false)
+      navigate('/')
     },
-    onError: (error) => {},
+    onError: (error) => {
+      console.log(error.message)
+    },
   })
 
   const {
@@ -92,7 +105,6 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
             <div className="mt-5">
               <input
                 {...register('email', {
-                  required: 'You must specify a email',
                   pattern: {
                     value: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
                     message: 'Please insert a valid email address',
@@ -110,7 +122,6 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
             <div className="mt-5">
               <input
                 {...register('nickname', {
-                  required: 'You must specify a nickname',
                   pattern: {
                     value: /^[A-za-z0-9]{4,10}$/,
                     message: 'Please insert a valid nickname',
