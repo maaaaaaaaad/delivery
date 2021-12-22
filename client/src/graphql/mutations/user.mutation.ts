@@ -41,3 +41,18 @@ export const LOGIN_ACCOUNT = gql`
     }
   }
 `
+
+export const EDIT_PROFILE = gql`
+  mutation editProfile($password: String, $email: String, $nickname: String) {
+    editProfile(
+      input: { password: $password, email: $email, nickname: $nickname }
+    ) {
+      access
+      errorMessage
+      user {
+        email
+        nickname
+      }
+    }
+  }
+`

@@ -2,6 +2,8 @@ import React from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
 import { User } from '../common/interfaces/user.interface'
+import { useMutation } from '@apollo/client'
+import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 
 interface EditProfileInputForm
   extends Pick<User, 'password' | 'email' | 'nickname'> {
@@ -15,6 +17,11 @@ interface OnEditProfileModalProp {
 const EditProfile: React.FC<OnEditProfileModalProp> = ({
   onEditProfileModal,
 }) => {
+  const [editProfile] = useMutation(EDIT_PROFILE, {
+    onCompleted: (data) => {},
+    onError: (error) => {},
+  })
+
   const {
     register,
     watch,
