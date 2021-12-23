@@ -5,9 +5,13 @@ import defaultAvatar from '../images/defaultImg.png'
 import Avatar from '../components/images/avatar'
 import ConfirmLogOut from '../components/modals/ConfirmLogOut'
 import EditProfile from '../modals/EditProfile.modal'
+import { useSnackbar } from 'notistack'
+import { Helmet } from 'react-helmet-async'
+import { HELMET_TITLE } from '../common/constatns'
 
 const Profile = () => {
   const router = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
   const [modal, setModal] = useState<boolean>(false)
   const [editProfileModal, setEditProfileModal] = useState<boolean>(false)
 
@@ -19,12 +23,8 @@ const Profile = () => {
 
   const copyBoard = async (e: React.MouseEvent<HTMLButtonElement>) => {
     const email = e.currentTarget.textContent
-    try {
-      email && (await navigator.clipboard.writeText(email))
-      window.alert(`Success copy this ${email}`)
-    } catch (e) {
-      console.log(e)
-    }
+    email && (await navigator.clipboard.writeText(email))
+    enqueueSnackbar(`Success copy this ${email}`)
   }
 
   const onModal = () => setModal(!modal)
@@ -32,6 +32,11 @@ const Profile = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {me().nickname} | {HELMET_TITLE}
+        </title>
+      </Helmet>
       {editProfileModal ? (
         <EditProfile onEditProfileModal={onEditProfileModal} />
       ) : (
@@ -68,8 +73,8 @@ const Profile = () => {
                     </span>
                   </p>
                   <div>
-                    <button className="utilBtn">
-                      <span onClick={onEditProfileModal}>Edit</span>
+                    <button onClick={onEditProfileModal} className="utilBtn">
+                      <span>Edit</span>
                     </button>
                     <button onClick={onModal} className="utilBtn ml-5">
                       <span>LOG OUT</span>

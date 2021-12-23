@@ -1,7 +1,8 @@
 import React from 'react'
-import { ACCESS_TOKEN } from '../../common/constatns'
+import { ACCESS_TOKEN, LOG_OUT } from '../../common/constatns'
 import { isLoggedInVar } from '../../apollo'
 import { useNavigate } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
 
 interface ConfirmProp {
   title: string
@@ -9,11 +10,13 @@ interface ConfirmProp {
 }
 
 const ConfirmLogOut: React.FC<ConfirmProp> = ({ title, onModal }) => {
+  const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate()
 
   const onSignOK = () => {
     window.localStorage.removeItem(ACCESS_TOKEN)
     isLoggedInVar(false)
+    enqueueSnackbar(LOG_OUT)
     navigate('/')
   }
 

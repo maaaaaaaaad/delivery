@@ -6,7 +6,8 @@ import { useMutation } from '@apollo/client'
 import { LOGIN_ACCOUNT } from '../graphql/mutations/user.mutation'
 import { LoginAccountOutput } from '../graphql/interfaces/output.interface'
 import { isLoggedInVar, me } from '../apollo'
-import { ACCESS_TOKEN } from '../common/constatns'
+import { ACCESS_TOKEN, SUCCESS_SIGN_IN } from '../common/constatns'
+import { useSnackbar } from 'notistack'
 
 interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
 
@@ -15,6 +16,8 @@ interface OnModalProp {
 }
 
 const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const {
     register,
     getValues,
@@ -32,7 +35,7 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
       if (!access) {
         reset()
         setFocus('accountId')
-        return window.alert(errorMessage)
+        return enqueueSnackbar(errorMessage)
       }
       window.localStorage.setItem(ACCESS_TOKEN, access_token!)
       isLoggedInVar(true)
@@ -47,13 +50,14 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
           updateAt,
         }
         me(userSave)
+        enqueueSnackbar(SUCCESS_SIGN_IN)
         onOpenSignModal()
       }
     },
     onError: (error) => {
       reset()
       setFocus('accountId')
-      console.log(error.message)
+      enqueueSnackbar(error.message)
     },
   })
 

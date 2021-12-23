@@ -5,6 +5,8 @@ import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { CreateAccountOutput } from '../graphql/interfaces/output.interface'
 import { CREATE_ACCOUNT } from '../graphql/mutations/user.mutation'
+import { useSnackbar } from 'notistack'
+import { SUCCESS_SIGN_UP } from '../common/constatns'
 
 interface ChangeFormProp {
   onChangeForm: () => void
@@ -15,15 +17,17 @@ interface SignUpInputForm extends User {
 }
 
 const SignUpModal: React.FC<ChangeFormProp> = ({ onChangeForm }) => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [createAccount] = useMutation<CreateAccountOutput>(CREATE_ACCOUNT, {
     onCompleted: ({ createAccount }) => {
       const { access } = createAccount
       if (access) {
+        enqueueSnackbar(SUCCESS_SIGN_UP)
         onChangeForm()
       }
     },
-
-    onError: (error) => console.log(error.message),
+    onError: (error) => enqueueSnackbar(error.message),
   })
 
   const {

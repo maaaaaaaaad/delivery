@@ -7,6 +7,8 @@ import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 import { EditProfileOutput } from '../graphql/interfaces/output.interface'
 import { useNavigate } from 'react-router-dom'
 import { me } from '../apollo'
+import { useSnackbar } from 'notistack'
+import { FAIL_EDIT_PROFILE, SUCCESS_EDIT_PROFILE } from '../common/constatns'
 
 interface EditProfileInputForm
   extends Pick<User, 'password' | 'email' | 'nickname'> {
@@ -20,7 +22,7 @@ interface OnEditProfileModalProp {
 const EditProfile: React.FC<OnEditProfileModalProp> = ({
   onEditProfileModal,
 }) => {
-  const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
   const {
     register,
@@ -38,20 +40,22 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
       const { access, errorMessage, user } = editProfile
       if (!access) {
         reset()
-        return window.alert(errorMessage)
+        return enqueueSnackbar('Error!')
       }
       me(user)
+      enqueueSnackbar(SUCCESS_EDIT_PROFILE)
       onEditProfileModal()
     },
     onError: (error) => {
-      console.log(error.message)
+      reset()
+      enqueueSnackbar(error.message)
     },
   })
 
   const onSubmit = async () => {
     const { password, email, nickname } = getValues()
     if (!password && !email && !nickname)
-      return window.alert('Please write form to min one!')
+      return enqueueSnackbar(FAIL_EDIT_PROFILE)
 
     await editProfile({
       variables: {
