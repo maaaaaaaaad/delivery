@@ -5,9 +5,8 @@ import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 import { EditProfileOutput } from '../graphql/interfaces/output.interface'
-import { isLoggedInVar, me } from '../apollo'
-import { ACCESS_TOKEN } from '../common/constatns'
 import { useNavigate } from 'react-router-dom'
+import { me } from '../apollo'
 
 interface EditProfileInputForm
   extends Pick<User, 'password' | 'email' | 'nickname'> {
@@ -23,31 +22,30 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
 }) => {
   const navigate = useNavigate()
 
-  const [editProfile] = useMutation<EditProfileOutput>(EDIT_PROFILE, {
-    onCompleted: ({ editProfile }) => {
-      const { access, errorMessage, user } = editProfile
-      if (!access) {
-        console.log(errorMessage)
-      }
-      me(user)
-      console.log(me())
-      window.localStorage.removeItem(ACCESS_TOKEN)
-      isLoggedInVar(false)
-      navigate('/')
-    },
-    onError: (error) => {
-      console.log(error.message)
-    },
-  })
-
   const {
     register,
     watch,
     getValues,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<EditProfileInputForm>({
     mode: 'onChange',
+  })
+
+  const [editProfile] = useMutation<EditProfileOutput>(EDIT_PROFILE, {
+    onCompleted: ({ editProfile }) => {
+      const { access, errorMessage, user } = editProfile
+      if (!access) {
+        reset()
+        return window.alert(errorMessage)
+      }
+      me(user)
+      onEditProfileModal()
+    },
+    onError: (error) => {
+      console.log(error.message)
+    },
   })
 
   const onSubmit = async () => {
@@ -57,9 +55,9 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
 
     await editProfile({
       variables: {
-        password,
-        email,
-        nickname,
+        ...(password !== '' && { password }),
+        ...(email !== '' && { email }),
+        ...(nickname !== '' && { nickname }),
       },
     })
   }

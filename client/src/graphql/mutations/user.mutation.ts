@@ -31,7 +31,6 @@ export const LOGIN_ACCOUNT = gql`
       errorMessage
       user {
         accountId
-        password
         email
         nickname
         role
@@ -51,7 +50,6 @@ export const EDIT_PROFILE = gql`
       errorMessage
       user {
         accountId
-        password
         email
         nickname
         role

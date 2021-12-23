@@ -11,7 +11,14 @@ import { User } from './common/interfaces/user.interface'
 const token = window.localStorage.getItem(ACCESS_TOKEN)
 export const isLoggedInVar = makeVar(!!token)
 export const authTokenVar = makeVar(token)
-export const me = makeVar<Omit<User, 'password'> | null>(null)
+export const me = makeVar<Omit<User, 'password'>>({
+  accountId: '',
+  email: '',
+  nickname: '',
+  role: '',
+  createAt: '',
+  updateAt: '',
+})
 
 const httpLink = createHttpLink({
   uri: process.env.REACT_APP_GRAPHQL_SERVER,

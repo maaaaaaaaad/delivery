@@ -47,7 +47,6 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
           updateAt,
         }
         me(userSave)
-        console.log(me())
         onOpenSignModal()
       }
     },
