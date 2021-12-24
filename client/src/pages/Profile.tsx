@@ -34,7 +34,7 @@ const Profile = () => {
     <>
       <Helmet>
         <title>
-          {me().nickname} | {HELMET_TITLE}
+          {user!.nickname} | {HELMET_TITLE}
         </title>
       </Helmet>
       {editProfileModal ? (

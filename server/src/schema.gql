@@ -51,12 +51,15 @@ type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
+  uploadAvatarImage(file: Upload!): Boolean!
 }
 
 type Query {
-  greeting(input: String!): String!
   userState: UsersEntity!
 }
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type UsersEntity {
   accountId: String!

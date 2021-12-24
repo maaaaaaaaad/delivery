@@ -5,5 +5,9 @@
 - Typescript
 - Backend: Nest.js
 - Frontend: React.js
-- DB: postgreSQL (ORM: typeORM)
-- API: apollo graphQL
+- DB: postgreSQL
+- ORM: typeORM
+- API: graphQL
+- State Management: apollo client
+- Auth: Json Web Token
+- CSS: tailwind css

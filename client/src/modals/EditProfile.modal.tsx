@@ -5,7 +5,6 @@ import { User } from '../common/interfaces/user.interface'
 import { useMutation } from '@apollo/client'
 import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 import { EditProfileOutput } from '../graphql/interfaces/output.interface'
-import { useNavigate } from 'react-router-dom'
 import { me } from '../apollo'
 import { useSnackbar } from 'notistack'
 import { FAIL_EDIT_PROFILE, SUCCESS_EDIT_PROFILE } from '../common/constatns'
@@ -40,7 +39,7 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
       const { access, errorMessage, user } = editProfile
       if (!access) {
         reset()
-        return enqueueSnackbar('Error!')
+        return enqueueSnackbar(errorMessage)
       }
       me(user)
       enqueueSnackbar(SUCCESS_EDIT_PROFILE)
