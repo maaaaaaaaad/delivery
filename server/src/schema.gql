@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CategoryEntity {
+  coverImage: String!
+  createAt: DateTime!
+  id: Float!
+  name: String!
+  stores: [StoreEntity!]!
+  updateAt: DateTime!
+}
+
 input CreateInputDto {
   accountId: String!
   email: String!
@@ -56,6 +65,16 @@ type Mutation {
 
 type Query {
   userState: UsersEntity!
+}
+
+type StoreEntity {
+  address: String!
+  category: CategoryEntity!
+  coverImage: String!
+  createAt: DateTime!
+  id: Float!
+  name: String!
+  updateAt: DateTime!
 }
 
 """The `Upload` scalar type represents a file upload."""
