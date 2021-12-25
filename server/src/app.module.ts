@@ -15,6 +15,8 @@ import { JwtMiddleware } from './jwt/jwt.middleware'
 import { StoresModule } from './stores/stores.module'
 import { StoreEntity } from './stores/entities/store.entity'
 import { CategoryEntity } from './stores/entities/category.entity'
+import { StoreService } from './store/store.service';
+import { StoreResolver } from './store/store.resolver';
 
 @Module({
   imports: [
@@ -37,13 +39,14 @@ import { CategoryEntity } from './stores/entities/category.entity'
       sortSchema: true,
       context: ({ req }) => ({ user: req['user'] }),
     }),
-    UsersModule,
     JwtModule.forRoot({
       jwtSecretKey: process.env.JWT_SECRET_KEY,
     }),
+    UsersModule,
+    StoresModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [StoreService, StoreResolver],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -69,11 +69,12 @@ type Query {
 
 type StoreEntity {
   address: String!
-  category: CategoryEntity!
+  category: CategoryEntity
   coverImage: String!
   createAt: DateTime!
   id: Float!
   name: String!
+  owner: UsersEntity!
   updateAt: DateTime!
 }
 
@@ -88,5 +89,6 @@ type UsersEntity {
   nickname: String!
   password: String!
   role: String!
+  stores: [StoreEntity!]!
   updateAt: DateTime!
 }

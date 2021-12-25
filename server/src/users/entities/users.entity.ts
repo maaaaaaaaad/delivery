@@ -1,10 +1,11 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
-import { BeforeInsert, BeforeUpdate, Column, Entity } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { IsEmail, IsString } from 'class-validator'
 import { UserRole } from '../types/role.type'
 import { InternalServerErrorException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
+import { StoreEntity } from '../../stores/entities/store.entity'
 
 @InputType({ isAbstract: true })
 @ObjectType()
@@ -33,6 +34,10 @@ export class UsersEntity extends RequiredEntity {
   @Column()
   @Field((type) => String, { defaultValue: 'client' })
   role: UserRole
+
+  @OneToMany((type) => StoreEntity, (store) => store.owner)
+  @Field((type) => [StoreEntity])
+  stores: StoreEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()
