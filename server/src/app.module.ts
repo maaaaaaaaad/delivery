@@ -15,8 +15,6 @@ import { JwtMiddleware } from './jwt/jwt.middleware'
 import { StoresModule } from './stores/stores.module'
 import { StoreEntity } from './stores/entities/store.entity'
 import { CategoryEntity } from './stores/entities/category.entity'
-import { StoreService } from './store/store.service';
-import { StoreResolver } from './store/store.resolver';
 
 @Module({
   imports: [
@@ -46,7 +44,7 @@ import { StoreResolver } from './store/store.resolver';
     StoresModule,
   ],
   controllers: [],
-  providers: [StoreService, StoreResolver],
+  providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

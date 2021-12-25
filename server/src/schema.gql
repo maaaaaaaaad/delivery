@@ -24,6 +24,11 @@ type CreateOutputDto {
   errorMessage: String
 }
 
+type CreateStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -58,6 +63,7 @@ type Mutation {
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
+  createStore: CreateStoreOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
   uploadAvatarImage(file: Upload!): Boolean!
