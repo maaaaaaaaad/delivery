@@ -16,9 +16,10 @@ export class StoresService {
     authUser: UsersEntity,
     createStoreInputDto: CreateStoreInputDto,
   ): Promise<CreateStoreOutputDto> {
-    const store = await this.stores.create(createStoreInputDto)
-    store.owner = authUser
     try {
+      return {
+        access: true,
+      }
     } catch (e) {
       return {
         access: false,

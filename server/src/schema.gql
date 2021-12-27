@@ -2,15 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type CategoryEntity {
-  coverImage: String!
-  createAt: DateTime!
-  id: Float!
-  name: String!
-  stores: [StoreEntity!]!
-  updateAt: DateTime!
-}
-
 input CreateInputDto {
   accountId: String!
   email: String!
@@ -22,6 +13,13 @@ input CreateInputDto {
 type CreateOutputDto {
   access: Boolean!
   errorMessage: String
+}
+
+input CreateStoreInputDto {
+  address: String!
+  categoryName: String!
+  coverImage: String
+  name: String!
 }
 
 type CreateStoreOutputDto {
@@ -63,7 +61,7 @@ type Mutation {
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
-  createStore: CreateStoreOutputDto!
+  createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
   uploadAvatarImage(file: Upload!): Boolean!
@@ -75,8 +73,7 @@ type Query {
 
 type StoreEntity {
   address: String!
-  category: CategoryEntity
-  coverImage: String!
+  coverImage: String
   createAt: DateTime!
   id: Float!
   name: String!

@@ -14,7 +14,6 @@ import { JwtModule } from './jwt/jwt.module'
 import { JwtMiddleware } from './jwt/jwt.middleware'
 import { StoresModule } from './stores/stores.module'
 import { StoreEntity } from './stores/entities/store.entity'
-import { CategoryEntity } from './stores/entities/category.entity'
 
 @Module({
   imports: [
@@ -30,7 +29,7 @@ import { CategoryEntity } from './stores/entities/category.entity'
       database: process.env.DB_DATABASE,
       synchronize: true,
       logging: true,
-      entities: [UsersEntity, StoreEntity, CategoryEntity],
+      entities: [UsersEntity, StoreEntity],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
