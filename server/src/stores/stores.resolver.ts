@@ -5,13 +5,13 @@ import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { AuthUser } from '../auth/auth.decorator'
 import { UsersEntity } from '../users/entities/users.entity'
 import { UseGuards } from '@nestjs/common'
-import { RoleGuard } from '../auth/role.guard'
+import { OwnerGuard } from '../auth/owner.guard'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
   constructor(private readonly storesService: StoresService) {}
 
-  @UseGuards(RoleGuard)
+  @UseGuards(OwnerGuard)
   @Mutation((returns) => CreateStoreOutputDto)
   async createStore(
     @AuthUser() authUser: UsersEntity,

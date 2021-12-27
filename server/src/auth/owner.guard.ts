@@ -4,15 +4,12 @@ import { GqlExecutionContext } from '@nestjs/graphql'
 import { UsersEntity } from '../users/entities/users.entity'
 
 @Injectable()
-export class RoleGuard implements CanActivate {
+export class OwnerGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const gqlContext = GqlExecutionContext.create(context).getContext()
     const user = gqlContext['user'] as UsersEntity
-    if (user.role === 'owner') {
-      return true
-    }
-    return false
+    return user.role === 'owner'
   }
 }
