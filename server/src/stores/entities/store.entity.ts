@@ -27,7 +27,9 @@ export class StoreEntity extends RequiredEntity {
   @Field((type) => String, { nullable: true })
   coverImage: string
 
-  @ManyToOne((type) => UsersEntity, (owner) => owner.stores)
+  @ManyToOne((type) => UsersEntity, (owner) => owner.stores, {
+    onDelete: 'CASCADE',
+  })
   @Field((type) => UsersEntity)
   owner: UsersEntity
 }

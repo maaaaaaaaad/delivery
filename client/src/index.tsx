@@ -17,6 +17,7 @@ ReactDOM.render(
             vertical: 'top',
             horizontal: 'center',
           }}
+          autoHideDuration={2000}
         >
           <App />
         </SnackbarProvider>
