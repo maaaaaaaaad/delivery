@@ -3,6 +3,7 @@ import { Column, Entity, ManyToOne } from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { IsString } from 'class-validator'
 import { UsersEntity } from '../../users/entities/users.entity'
+import { CategoryValues } from '../type/category.type'
 
 @InputType({ isAbstract: true })
 @ObjectType()
@@ -18,9 +19,12 @@ export class StoreEntity extends RequiredEntity {
   @IsString()
   address: string
 
+  @Column()
+  @Field((type) => String)
+  category: CategoryValues
+
   @Column({ nullable: true })
   @Field((type) => String, { nullable: true })
-  @IsString()
   coverImage: string
 
   @ManyToOne((type) => UsersEntity, (owner) => owner.stores)

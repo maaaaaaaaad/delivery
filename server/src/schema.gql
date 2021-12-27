@@ -17,7 +17,7 @@ type CreateOutputDto {
 
 input CreateStoreInputDto {
   address: String!
-  categoryName: String!
+  category: String!
   coverImage: String
   name: String!
 }
@@ -73,6 +73,7 @@ type Query {
 
 type StoreEntity {
   address: String!
+  category: String!
   coverImage: String
   createAt: DateTime!
   id: Float!

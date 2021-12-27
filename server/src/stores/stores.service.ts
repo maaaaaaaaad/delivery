@@ -17,6 +17,22 @@ export class StoresService {
     createStoreInputDto: CreateStoreInputDto,
   ): Promise<CreateStoreOutputDto> {
     try {
+      const exist = await this.stores.findOne({
+        name: createStoreInputDto.name,
+      })
+
+      if (exist) {
+        return {
+          access: false,
+          errorMessage: 'Already to store name!',
+        }
+      }
+
+      const store = await this.stores.create(createStoreInputDto)
+
+      store.owner = authUser
+      await this.stores.save(store)
+
       return {
         access: true,
       }
