@@ -5,6 +5,7 @@ import { Repository } from 'typeorm'
 import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
 import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
+import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
 
 @Injectable()
 export class StoresService {
@@ -83,6 +84,40 @@ export class StoresService {
       }
 
       await this.stores.save(store)
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async deleteStore(
+    authUser: UsersEntity,
+    { storeId }: DeleteStoreInputDto,
+  ): Promise<DeleteStoreOutputDto> {
+    try {
+      const store = await this.stores.findOne(storeId)
+
+      if (!store) {
+        return {
+          access: false,
+          errorMessage: 'Not found this store',
+        }
+      }
+
+      if (authUser.id !== store.ownerId) {
+        return {
+          access: false,
+          errorMessage: 'Cannot delete this store that invalid auth user',
+        }
+      }
+
+      await this.stores.delete(storeId)
 
       return {
         access: true,

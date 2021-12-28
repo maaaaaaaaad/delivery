@@ -7,6 +7,7 @@ import { UsersEntity } from '../users/entities/users.entity'
 import { UseGuards } from '@nestjs/common'
 import { OwnerGuard } from '../auth/owner.guard'
 import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
+import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -28,5 +29,14 @@ export class StoresResolver {
     @Args('input') editStoreInputDto: EditStoreInputDto,
   ): Promise<EditStoreOutputDto> {
     return await this.storesService.editStore(authUser, editStoreInputDto)
+  }
+
+  @UseGuards(OwnerGuard)
+  @Mutation((returns) => DeleteStoreOutputDto)
+  async deleteStore(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') deleteStoreInputDto: DeleteStoreInputDto,
+  ): Promise<DeleteStoreOutputDto> {
+    return await this.storesService.deleteStore(authUser, deleteStoreInputDto)
   }
 }
