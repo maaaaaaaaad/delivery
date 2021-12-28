@@ -1,5 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToOne, RelationId } from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { IsString } from 'class-validator'
 import { UsersEntity } from '../../users/entities/users.entity'
@@ -32,4 +32,7 @@ export class StoreEntity extends RequiredEntity {
   })
   @Field((type) => UsersEntity)
   owner: UsersEntity
+
+  @RelationId((store: StoreEntity) => store.owner)
+  ownerId: number
 }

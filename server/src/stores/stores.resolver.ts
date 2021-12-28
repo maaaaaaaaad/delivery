@@ -6,6 +6,7 @@ import { AuthUser } from '../auth/auth.decorator'
 import { UsersEntity } from '../users/entities/users.entity'
 import { UseGuards } from '@nestjs/common'
 import { OwnerGuard } from '../auth/owner.guard'
+import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -19,4 +20,11 @@ export class StoresResolver {
   ): Promise<CreateStoreOutputDto> {
     return await this.storesService.createStore(authUser, createStoreInputDto)
   }
+
+  @UseGuards(OwnerGuard)
+  @Mutation((returns) => EditStoreOutputDto)
+  async editStore(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') editStoreInputDto: EditStoreInputDto,
+  ) {}
 }
