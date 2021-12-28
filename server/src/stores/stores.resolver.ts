@@ -26,5 +26,7 @@ export class StoresResolver {
   async editStore(
     @AuthUser() authUser: UsersEntity,
     @Args('input') editStoreInputDto: EditStoreInputDto,
-  ) {}
+  ): Promise<EditStoreOutputDto> {
+    return await this.storesService.editStore(authUser, editStoreInputDto)
+  }
 }

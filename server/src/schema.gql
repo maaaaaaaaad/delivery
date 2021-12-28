@@ -44,6 +44,19 @@ type EditProfileOutputDto {
   user: UsersEntity!
 }
 
+input EditStoreInputDto {
+  address: String
+  category: String
+  coverImage: String
+  name: String
+  storeId: Float!
+}
+
+type EditStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input LoginInputDto {
   accountId: String!
   password: String!
@@ -63,6 +76,7 @@ type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
+  editStore(input: EditStoreInputDto!): EditStoreOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
   uploadAvatarImage(file: Upload!): Boolean!
 }
