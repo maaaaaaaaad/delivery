@@ -3,9 +3,9 @@ import { Column, Entity, ManyToOne, RelationId } from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { IsString } from 'class-validator'
 import { UsersEntity } from '../../users/entities/users.entity'
-import { CategoryValues } from '../type/category.type'
+import { CategoryEntity } from './category.entity'
 
-@InputType({ isAbstract: true })
+@InputType('StoreEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class StoreEntity extends RequiredEntity {
@@ -19,9 +19,9 @@ export class StoreEntity extends RequiredEntity {
   @IsString()
   address: string
 
-  @Column()
+  @ManyToOne((type) => CategoryEntity, (category) => category.store)
   @Field((type) => String)
-  category: CategoryValues
+  category: CategoryEntity
 
   @Column({ nullable: true })
   @Field((type) => String, { nullable: true })

@@ -6,7 +6,6 @@ import { RequiredOutputDto } from '../../common/dtos/required.dto'
 export class CreateStoreInputDto extends PickType(StoreEntity, [
   'name',
   'address',
-  'category',
   'coverImage',
 ]) {}
 
