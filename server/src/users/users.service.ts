@@ -99,15 +99,24 @@ export class UsersService {
 
   async editProfile(
     primaryKey: number,
-    editProfileInputDto: EditProfileInputDto,
+    { email, password, nickname }: EditProfileInputDto,
   ): Promise<EditProfileOutputDto> {
     try {
       const user = await this.users.findOne(primaryKey)
 
-      await this.users.save({
-        ...user,
-        ...editProfileInputDto,
-      })
+      if (email) {
+        user.email = email
+      }
+
+      if (password) {
+        user.password = password
+      }
+
+      if (nickname) {
+        user.nickname = nickname
+      }
+
+      await this.users.save(user)
 
       return {
         access: true,
