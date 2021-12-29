@@ -11,7 +11,7 @@ import { StoreEntity } from '../../stores/entities/store.entity'
 @ObjectType()
 @Entity()
 export class UsersEntity extends RequiredEntity {
-  @Column({ unique: true })
+  @Column()
   @Field((type) => String)
   @IsString()
   accountId: string

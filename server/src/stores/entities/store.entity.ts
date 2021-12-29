@@ -9,7 +9,7 @@ import { CategoryEntity } from './category.entity'
 @ObjectType()
 @Entity()
 export class StoreEntity extends RequiredEntity {
-  @Column({ unique: true })
+  @Column()
   @Field((type) => String)
   @IsString()
   name: string
@@ -19,7 +19,9 @@ export class StoreEntity extends RequiredEntity {
   @IsString()
   address: string
 
-  @ManyToOne((type) => CategoryEntity, (category) => category.store)
+  @ManyToOne((type) => CategoryEntity, (category) => category.store, {
+    onDelete: 'SET NULL',
+  })
   @Field((type) => String)
   category: CategoryEntity
 

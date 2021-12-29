@@ -9,7 +9,7 @@ import { StoreEntity } from './store.entity'
 @ObjectType()
 @Entity()
 export class CategoryEntity extends RequiredEntity {
-  @Column({ unique: true })
+  @Column()
   @Field((type) => String)
   @IsString()
   name: CategoryValues
@@ -19,6 +19,6 @@ export class CategoryEntity extends RequiredEntity {
   icon: string
 
   @OneToMany((type) => StoreEntity, (store) => store.category)
-  @Field((type) => [StoreEntity])
+  @Field((type) => [StoreEntity], { nullable: true })
   store: StoreEntity[]
 }
