@@ -1,9 +1,17 @@
-import { Field, InputType, ObjectType, PartialType } from '@nestjs/graphql'
+import {
+  Field,
+  InputType,
+  ObjectType,
+  OmitType,
+  PartialType,
+} from '@nestjs/graphql'
 import { CreateStoreInputDto } from './create.dto'
 import { RequiredOutputDto } from '../../common/dtos/required.dto'
 
 @InputType()
-export class EditStoreInputDto extends PartialType(CreateStoreInputDto) {
+export class EditStoreInputDto extends PartialType(
+  OmitType(CreateStoreInputDto, ['categoryName']),
+) {
   @Field((type) => Number)
   storeId: number
 }
