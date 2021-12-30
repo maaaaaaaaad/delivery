@@ -32,6 +32,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeleteStoreInputDto {
+  storeId: Float!
+}
+
+type DeleteStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input EditProfileInputDto {
   email: String
   nickname: String
@@ -74,6 +83,7 @@ type Mutation {
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
+  deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   editStore(input: EditStoreInputDto!): EditStoreOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!

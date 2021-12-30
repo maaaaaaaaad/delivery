@@ -6,6 +6,7 @@ import { CategoryEntity } from './entities/category.entity'
 import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
 import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
+import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
 
 @Injectable()
 export class StoresService {
@@ -70,6 +71,40 @@ export class StoresService {
         ...store,
         ...editStoreInputDto,
       })
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async deleteStore(
+    ownerKey: number,
+    deleteStoreInputDto: DeleteStoreInputDto,
+  ): Promise<DeleteStoreOutputDto> {
+    try {
+      const store = await this.stores.findOne(deleteStoreInputDto.storeId)
+
+      if (!store) {
+        return {
+          access: false,
+          errorMessage: 'Not found this store',
+        }
+      }
+
+      if (ownerKey !== store.ownerId) {
+        return {
+          access: false,
+          errorMessage: 'Invalid match primary key',
+        }
+      }
+
+      await this.stores.delete(deleteStoreInputDto.storeId)
 
       return {
         access: true,
