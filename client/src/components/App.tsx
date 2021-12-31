@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
 import Header from '../pages/Header'

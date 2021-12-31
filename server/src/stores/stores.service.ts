@@ -7,6 +7,7 @@ import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
 import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
 import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
+import { GetAllCategoryOutputDto } from './dto/get-all-category.dto'
 
 @Injectable()
 export class StoresService {
@@ -108,6 +109,22 @@ export class StoresService {
 
       return {
         access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getAllCategories(): Promise<GetAllCategoryOutputDto> {
+    try {
+      const categories = await this.categories.find()
+
+      return {
+        access: true,
+        categories,
       }
     } catch (e) {
       return {

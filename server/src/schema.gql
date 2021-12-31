@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CategoryEntity {
+  createAt: DateTime!
+  icon: String
+  id: Float!
+  name: String!
+  store: [StoreEntity!]
+  updateAt: DateTime!
+}
+
 input CreateInputDto {
   accountId: String!
   email: String!
@@ -65,6 +74,12 @@ type EditStoreOutputDto {
   errorMessage: String
 }
 
+type GetAllCategoryOutputDto {
+  access: Boolean!
+  categories: [CategoryEntity!]
+  errorMessage: String
+}
+
 input LoginInputDto {
   accountId: String!
   password: String!
@@ -91,6 +106,7 @@ type Mutation {
 }
 
 type Query {
+  getAllCategories: GetAllCategoryOutputDto!
   userState: UsersEntity!
 }
 
