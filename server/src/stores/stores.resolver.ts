@@ -1,4 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql'
 import { StoreEntity } from './entities/store.entity'
 import { StoresService } from './stores.service'
 import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
@@ -46,6 +53,11 @@ export class StoresResolver {
 @Resolver((of) => CategoryEntity)
 export class CategoryResolver {
   constructor(private readonly storesService: StoresService) {}
+
+  @ResolveField((type) => Number)
+  async storeCount(@Parent() category: CategoryEntity): Promise<number> {
+    return await this.storesService.storeCount(category)
+  }
 
   @Query((type) => GetAllCategoryOutputDto)
   async getAllCategories(): Promise<GetAllCategoryOutputDto> {

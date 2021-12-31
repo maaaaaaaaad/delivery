@@ -133,4 +133,8 @@ export class StoresService {
       }
     }
   }
+
+  async storeCount(category: CategoryEntity): Promise<number> {
+    return await this.stores.count({ category })
+  }
 }
