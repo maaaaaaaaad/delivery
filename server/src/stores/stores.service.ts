@@ -30,10 +30,17 @@ export class StoresService {
         owner,
       })
 
-      store.category = await this.categories.save(
-        await this.categories.create({ name: categoryName }),
-      )
+      store.owner = owner
 
+      let category = await this.categories.findOne({ name: categoryName })
+
+      if (!category) {
+        category = await this.categories.save(
+          await this.categories.create({ name: categoryName }),
+        )
+      }
+
+      store.category = category
       await this.stores.save(store)
 
       return {
