@@ -225,7 +225,7 @@ export class StoresService {
     storeId,
   }: GetOneStoreInputDto): Promise<GetOneStoreOutputDto> {
     try {
-      const store = await this.stores.findOne(storeId)
+      const store = await this.stores.findOne(storeId, { relations: ['menu'] })
 
       if (!store) {
         return {

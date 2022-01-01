@@ -4,6 +4,19 @@ import { RequiredEntity } from '../../common/entites/required.entity'
 import { StoreEntity } from './store.entity'
 import { IsNumber, IsString } from 'class-validator'
 
+@InputType('FoodOptions', { isAbstract: true })
+@ObjectType()
+class FoodOptions {
+  @Field((returns) => String)
+  subject: string
+
+  @Field((returns) => [String], { nullable: true })
+  selection: string[]
+
+  @Field((returns) => Number)
+  extraCharge: number
+}
+
 @InputType('FoodEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
@@ -18,8 +31,8 @@ export class FoodEntity extends RequiredEntity {
   @IsNumber()
   price: number
 
-  @Field((returns) => String)
-  @Column()
+  @Field((returns) => String, { nullable: true })
+  @Column({ nullable: true })
   @IsString()
   image: string
 
@@ -35,4 +48,8 @@ export class FoodEntity extends RequiredEntity {
 
   @RelationId((food: FoodEntity) => food.store)
   storeId: number
+
+  @Field((returns) => [FoodOptions], { nullable: true })
+  @Column({ type: 'json', nullable: true })
+  options?: FoodOptions[]
 }

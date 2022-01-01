@@ -79,7 +79,7 @@ type FoodEntity {
   createAt: DateTime!
   description: String!
   id: Float!
-  image: String!
+  image: String
   name: String!
   price: Float!
   store: StoreEntity!
