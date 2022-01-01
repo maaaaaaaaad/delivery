@@ -75,6 +75,17 @@ type EditStoreOutputDto {
   errorMessage: String
 }
 
+type FoodEntity {
+  createAt: DateTime!
+  description: String!
+  id: Float!
+  image: String!
+  name: String!
+  price: Float!
+  store: StoreEntity!
+  updateAt: DateTime!
+}
+
 type GetAllCategoryOutputDto {
   access: Boolean!
   categories: [CategoryEntity!]
@@ -169,6 +180,7 @@ type StoreEntity {
   coverImage: String
   createAt: DateTime!
   id: Float!
+  menu: [FoodEntity!]!
   name: String!
   owner: UsersEntity!
   updateAt: DateTime!

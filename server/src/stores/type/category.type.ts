@@ -1,1 +1,1 @@
-export type CategoryValues = 'food' | 'image' | 'video' | 'etc'
+export type CategoryValues = 'hamburger' | 'fries' | 'noodle' | 'drink'
