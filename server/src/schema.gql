@@ -106,6 +106,16 @@ type GetOneCategoryOutputDto {
   totalPages: Float
 }
 
+input GetOneStoreInputDto {
+  storeId: Float!
+}
+
+type GetOneStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+  store: StoreEntity
+}
+
 input LoginInputDto {
   accountId: String!
   password: String!
@@ -135,6 +145,7 @@ type Query {
   getAllCategories: GetAllCategoryOutputDto!
   getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
   getOneCategory(input: GetOneCategoryInputDto!): GetOneCategoryOutputDto!
+  getOneStore(input: GetOneStoreInputDto!): GetOneStoreOutputDto!
   userState: UsersEntity!
 }
 

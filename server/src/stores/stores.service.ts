@@ -16,6 +16,10 @@ import {
   GetAllStoreInputDto,
   GetAllStoreOutputDto,
 } from './dto/get-all-store.dto'
+import {
+  GetOneStoreInputDto,
+  GetOneStoreOutputDto,
+} from './dto/get-one-store.dto'
 
 @Injectable()
 export class StoresService {
@@ -133,6 +137,10 @@ export class StoresService {
     }
   }
 
+  async storeCount(category: CategoryEntity): Promise<number> {
+    return await this.stores.count({ category })
+  }
+
   async getAllCategories(): Promise<GetAllCategoryOutputDto> {
     try {
       const categories = await this.categories.find()
@@ -147,10 +155,6 @@ export class StoresService {
         errorMessage: e.message,
       }
     }
-  }
-
-  async storeCount(category: CategoryEntity): Promise<number> {
-    return await this.stores.count({ category })
   }
 
   async getAllStore({
@@ -203,6 +207,31 @@ export class StoresService {
         category,
         totalPages: Math.ceil(storeCount / 10),
         resultCount: storeCount,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getOneStore({
+    storeId,
+  }: GetOneStoreInputDto): Promise<GetOneStoreOutputDto> {
+    try {
+      const store = await this.stores.findOne(storeId)
+
+      if (!store) {
+        return {
+          access: false,
+          errorMessage: 'Not found this store',
+        }
+      }
+
+      return {
+        access: true,
+        store,
       }
     } catch (e) {
       return {

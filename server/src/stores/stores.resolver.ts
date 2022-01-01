@@ -25,6 +25,10 @@ import {
   GetAllStoreInputDto,
   GetAllStoreOutputDto,
 } from './dto/get-all-store.dto'
+import {
+  GetOneStoreInputDto,
+  GetOneStoreOutputDto,
+} from './dto/get-one-store.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -62,6 +66,13 @@ export class StoresResolver {
     @Args('input') getAllStoreInputDto: GetAllStoreInputDto,
   ): Promise<GetAllStoreOutputDto> {
     return await this.storesService.getAllStore(getAllStoreInputDto)
+  }
+
+  @Query((returns) => GetOneStoreOutputDto)
+  async getOneStore(
+    @Args('input') getOneStoreInputDto: GetOneStoreInputDto,
+  ): Promise<GetOneStoreOutputDto> {
+    return await this.storesService.getOneStore(getOneStoreInputDto)
   }
 }
 
