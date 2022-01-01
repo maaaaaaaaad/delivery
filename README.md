@@ -11,3 +11,4 @@
 - State Management: apollo client
 - Auth: Json Web Token
 - CSS: tailwind css
+- Auth: JWT Module
