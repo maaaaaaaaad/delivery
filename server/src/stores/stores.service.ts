@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { StoreEntity } from './entities/store.entity'
-import { ILike, Like, Repository } from 'typeorm'
+import { ILike, Repository } from 'typeorm'
 import { CategoryEntity } from './entities/category.entity'
 import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
@@ -24,7 +24,6 @@ import {
   SearchStoreInputDto,
   SearchStoreOutputDto,
 } from './dto/search-store.dto'
-import { Raw } from 'typeorm/browser'
 
 @Injectable()
 export class StoresService {
