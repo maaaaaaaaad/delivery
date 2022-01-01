@@ -164,7 +164,7 @@ export class StoresService {
       }
 
       category.store = await this.stores.find({
-        where: category,
+        where: { category },
         take: 30,
         skip: (page - 1) * 30,
       })
