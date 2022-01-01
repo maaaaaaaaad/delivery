@@ -12,6 +12,20 @@ type CategoryEntity {
   updateAt: DateTime!
 }
 
+input CreateFoodInputDto {
+  description: String!
+  image: String
+  name: String!
+  options: [FoodOptionsType!]
+  price: Float!
+  storeId: Float!
+}
+
+type CreateFoodOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input CreateInputDto {
   accountId: String!
   email: String!
@@ -81,9 +95,22 @@ type FoodEntity {
   id: Float!
   image: String
   name: String!
+  options: [FoodOptions!]
   price: Float!
   store: StoreEntity!
   updateAt: DateTime!
+}
+
+type FoodOptions {
+  extraCharge: Float
+  selection: [String!]
+  subject: String!
+}
+
+input FoodOptionsType {
+  extraCharge: Float
+  selection: [String!]
+  subject: String!
 }
 
 type GetAllCategoryOutputDto {
@@ -144,6 +171,7 @@ type Mutation {
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
+  createFood(input: CreateFoodInputDto!): CreateFoodOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!

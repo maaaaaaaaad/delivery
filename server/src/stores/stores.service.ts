@@ -24,6 +24,8 @@ import {
   SearchStoreInputDto,
   SearchStoreOutputDto,
 } from './dto/search-store.dto'
+import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
+import { FoodEntity } from './entities/food.entity'
 
 @Injectable()
 export class StoresService {
@@ -32,6 +34,8 @@ export class StoresService {
     private readonly stores: Repository<StoreEntity>,
     @InjectRepository(CategoryEntity)
     private readonly categories: Repository<CategoryEntity>,
+    @InjectRepository(FoodEntity)
+    private readonly foods: Repository<FoodEntity>,
   ) {}
 
   async createStore(
@@ -256,6 +260,7 @@ export class StoresService {
         },
         take: 10,
         skip: (page - 1) * 10,
+        relations: ['menu'],
       })
 
       return {
@@ -267,6 +272,42 @@ export class StoresService {
     } catch (e) {
       return {
         access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async createFood(
+    ownerId: number,
+    createFoodInputDto: CreateFoodInputDto,
+  ): Promise<CreateFoodOutputDto> {
+    try {
+      const store = await this.stores.findOne(createFoodInputDto.storeId)
+
+      if (!store) {
+        return {
+          access: false,
+          errorMessage: 'Not found this store',
+        }
+      }
+
+      if (ownerId !== store.ownerId) {
+        return {
+          access: false,
+          errorMessage: 'Your not owner this store',
+        }
+      }
+
+      await this.foods.save(
+        await this.foods.create({ ...createFoodInputDto, store }),
+      )
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: true,
         errorMessage: e.message,
       }
     }

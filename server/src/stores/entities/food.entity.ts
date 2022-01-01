@@ -4,7 +4,7 @@ import { RequiredEntity } from '../../common/entites/required.entity'
 import { StoreEntity } from './store.entity'
 import { IsNumber, IsString } from 'class-validator'
 
-@InputType('FoodOptions', { isAbstract: true })
+@InputType('FoodOptionsType', { isAbstract: true })
 @ObjectType()
 class FoodOptions {
   @Field((returns) => String)
@@ -13,8 +13,8 @@ class FoodOptions {
   @Field((returns) => [String], { nullable: true })
   selection: string[]
 
-  @Field((returns) => Number)
-  extraCharge: number
+  @Field((returns) => Number, { nullable: true })
+  extraCharge?: number
 }
 
 @InputType('FoodEntity', { isAbstract: true })

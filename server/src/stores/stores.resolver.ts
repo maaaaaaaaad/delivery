@@ -33,6 +33,8 @@ import {
   SearchStoreInputDto,
   SearchStoreOutputDto,
 } from './dto/search-store.dto'
+import { FoodEntity } from './entities/food.entity'
+import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -106,5 +108,19 @@ export class CategoryResolver {
     @Args('input') getOneCategoryInputDto: GetOneCategoryInputDto,
   ): Promise<GetOneCategoryOutputDto> {
     return await this.storesService.getOneCategory(getOneCategoryInputDto)
+  }
+}
+
+@Resolver((of) => FoodEntity)
+export class FoodResolver {
+  constructor(private readonly storesService: StoresService) {}
+
+  @UseGuards(OwnerGuard)
+  @Mutation((returns) => CreateFoodOutputDto)
+  async createFood(
+    @AuthUser() owner: UsersEntity,
+    @Args('input') createFoodInputDto: CreateFoodInputDto,
+  ): Promise<CreateFoodOutputDto> {
+    return await this.storesService.createFood(owner.id, createFoodInputDto)
   }
 }
