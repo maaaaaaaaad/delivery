@@ -17,6 +17,10 @@ import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
 import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
 import { CategoryEntity } from './entities/category.entity'
 import { GetAllCategoryOutputDto } from './dto/get-all-category.dto'
+import {
+  GetOneCategoryInputDto,
+  GetOneCategoryOutputDto,
+} from './dto/get-one-category.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -54,13 +58,20 @@ export class StoresResolver {
 export class CategoryResolver {
   constructor(private readonly storesService: StoresService) {}
 
-  @ResolveField((type) => Number)
+  @ResolveField((returns) => Number)
   async storeCount(@Parent() category: CategoryEntity): Promise<number> {
     return await this.storesService.storeCount(category)
   }
 
-  @Query((type) => GetAllCategoryOutputDto)
+  @Query((returns) => GetAllCategoryOutputDto)
   async getAllCategories(): Promise<GetAllCategoryOutputDto> {
     return await this.storesService.getAllCategories()
+  }
+
+  @Query((returns) => GetOneCategoryOutputDto)
+  async getOneCategory(
+    @Args('input') getOneCategoryInputDto: GetOneCategoryInputDto,
+  ): Promise<GetOneCategoryOutputDto> {
+    return await this.storesService.getOneCategory(getOneCategoryInputDto)
   }
 }

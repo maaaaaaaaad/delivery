@@ -8,6 +8,10 @@ import { UsersEntity } from '../users/entities/users.entity'
 import { EditStoreInputDto, EditStoreOutputDto } from './dto/edit.dto'
 import { DeleteStoreInputDto, DeleteStoreOutputDto } from './dto/delete.dto'
 import { GetAllCategoryOutputDto } from './dto/get-all-category.dto'
+import {
+  GetOneCategoryInputDto,
+  GetOneCategoryOutputDto,
+} from './dto/get-one-category.dto'
 
 @Injectable()
 export class StoresService {
@@ -143,5 +147,40 @@ export class StoresService {
 
   async storeCount(category: CategoryEntity): Promise<number> {
     return await this.stores.count({ category })
+  }
+
+  async getOneCategory({
+    name,
+    page,
+  }: GetOneCategoryInputDto): Promise<GetOneCategoryOutputDto> {
+    try {
+      const category = await this.categories.findOne({ name })
+
+      if (!category) {
+        return {
+          access: false,
+          errorMessage: 'Not found this category',
+        }
+      }
+
+      category.store = await this.stores.find({
+        where: category,
+        take: 30,
+        skip: (page - 1) * 30,
+      })
+
+      const storeCount = await this.storeCount(category)
+
+      return {
+        access: true,
+        category,
+        total: Math.ceil(storeCount / 30),
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
   }
 }

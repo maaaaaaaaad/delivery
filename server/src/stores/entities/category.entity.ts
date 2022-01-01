@@ -16,7 +16,7 @@ export class CategoryEntity extends RequiredEntity {
 
   @Column({ nullable: true })
   @Field((type) => String, { nullable: true })
-  icon: string
+  coverImage: string
 
   @OneToMany((type) => StoreEntity, (store) => store.category)
   @Field((type) => [StoreEntity], { nullable: true })
