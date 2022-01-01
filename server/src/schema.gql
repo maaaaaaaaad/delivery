@@ -81,6 +81,18 @@ type GetAllCategoryOutputDto {
   errorMessage: String
 }
 
+input GetAllStoreInputDto {
+  page: Float = 1
+}
+
+type GetAllStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+  resultCount: Float
+  stores: [StoreEntity!]
+  totalPages: Float
+}
+
 input GetOneCategoryInputDto {
   name: String!
   page: Float = 1
@@ -90,7 +102,8 @@ type GetOneCategoryOutputDto {
   access: Boolean!
   category: CategoryEntity
   errorMessage: String
-  total: Float
+  resultCount: Float
+  totalPages: Float
 }
 
 input LoginInputDto {
@@ -120,6 +133,7 @@ type Mutation {
 
 type Query {
   getAllCategories: GetAllCategoryOutputDto!
+  getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
   getOneCategory(input: GetOneCategoryInputDto!): GetOneCategoryOutputDto!
   userState: UsersEntity!
 }

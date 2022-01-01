@@ -21,6 +21,10 @@ import {
   GetOneCategoryInputDto,
   GetOneCategoryOutputDto,
 } from './dto/get-one-category.dto'
+import {
+  GetAllStoreInputDto,
+  GetAllStoreOutputDto,
+} from './dto/get-all-store.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -51,6 +55,13 @@ export class StoresResolver {
     @Args('input') deleteStoreInputDto: DeleteStoreInputDto,
   ): Promise<DeleteStoreOutputDto> {
     return await this.storesService.deleteStore(owner.id, deleteStoreInputDto)
+  }
+
+  @Query((returns) => GetAllStoreOutputDto)
+  async getAllStore(
+    @Args('input') getAllStoreInputDto: GetAllStoreInputDto,
+  ): Promise<GetAllStoreOutputDto> {
+    return await this.storesService.getAllStore(getAllStoreInputDto)
   }
 }
 

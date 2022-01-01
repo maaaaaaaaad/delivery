@@ -10,5 +10,8 @@ export class PaginationInputDto {
 @ObjectType()
 export class PaginationOutputDto extends RequiredOutputDto {
   @Field((type) => Number, { nullable: true })
-  total?: number
+  totalPages?: number
+
+  @Field((returns) => Number, { nullable: true })
+  resultCount?: number
 }
