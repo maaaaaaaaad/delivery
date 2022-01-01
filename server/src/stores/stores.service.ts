@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { StoreEntity } from './entities/store.entity'
-import { Repository } from 'typeorm'
+import { Like, Repository } from 'typeorm'
 import { CategoryEntity } from './entities/category.entity'
 import { CreateStoreInputDto, CreateStoreOutputDto } from './dto/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
@@ -20,6 +20,10 @@ import {
   GetOneStoreInputDto,
   GetOneStoreOutputDto,
 } from './dto/get-one-store.dto'
+import {
+  SearchStoreInputDto,
+  SearchStoreOutputDto,
+} from './dto/search-store.dto'
 
 @Injectable()
 export class StoresService {
@@ -232,6 +236,33 @@ export class StoresService {
       return {
         access: true,
         store,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async searchStore({
+    keyword,
+    page,
+  }: SearchStoreInputDto): Promise<SearchStoreOutputDto> {
+    try {
+      const [stores, storeCount] = await this.stores.findAndCount({
+        where: {
+          name: Like(`%${keyword}%`),
+        },
+        take: 10,
+        skip: (page - 1) * 10,
+      })
+
+      return {
+        access: true,
+        stores,
+        totalPages: Math.ceil(storeCount / 10),
+        resultCount: storeCount,
       }
     } catch (e) {
       return {

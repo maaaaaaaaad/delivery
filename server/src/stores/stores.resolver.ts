@@ -29,6 +29,10 @@ import {
   GetOneStoreInputDto,
   GetOneStoreOutputDto,
 } from './dto/get-one-store.dto'
+import {
+  SearchStoreInputDto,
+  SearchStoreOutputDto,
+} from './dto/search-store.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -73,6 +77,13 @@ export class StoresResolver {
     @Args('input') getOneStoreInputDto: GetOneStoreInputDto,
   ): Promise<GetOneStoreOutputDto> {
     return await this.storesService.getOneStore(getOneStoreInputDto)
+  }
+
+  @Query((returns) => SearchStoreOutputDto)
+  async searchStore(
+    @Args('input') searchStoreInputDto: SearchStoreInputDto,
+  ): Promise<SearchStoreOutputDto> {
+    return await this.storesService.searchStore(searchStoreInputDto)
   }
 }
 

@@ -146,7 +146,21 @@ type Query {
   getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
   getOneCategory(input: GetOneCategoryInputDto!): GetOneCategoryOutputDto!
   getOneStore(input: GetOneStoreInputDto!): GetOneStoreOutputDto!
+  searchStore(input: SearchStoreInputDto!): SearchStoreOutputDto!
   userState: UsersEntity!
+}
+
+input SearchStoreInputDto {
+  keyword: String!
+  page: Float = 1
+}
+
+type SearchStoreOutputDto {
+  access: Boolean!
+  errorMessage: String
+  resultCount: Float
+  stores: [StoreEntity!]
+  totalPages: Float
 }
 
 type StoreEntity {
