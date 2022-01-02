@@ -205,6 +205,18 @@ type Mutation {
   uploadAvatarImage(file: Upload!): Boolean!
 }
 
+type OrderEntity {
+  consumer: UsersEntity!
+  createAt: DateTime!
+  driver: UsersEntity!
+  foods: [FoodEntity!]!
+  id: Float!
+  progress: String!
+  store: StoreEntity!
+  totalCharge: Float!
+  updateAt: DateTime!
+}
+
 type Query {
   getAllCategories: GetAllCategoryOutputDto!
   getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
@@ -235,6 +247,7 @@ type StoreEntity {
   id: Float!
   menu: [FoodEntity!]!
   name: String!
+  orders: [OrderEntity!]!
   owner: UsersEntity!
   updateAt: DateTime!
 }
@@ -245,9 +258,11 @@ scalar Upload
 type UsersEntity {
   accountId: String!
   createAt: DateTime!
+  drivers: [OrderEntity!]!
   email: String!
   id: Float!
   nickname: String!
+  orders: [OrderEntity!]!
   password: String!
   role: String!
   stores: [StoreEntity!]!

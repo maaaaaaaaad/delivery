@@ -5,7 +5,7 @@ import { IsString } from 'class-validator'
 import { UsersEntity } from '../../users/entities/users.entity'
 import { CategoryEntity } from './category.entity'
 import { FoodEntity } from './food.entity'
-import { OrderEntity } from '../../order/entities/order.entity'
+import { OrderEntity } from '../../order/entites/order.entity'
 
 @InputType('StoreEntity', { isAbstract: true })
 @ObjectType()
@@ -44,7 +44,7 @@ export class StoreEntity extends RequiredEntity {
   @OneToMany((type) => FoodEntity, (food) => food.store)
   menu: FoodEntity[]
 
-  @Field((returns) => [OrderEntity])
   @OneToMany((type) => OrderEntity, (order) => order.store)
+  @Field((returns) => [OrderEntity])
   orders: OrderEntity[]
 }

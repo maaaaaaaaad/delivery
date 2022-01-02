@@ -6,7 +6,7 @@ import { UserRole } from '../types/role.type'
 import { InternalServerErrorException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import { StoreEntity } from '../../stores/entities/store.entity'
-import { OrderEntity } from 'src/order/entities/order.entity'
+import { OrderEntity } from '../../order/entites/order.entity'
 
 @InputType({ isAbstract: true })
 @ObjectType()
