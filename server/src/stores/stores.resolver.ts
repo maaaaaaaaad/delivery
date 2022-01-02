@@ -35,6 +35,7 @@ import {
 } from './dto/search-store.dto'
 import { FoodEntity } from './entities/food.entity'
 import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
+import { EditFoodInputDto, EditFoodOutputDto } from './dto/edit-food.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -122,5 +123,14 @@ export class FoodResolver {
     @Args('input') createFoodInputDto: CreateFoodInputDto,
   ): Promise<CreateFoodOutputDto> {
     return await this.storesService.createFood(owner.id, createFoodInputDto)
+  }
+
+  @UseGuards(OwnerGuard)
+  @Mutation((returns) => EditFoodOutputDto)
+  async editFood(
+    @AuthUser() owner: UsersEntity,
+    @Args('input') editFoodInputDto: EditFoodInputDto,
+  ): Promise<EditFoodOutputDto> {
+    return await this.storesService.editFood(owner.id, editFoodInputDto)
   }
 }

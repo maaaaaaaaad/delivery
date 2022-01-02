@@ -65,6 +65,20 @@ type DeleteStoreOutputDto {
   errorMessage: String
 }
 
+input EditFoodInputDto {
+  description: String
+  foodId: Float!
+  image: String
+  name: String
+  options: [FoodOptionsType!]
+  price: Float
+}
+
+type EditFoodOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input EditProfileInputDto {
   email: String
   nickname: String
@@ -174,6 +188,7 @@ type Mutation {
   createFood(input: CreateFoodInputDto!): CreateFoodOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
+  editFood(input: EditFoodInputDto!): EditFoodOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   editStore(input: EditStoreInputDto!): EditStoreOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
