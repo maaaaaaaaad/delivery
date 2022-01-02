@@ -356,7 +356,9 @@ export class StoresService {
     deleteFoodInputDto: DeleteFoodInputDto,
   ): Promise<DeleteFoodOutputDto> {
     try {
-      const food = await this.foods.findOne(deleteFoodInputDto.foodId)
+      const food = await this.foods.findOne(deleteFoodInputDto.foodId, {
+        relations: ['store'],
+      })
 
       if (!food) {
         return {
@@ -372,7 +374,7 @@ export class StoresService {
         }
       }
 
-      await this.foods.delete(food)
+      await this.foods.delete(deleteFoodInputDto.foodId)
 
       return {
         access: true,
