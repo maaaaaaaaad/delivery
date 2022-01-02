@@ -27,6 +27,7 @@ import {
 import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
 import { FoodEntity } from './entities/food.entity'
 import { EditFoodInputDto, EditFoodOutputDto } from './dto/edit-food.dto'
+import { DeleteFoodInputDto, DeleteFoodOutputDto } from './dto/delete-food.dto'
 
 @Injectable()
 export class StoresService {
@@ -338,6 +339,40 @@ export class StoresService {
       }
 
       await this.foods.save({ ...food, ...editFoodInputDto })
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async deleteFood(
+    ownerId: number,
+    deleteFoodInputDto: DeleteFoodInputDto,
+  ): Promise<DeleteFoodOutputDto> {
+    try {
+      const food = await this.foods.findOne(deleteFoodInputDto.foodId)
+
+      if (!food) {
+        return {
+          access: false,
+          errorMessage: 'Not found this food',
+        }
+      }
+
+      if (ownerId !== food.store.ownerId) {
+        return {
+          access: false,
+          errorMessage: 'Invalid match primary key',
+        }
+      }
+
+      await this.foods.delete(food)
 
       return {
         access: true,
