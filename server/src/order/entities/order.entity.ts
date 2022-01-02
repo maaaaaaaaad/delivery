@@ -1,9 +1,10 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToMany, ManyToOne } from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { UsersEntity } from '../../users/entities/users.entity'
 import { StoreEntity } from '../../stores/entities/store.entity'
 import { FoodEntity } from '../../stores/entities/food.entity'
+import { JoinTable } from 'typeorm/browser'
 
 export type OrderStatus =
   | 'Waiting'
@@ -16,20 +17,30 @@ export type OrderStatus =
 @ObjectType()
 @Entity()
 export class OrderEntity extends RequiredEntity {
-  @Column()
-  @Field((returns) => UsersEntity)
-  consumer: UsersEntity
+  @ManyToOne((type) => UsersEntity, (user) => user.orders, {
+    onDelete: 'SET NULL',
+    nullable: true,
+  })
+  @Field((returns) => UsersEntity, { nullable: true })
+  consumer?: UsersEntity
 
-  @Column()
-  @Field((returns) => UsersEntity)
-  driver: UsersEntity
+  @ManyToOne((type) => UsersEntity, (user) => user.drivers, {
+    onDelete: 'SET NULL',
+    nullable: true,
+  })
+  @Field((returns) => UsersEntity, { nullable: true })
+  driver?: UsersEntity
 
-  @Column()
+  @ManyToOne((type) => StoreEntity, (store) => store.orders, {
+    onDelete: 'SET NULL',
+    nullable: true,
+  })
   @Field((returns) => StoreEntity)
   store: StoreEntity
 
-  @Column()
   @Field((returns) => [FoodEntity])
+  @ManyToMany((type) => FoodEntity)
+  @JoinTable()
   foods: FoodEntity[]
 
   @Column()

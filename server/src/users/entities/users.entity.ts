@@ -6,6 +6,7 @@ import { UserRole } from '../types/role.type'
 import { InternalServerErrorException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import { StoreEntity } from '../../stores/entities/store.entity'
+import { OrderEntity } from 'src/order/entities/order.entity'
 
 @InputType({ isAbstract: true })
 @ObjectType()
@@ -38,6 +39,14 @@ export class UsersEntity extends RequiredEntity {
   @OneToMany((type) => StoreEntity, (store) => store.owner)
   @Field((type) => [StoreEntity])
   stores: StoreEntity[]
+
+  @OneToMany((type) => OrderEntity, (order) => order.consumer)
+  @Field((returns) => [OrderEntity])
+  orders: OrderEntity[]
+
+  @OneToMany((type) => OrderEntity, (order) => order.driver)
+  @Field((returns) => [OrderEntity])
+  drivers: OrderEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()
