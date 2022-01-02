@@ -36,6 +36,7 @@ import {
 import { FoodEntity } from './entities/food.entity'
 import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
 import { EditFoodInputDto, EditFoodOutputDto } from './dto/edit-food.dto'
+import { DeleteFoodInputDto, DeleteFoodOutputDto } from './dto/delete-food.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -132,5 +133,14 @@ export class FoodResolver {
     @Args('input') editFoodInputDto: EditFoodInputDto,
   ): Promise<EditFoodOutputDto> {
     return await this.storesService.editFood(owner.id, editFoodInputDto)
+  }
+
+  @UseGuards(OwnerGuard)
+  @Mutation((returns) => DeleteFoodOutputDto)
+  async deleteFood(
+    @AuthUser() owner: UsersEntity,
+    @Args('input') deleteFoodInputDto: DeleteFoodInputDto,
+  ): Promise<DeleteFoodOutputDto> {
+    return await this.storesService.deleteFood(owner.id, deleteFoodInputDto)
   }
 }

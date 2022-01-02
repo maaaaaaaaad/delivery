@@ -56,6 +56,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeleteFoodInputDto {
+  foodId: Float!
+}
+
+type DeleteFoodOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input DeleteStoreInputDto {
   storeId: Float!
 }
@@ -187,6 +196,7 @@ type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
   createFood(input: CreateFoodInputDto!): CreateFoodOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
+  deleteFood(input: DeleteFoodInputDto!): DeleteFoodOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
   editFood(input: EditFoodInputDto!): EditFoodOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
