@@ -4,8 +4,7 @@ import { RequiredEntity } from '../../common/entites/required.entity'
 import { UsersEntity } from '../../users/entities/users.entity'
 import { StoreEntity } from '../../stores/entities/store.entity'
 import { FoodEntity } from '../../stores/entities/food.entity'
-
-export type OrderProgress = 'Waiting' | 'Making' | 'Delivering' | 'PickUp' | 'Done'
+import { OrderProgress } from '../types/order.type'
 
 @InputType({ isAbstract: true })
 @ObjectType()
@@ -39,6 +38,6 @@ export class OrderEntity extends RequiredEntity {
   totalCharge: number
 
   @Column()
-  @Field((returns) => String)
+  @Field((returns) => String, { defaultValue: 'Waiting' })
   progress: OrderProgress
 }
