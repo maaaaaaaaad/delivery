@@ -5,6 +5,8 @@ import { Repository } from 'typeorm'
 import { CreateOrderInputDto, CreateOrderOutputDto } from './dtos/create.dto'
 import { StoreEntity } from '../stores/entities/store.entity'
 import { UsersEntity } from '../users/entities/users.entity'
+import { OrderItemEntity } from './entites/item.entity'
+import { FoodEntity } from '../stores/entities/food.entity'
 
 @Injectable()
 export class OrderService {
@@ -13,6 +15,10 @@ export class OrderService {
     private readonly orders: Repository<OrderEntity>,
     @InjectRepository(StoreEntity)
     private readonly stores: Repository<StoreEntity>,
+    @InjectRepository(OrderItemEntity)
+    private readonly orderItems: Repository<OrderItemEntity>,
+    @InjectRepository(FoodEntity)
+    private readonly foods: Repository<FoodEntity>,
   ) {}
 
   async createOrder(
@@ -29,14 +35,32 @@ export class OrderService {
         }
       }
 
-      const order = await this.orders.save(
-        await this.orders.create({
-          consumer,
-          store,
-        }),
-      )
+      for (const item of orderItems) {
+        const food = await this.foods.findOne(item.foodId)
 
-      console.log(order)
+        if (!food) {
+          return {
+            access: false,
+            errorMessage: 'Not found this food',
+          }
+        }
+
+        for (const itemOption of item.options) {
+          const foodOption = food.options.find(
+            (foodOption) => foodOption.subject === itemOption.subject,
+          )
+          if (foodOption) {
+            console.log(foodOption.extraCharge)
+          }
+        }
+      }
+
+      // const order = await this.orders.save(
+      //   await this.orders.create({
+      //     consumer,
+      //     store,
+      //   }),
+      // )
 
       return {
         access: true,

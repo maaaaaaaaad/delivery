@@ -1,6 +1,5 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
 import { RequiredOutputDto } from '../../common/dtos/required.dto'
-import { FoodOptions } from '../../stores/entities/food.entity'
 import { OrderItemOptions } from '../entites/item.entity'
 
 @InputType({ isAbstract: true })
@@ -9,7 +8,7 @@ export class CreateOrderItemInputDto {
   @Field((returns) => Number)
   foodId: number
 
-  @Field((returns) => OrderItemOptions, { nullable: true })
+  @Field((returns) => [OrderItemOptions], { nullable: true })
   options?: OrderItemOptions[]
 }
 

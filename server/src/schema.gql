@@ -41,7 +41,7 @@ input CreateOrderInputDto {
 
 input CreateOrderItemInputDto {
   foodId: Float!
-  options: OrderItemOptionsType
+  options: [OrderItemOptionsType!]
 }
 
 type CreateOrderOutputDto {
@@ -252,14 +252,12 @@ type OrderItemEntity {
 }
 
 type OrderItemOptions {
-  extraCharge: Float
-  selection: FoodChoiceOptions
+  selection: String
   subject: String!
 }
 
 input OrderItemOptionsType {
-  extraCharge: Float
-  selection: FoodChoiceOptionsType
+  selection: String
   subject: String!
 }
 
