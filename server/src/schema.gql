@@ -35,8 +35,13 @@ input CreateInputDto {
 }
 
 input CreateOrderInputDto {
-  orderItems: [OrderItemInputEntity!]!
+  orderItems: [CreateOrderItemInputDto!]!
   storeId: Float!
+}
+
+input CreateOrderItemInputDto {
+  foodId: Float!
+  options: FoodOptionsType
 }
 
 type CreateOrderOutputDto {
@@ -144,15 +149,6 @@ type FoodEntity {
   updateAt: DateTime!
 }
 
-input FoodInputEntity {
-  description: String!
-  image: String
-  name: String!
-  options: [FoodOptionsType!]
-  price: Float!
-  store: StoreInputEntity!
-}
-
 type FoodOptions {
   extraCharge: Float
   selection: [FoodChoiceOptions!]
@@ -247,26 +243,12 @@ type OrderEntity {
   updateAt: DateTime!
 }
 
-input OrderInputEntity {
-  consumer: UserInputEntity!
-  driver: UserInputEntity!
-  orderItems: [OrderItemInputEntity!]!
-  progress: String = "Waiting"
-  store: StoreInputEntity!
-  totalCharge: Float!
-}
-
 type OrderItemEntity {
   createAt: DateTime!
   food: FoodEntity
   id: Float!
   options: [FoodOptions!]
   updateAt: DateTime!
-}
-
-input OrderItemInputEntity {
-  food: FoodInputEntity
-  options: [FoodOptionsType!]
 }
 
 type Query {
@@ -304,29 +286,8 @@ type StoreEntity {
   updateAt: DateTime!
 }
 
-input StoreInputEntity {
-  address: String!
-  category: String!
-  coverImage: String
-  menu: [FoodInputEntity!]!
-  name: String!
-  orders: [OrderInputEntity!]!
-  owner: UserInputEntity!
-}
-
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
-
-input UserInputEntity {
-  accountId: String!
-  drivers: [OrderInputEntity!]!
-  email: String!
-  nickname: String!
-  orders: [OrderInputEntity!]!
-  password: String!
-  role: String = "client"
-  stores: [StoreInputEntity!]!
-}
 
 type UsersEntity {
   accountId: String!
