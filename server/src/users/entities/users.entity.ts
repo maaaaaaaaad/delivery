@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt'
 import { StoreEntity } from '../../stores/entities/store.entity'
 import { OrderEntity } from '../../order/entites/order.entity'
 
-@InputType({ isAbstract: true })
+@InputType('UserInputEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class UsersEntity extends RequiredEntity {

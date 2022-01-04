@@ -17,10 +17,10 @@ export class OrderService {
 
   async createOrder(
     consumer: UsersEntity,
-    createOrderInputDto: CreateOrderInputDto,
+    { storeId, orderItems }: CreateOrderInputDto,
   ): Promise<CreateOrderOutputDto> {
     try {
-      const store = await this.stores.findOne(createOrderInputDto.storeId)
+      const store = await this.stores.findOne(storeId)
 
       if (!store) {
         return {
@@ -28,14 +28,6 @@ export class OrderService {
           errorMessage: 'Not found this store',
         }
       }
-
-      await this.orders.save(
-        await this.orders.create({
-          consumer,
-          foods: createOrderInputDto.foods,
-          store,
-        }),
-      )
 
       return {
         access: true,

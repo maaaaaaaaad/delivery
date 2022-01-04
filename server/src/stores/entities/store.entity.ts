@@ -7,7 +7,7 @@ import { CategoryEntity } from './category.entity'
 import { FoodEntity } from './food.entity'
 import { OrderEntity } from '../../order/entites/order.entity'
 
-@InputType('StoreEntity', { isAbstract: true })
+@InputType('StoreInputEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class StoreEntity extends RequiredEntity {

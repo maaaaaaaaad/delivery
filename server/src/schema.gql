@@ -34,6 +34,16 @@ input CreateInputDto {
   role: String = "client"
 }
 
+input CreateOrderInputDto {
+  orderItems: [OrderItemInputEntity!]!
+  storeId: Float!
+}
+
+type CreateOrderOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 type CreateOutputDto {
   access: Boolean!
   errorMessage: String
@@ -112,6 +122,16 @@ type EditStoreOutputDto {
   errorMessage: String
 }
 
+type FoodChoiceOptions {
+  extraCharge: Float
+  subject: String!
+}
+
+input FoodChoiceOptionsType {
+  extraCharge: Float
+  subject: String!
+}
+
 type FoodEntity {
   createAt: DateTime!
   description: String!
@@ -124,15 +144,24 @@ type FoodEntity {
   updateAt: DateTime!
 }
 
+input FoodInputEntity {
+  description: String!
+  image: String
+  name: String!
+  options: [FoodOptionsType!]
+  price: Float!
+  store: StoreInputEntity!
+}
+
 type FoodOptions {
   extraCharge: Float
-  selection: [String!]
+  selection: [FoodChoiceOptions!]
   subject: String!
 }
 
 input FoodOptionsType {
   extraCharge: Float
-  selection: [String!]
+  selection: [FoodChoiceOptionsType!]
   subject: String!
 }
 
@@ -195,6 +224,7 @@ type Mutation {
   checkNickname(input: String!): Boolean!
   createAccount(input: CreateInputDto!): CreateOutputDto!
   createFood(input: CreateFoodInputDto!): CreateFoodOutputDto!
+  createOrder(input: CreateOrderInputDto!): CreateOrderOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   deleteFood(input: DeleteFoodInputDto!): DeleteFoodOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
@@ -209,12 +239,34 @@ type OrderEntity {
   consumer: UsersEntity!
   createAt: DateTime!
   driver: UsersEntity!
-  foods: [FoodEntity!]!
   id: Float!
+  orderItems: [OrderItemEntity!]!
   progress: String!
   store: StoreEntity!
   totalCharge: Float!
   updateAt: DateTime!
+}
+
+input OrderInputEntity {
+  consumer: UserInputEntity!
+  driver: UserInputEntity!
+  orderItems: [OrderItemInputEntity!]!
+  progress: String = "Waiting"
+  store: StoreInputEntity!
+  totalCharge: Float!
+}
+
+type OrderItemEntity {
+  createAt: DateTime!
+  food: FoodEntity
+  id: Float!
+  options: [FoodOptions!]
+  updateAt: DateTime!
+}
+
+input OrderItemInputEntity {
+  food: FoodInputEntity
+  options: [FoodOptionsType!]
 }
 
 type Query {
@@ -252,8 +304,29 @@ type StoreEntity {
   updateAt: DateTime!
 }
 
+input StoreInputEntity {
+  address: String!
+  category: String!
+  coverImage: String
+  menu: [FoodInputEntity!]!
+  name: String!
+  orders: [OrderInputEntity!]!
+  owner: UserInputEntity!
+}
+
 """The `Upload` scalar type represents a file upload."""
 scalar Upload
+
+input UserInputEntity {
+  accountId: String!
+  drivers: [OrderInputEntity!]!
+  email: String!
+  nickname: String!
+  orders: [OrderInputEntity!]!
+  password: String!
+  role: String = "client"
+  stores: [StoreInputEntity!]!
+}
 
 type UsersEntity {
   accountId: String!

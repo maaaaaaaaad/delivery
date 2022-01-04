@@ -4,20 +4,30 @@ import { RequiredEntity } from '../../common/entites/required.entity'
 import { StoreEntity } from './store.entity'
 import { IsNumber, IsString } from 'class-validator'
 
-@InputType('FoodOptionsType', { isAbstract: true })
+@InputType('FoodChoiceOptionsType', { isAbstract: true })
 @ObjectType()
-class FoodOptions {
+export class FoodChoiceOptions {
   @Field((returns) => String)
   subject: string
-
-  @Field((returns) => [String], { nullable: true })
-  selection: string[]
 
   @Field((returns) => Number, { nullable: true })
   extraCharge?: number
 }
 
-@InputType('FoodEntity', { isAbstract: true })
+@InputType('FoodOptionsType', { isAbstract: true })
+@ObjectType()
+export class FoodOptions {
+  @Field((returns) => String)
+  subject: string
+
+  @Field((returns) => [FoodChoiceOptions], { nullable: true })
+  selection: FoodChoiceOptions[]
+
+  @Field((returns) => Number, { nullable: true })
+  extraCharge?: number
+}
+
+@InputType('FoodInputEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class FoodEntity extends RequiredEntity {

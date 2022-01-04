@@ -18,6 +18,7 @@ import { CategoryEntity } from './stores/entities/category.entity'
 import { FoodEntity } from './stores/entities/food.entity'
 import { OrderModule } from './order/order.module'
 import { OrderEntity } from './order/entites/order.entity'
+import { OrderItemEntity } from './order/entites/item.entity'
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { OrderEntity } from './order/entites/order.entity'
         CategoryEntity,
         FoodEntity,
         OrderEntity,
+        OrderItemEntity,
       ],
     }),
     GraphQLModule.forRoot({

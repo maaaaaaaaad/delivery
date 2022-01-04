@@ -3,7 +3,7 @@ import { OrderEntity } from '../entites/order.entity'
 import { RequiredOutputDto } from '../../common/dtos/required.dto'
 
 @InputType()
-export class CreateOrderInputDto extends PickType(OrderEntity, ['foods']) {
+export class CreateOrderInputDto extends PickType(OrderEntity, ['orderItems']) {
   @Field((returns) => Number)
   storeId: number
 }

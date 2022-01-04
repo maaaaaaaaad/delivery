@@ -5,7 +5,7 @@ import { IsString } from 'class-validator'
 import { CategoryValues } from '../type/category.type'
 import { StoreEntity } from './store.entity'
 
-@InputType('CategoryEntity', { isAbstract: true })
+@InputType('CategoryInputEntity', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class CategoryEntity extends RequiredEntity {
