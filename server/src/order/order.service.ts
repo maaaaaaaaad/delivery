@@ -29,6 +29,14 @@ export class OrderService {
         }
       }
 
+      const order = await this.orders.save(
+        await this.orders.create({
+          consumer,
+        }),
+      )
+
+      console.log(order)
+
       return {
         access: true,
       }

@@ -232,14 +232,14 @@ type Mutation {
 }
 
 type OrderEntity {
-  consumer: UsersEntity!
+  consumer: UsersEntity
   createAt: DateTime!
-  driver: UsersEntity!
+  driver: UsersEntity
   id: Float!
   orderItems: [OrderItemEntity!]!
   progress: String!
   store: StoreEntity!
-  totalCharge: Float!
+  totalCharge: Float
   updateAt: DateTime!
 }
 

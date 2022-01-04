@@ -13,15 +13,17 @@ import { IsNumber } from 'class-validator'
 export class OrderEntity extends RequiredEntity {
   @ManyToOne((type) => UsersEntity, (user) => user.orders, {
     onDelete: 'SET NULL',
+    nullable: true,
   })
-  @Field((returns) => UsersEntity)
-  consumer: UsersEntity
+  @Field((returns) => UsersEntity, { nullable: true })
+  consumer?: UsersEntity
 
   @ManyToOne((type) => UsersEntity, (user) => user.drivers, {
     onDelete: 'SET NULL',
+    nullable: true,
   })
-  @Field((returns) => UsersEntity)
-  driver: UsersEntity
+  @Field((returns) => UsersEntity, { nullable: true })
+  driver?: UsersEntity
 
   @ManyToOne((type) => StoreEntity, (store) => store.orders, {
     onDelete: 'SET NULL',
@@ -34,12 +36,12 @@ export class OrderEntity extends RequiredEntity {
   @JoinTable()
   orderItems: OrderItemEntity[]
 
-  @Column()
-  @Field((returns) => Number)
+  @Column({ nullable: true })
+  @Field((returns) => Number, { nullable: true })
   @IsNumber()
-  totalCharge: number
+  totalCharge?: number
 
-  @Column()
+  @Column({ default: 'Waiting' })
   @Field((returns) => String, { defaultValue: 'Waiting' })
   progress: OrderProgress
 }
