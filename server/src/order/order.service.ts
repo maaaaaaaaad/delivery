@@ -50,7 +50,16 @@ export class OrderService {
             (foodOption) => foodOption.subject === itemOption.subject,
           )
           if (foodOption) {
-            console.log(foodOption.extraCharge)
+            if (foodOption.extraCharge) {
+              console.log(foodOption.extraCharge)
+            } else {
+              const foodOptionSelection = foodOption.selection.find(
+                (selection) => selection.subject === itemOption.selection,
+              )
+              if (foodOptionSelection.extraCharge) {
+                console.log(foodOptionSelection.extraCharge)
+              }
+            }
           }
         }
       }
