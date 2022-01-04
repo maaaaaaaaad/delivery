@@ -27,9 +27,10 @@ export class OrderEntity extends RequiredEntity {
 
   @ManyToOne((type) => StoreEntity, (store) => store.orders, {
     onDelete: 'SET NULL',
+    nullable: true,
   })
-  @Field((returns) => StoreEntity)
-  store: StoreEntity
+  @Field((returns) => StoreEntity, { nullable: true })
+  store?: StoreEntity
 
   @ManyToMany((type) => OrderItemEntity)
   @Field((returns) => [OrderItemEntity])
