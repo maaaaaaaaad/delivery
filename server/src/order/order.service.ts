@@ -35,6 +35,9 @@ export class OrderService {
         }
       }
 
+      let orderTotalPrice = 0
+      const orderItemsArray: OrderItemEntity[] = []
+
       for (const item of orderItems) {
         const food = await this.foods.findOne(item.foodId)
 
@@ -45,31 +48,45 @@ export class OrderService {
           }
         }
 
+        let foodPrice = food.price
+
         for (const itemOption of item.options) {
           const foodOption = food.options.find(
             (foodOption) => foodOption.subject === itemOption.subject,
           )
           if (foodOption) {
             if (foodOption.extraCharge) {
-              console.log(foodOption.extraCharge)
+              foodPrice += foodOption.extraCharge
             } else {
               const foodOptionSelection = foodOption.selection.find(
                 (selection) => selection.subject === itemOption.selection,
               )
-              if (foodOptionSelection.extraCharge) {
-                console.log(foodOptionSelection.extraCharge)
+              if (foodOptionSelection) {
+                if (foodOptionSelection.extraCharge) {
+                  foodPrice += foodOptionSelection.extraCharge
+                }
               }
             }
           }
         }
+        orderTotalPrice += foodPrice
+        const orderItem = await this.orderItems.save(
+          await this.orderItems.create({
+            food,
+            options: item.options,
+          }),
+        )
+        orderItemsArray.push(orderItem)
       }
 
-      // const order = await this.orders.save(
-      //   await this.orders.create({
-      //     consumer,
-      //     store,
-      //   }),
-      // )
+      await this.orders.save(
+        await this.orders.create({
+          consumer,
+          store,
+          totalCharge: orderTotalPrice,
+          orderItems: orderItemsArray,
+        }),
+      )
 
       return {
         access: true,
