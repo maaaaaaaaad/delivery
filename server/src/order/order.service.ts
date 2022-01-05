@@ -7,6 +7,10 @@ import { StoreEntity } from '../stores/entities/store.entity'
 import { UsersEntity } from '../users/entities/users.entity'
 import { OrderItemEntity } from './entites/item.entity'
 import { FoodEntity } from '../stores/entities/food.entity'
+import {
+  GetAllOrderInputDto,
+  GetAllOrderOutputDto,
+} from './dtos/get-all-order.dto'
 
 @Injectable()
 export class OrderService {
@@ -90,6 +94,45 @@ export class OrderService {
 
       return {
         access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getAllOrder(
+    authUser: UsersEntity,
+    { progress }: GetAllOrderInputDto,
+  ): Promise<GetAllOrderOutputDto> {
+    try {
+      let orders: OrderEntity[]
+
+      if (authUser.role === 'client') {
+        orders = await this.orders.find({
+          where: {
+            consumer: authUser,
+          },
+        })
+      } else if (authUser.role === 'driver') {
+        orders = await this.orders.find({
+          where: {
+            driver: authUser,
+          },
+        })
+      } else if (authUser.role === 'owner') {
+        const store = await this.stores.find({
+          where: {
+            owner: authUser,
+          },
+        })
+      }
+
+      return {
+        access: true,
+        orders,
       }
     } catch (e) {
       return {
