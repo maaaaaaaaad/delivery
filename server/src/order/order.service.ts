@@ -123,11 +123,14 @@ export class OrderService {
           },
         })
       } else if (authUser.role === 'owner') {
-        const store = await this.stores.find({
+        const stores = await this.stores.find({
           where: {
             owner: authUser,
           },
+          relations: ['orders'],
         })
+        console.log(stores)
+        orders = stores.map((store) => store.orders).flat()
       }
 
       return {

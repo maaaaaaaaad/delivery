@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Resolver, Query } from '@nestjs/graphql'
 import { OrderService } from './order.service'
 import { OrderEntity } from './entites/order.entity'
 import { CreateOrderInputDto, CreateOrderOutputDto } from './dtos/create.dto'
@@ -6,6 +6,10 @@ import { UseGuards } from '@nestjs/common'
 import { ClientGuard } from '../auth/client.guard'
 import { AuthUser } from '../auth/auth.decorator'
 import { UsersEntity } from '../users/entities/users.entity'
+import {
+  GetAllOrderInputDto,
+  GetAllOrderOutputDto,
+} from './dtos/get-all-order.dto'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -18,5 +22,13 @@ export class OrderResolver {
     @Args('input') createOrderInputDto: CreateOrderInputDto,
   ): Promise<CreateOrderOutputDto> {
     return await this.orders.createOrder(client, createOrderInputDto)
+  }
+
+  @Query((returns) => GetAllOrderOutputDto)
+  async getAllOrder(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') getAllOrderInputDto: GetAllOrderInputDto,
+  ): Promise<GetAllOrderOutputDto> {
+    return await this.orders.getAllOrder(authUser, getAllOrderInputDto)
   }
 }

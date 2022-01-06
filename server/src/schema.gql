@@ -167,6 +167,16 @@ type GetAllCategoryOutputDto {
   errorMessage: String
 }
 
+input GetAllOrderInputDto {
+  progress: String
+}
+
+type GetAllOrderOutputDto {
+  access: Boolean!
+  errorMessage: String
+  orders: [OrderEntity!]
+}
+
 input GetAllStoreInputDto {
   page: Float = 1
 }
@@ -263,6 +273,7 @@ input OrderItemOptionsType {
 
 type Query {
   getAllCategories: GetAllCategoryOutputDto!
+  getAllOrder(input: GetAllOrderInputDto!): GetAllOrderOutputDto!
   getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
   getOneCategory(input: GetOneCategoryInputDto!): GetOneCategoryOutputDto!
   getOneStore(input: GetOneStoreInputDto!): GetOneStoreOutputDto!
