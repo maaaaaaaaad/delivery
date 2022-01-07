@@ -1,5 +1,12 @@
 import { Field, InputType, ObjectType } from '@nestjs/graphql'
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  RelationId,
+} from 'typeorm'
 import { RequiredEntity } from '../../common/entites/required.entity'
 import { UsersEntity } from '../../users/entities/users.entity'
 import { StoreEntity } from '../../stores/entities/store.entity'
@@ -45,4 +52,10 @@ export class OrderEntity extends RequiredEntity {
   @Column({ default: 'Waiting' })
   @Field((returns) => String, { defaultValue: 'Waiting' })
   progress: OrderProgress
+
+  @RelationId((order: OrderEntity) => order.consumer)
+  consumerId: number
+
+  @RelationId((order: OrderEntity) => order.driver)
+  driverId: number
 }

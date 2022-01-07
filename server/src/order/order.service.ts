@@ -160,13 +160,9 @@ export class OrderService {
     try {
       let order: OrderEntity
 
-      if (authUser.role === 'client') {
-        order = await this.orders.findOne(id, {
-          where: {
-            consumer: authUser,
-          },
-        })
-      }
+      order = await this.orders.findOne(id, {
+        relations: ['store'],
+      })
 
       console.log(order)
     } catch (e) {
