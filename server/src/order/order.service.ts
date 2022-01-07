@@ -158,13 +158,32 @@ export class OrderService {
     { id }: GetOneOrderInputDto,
   ): Promise<GetOneOrderOutputDto> {
     try {
-      let order: OrderEntity
-
-      order = await this.orders.findOne(id, {
-        relations: ['store'],
+      const order = await this.orders.findOne(id, {
+        relations: ['store', 'consumer'],
       })
 
-      console.log(order)
+      if (!order) {
+        return {
+          access: false,
+          errorMessage: 'Not found this order',
+        }
+      }
+
+      if (
+        order.consumerId !== authUser.id &&
+        order.driverId !== authUser.id &&
+        order.store.ownerId !== authUser.id
+      ) {
+        return {
+          access: false,
+          errorMessage: 'Invalid match the primary key',
+        }
+      }
+
+      return {
+        access: true,
+        order,
+      }
     } catch (e) {
       return {
         access: false,
