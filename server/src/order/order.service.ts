@@ -11,6 +11,10 @@ import {
   GetAllOrderInputDto,
   GetAllOrderOutputDto,
 } from './dtos/get-all-order.dto'
+import {
+  GetOneOrderInputDto,
+  GetOneOrderOutputDto,
+} from './dtos/get-one-order.dto'
 
 @Injectable()
 export class OrderService {
@@ -141,6 +145,30 @@ export class OrderService {
         access: true,
         orders,
       }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getOneOrder(
+    authUser: UsersEntity,
+    { id }: GetOneOrderInputDto,
+  ): Promise<GetOneOrderOutputDto> {
+    try {
+      let order: OrderEntity
+
+      if (authUser.role === 'client') {
+        order = await this.orders.findOne(id, {
+          where: {
+            consumer: authUser,
+          },
+        })
+      }
+
+      console.log(order)
     } catch (e) {
       return {
         access: false,

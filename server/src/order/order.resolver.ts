@@ -10,6 +10,10 @@ import {
   GetAllOrderInputDto,
   GetAllOrderOutputDto,
 } from './dtos/get-all-order.dto'
+import {
+  GetOneOrderInputDto,
+  GetOneOrderOutputDto,
+} from './dtos/get-one-order.dto'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -30,5 +34,13 @@ export class OrderResolver {
     @Args('input') getAllOrderInputDto: GetAllOrderInputDto,
   ): Promise<GetAllOrderOutputDto> {
     return await this.orders.getAllOrder(authUser, getAllOrderInputDto)
+  }
+
+  @Query((returns) => GetOneOrderOutputDto)
+  async getOneOrder(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') getOneOrderInputDto: GetOneOrderInputDto,
+  ): Promise<GetOneOrderOutputDto> {
+    return await this.orders.getOneOrder(authUser, getOneOrderInputDto)
   }
 }
