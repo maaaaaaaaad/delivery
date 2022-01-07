@@ -117,7 +117,6 @@ export class OrderService {
             ...(progress && { progress }),
           },
         })
-        console.log(orders)
       } else if (authUser.role === 'driver') {
         orders = await this.orders.find({
           where: {
@@ -133,6 +132,9 @@ export class OrderService {
           relations: ['orders'],
         })
         orders = stores.map((store) => store.orders).flat()
+        if (progress) {
+          orders = orders.filter((order) => order.progress === progress)
+        }
       }
 
       return {
