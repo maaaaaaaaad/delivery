@@ -114,12 +114,15 @@ export class OrderService {
         orders = await this.orders.find({
           where: {
             consumer: authUser,
+            ...(progress && { progress }),
           },
         })
+        console.log(orders)
       } else if (authUser.role === 'driver') {
         orders = await this.orders.find({
           where: {
             driver: authUser,
+            ...(progress && { progress }),
           },
         })
       } else if (authUser.role === 'owner') {
@@ -129,7 +132,6 @@ export class OrderService {
           },
           relations: ['orders'],
         })
-        console.log(stores)
         orders = stores.map((store) => store.orders).flat()
       }
 
