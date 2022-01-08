@@ -2,6 +2,7 @@ export type OrderProgress =
   | 'Waiting'
   | 'Making'
   | 'Made'
-  | 'Driving'
   | 'PickUp'
+  | 'Driving'
+  | 'Arrived'
   | 'Done'

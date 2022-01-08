@@ -195,7 +195,12 @@ export class OrderService {
     { id, progress }: EditOrderInputDto,
   ): Promise<EditOrderOutputDto> {
     try {
-      const order = await this.orders.findOne({ id })
+      const order = await this.orders.findOne(
+        { id },
+        {
+          relations: ['store'],
+        },
+      )
 
       if (!order) {
         return {
@@ -209,6 +214,48 @@ export class OrderService {
           access: false,
           errorMessage: 'Not access this order',
         }
+      }
+
+      let doEditOrder: boolean = true
+
+      if (authUser.role === 'client') {
+        return {
+          access: false,
+          errorMessage: 'Consumers Cannot edit order progress',
+        }
+      }
+
+      if (authUser.role === 'owner') {
+        if (progress !== 'Making' && progress !== 'Made') doEditOrder = false
+      }
+
+      if (authUser.role === 'driver') {
+        if (
+          progress !== 'PickUp' &&
+          progress !== 'Driving' &&
+          progress !== 'Arrived'
+        )
+          doEditOrder = false
+      }
+
+      if (!doEditOrder) {
+        return {
+          access: false,
+          errorMessage: 'Cannot edit this order progress',
+        }
+      }
+
+      await this.orders.save([
+        {
+          id,
+          progress,
+        },
+      ])
+
+      console.log(order)
+
+      return {
+        access: true,
       }
     } catch (e) {
       return {
