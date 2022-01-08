@@ -54,6 +54,6 @@ export class OrderResolver {
     @AuthUser() authUser: UsersEntity,
     @Args('input') editOrderInputDto: EditOrderInputDto,
   ): Promise<EditOrderOutputDto> {
-    return await this.editOrder(authUser, editOrderInputDto)
+    return await this.orders.editOrder(authUser, editOrderInputDto)
   }
 }

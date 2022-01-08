@@ -16,6 +16,7 @@ import {
   GetOneOrderOutputDto,
 } from './dtos/get-one-order.dto'
 import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
+import { orderAccess } from './common/order-access'
 
 @Injectable()
 export class OrderService {
@@ -170,14 +171,10 @@ export class OrderService {
         }
       }
 
-      if (
-        order.consumerId !== authUser.id &&
-        order.driverId !== authUser.id &&
-        order.store.ownerId !== authUser.id
-      ) {
+      if (!orderAccess(authUser, order)) {
         return {
           access: false,
-          errorMessage: 'Invalid match the primary key',
+          errorMessage: 'Not access this order',
         }
       }
 
@@ -204,6 +201,13 @@ export class OrderService {
         return {
           access: false,
           errorMessage: 'Not found this order',
+        }
+      }
+
+      if (!orderAccess(authUser, order)) {
+        return {
+          access: false,
+          errorMessage: 'Not access this order',
         }
       }
     } catch (e) {
