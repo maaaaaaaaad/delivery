@@ -14,6 +14,7 @@ import {
   GetOneOrderInputDto,
   GetOneOrderOutputDto,
 } from './dtos/get-one-order.dto'
+import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -42,5 +43,13 @@ export class OrderResolver {
     @Args('input') getOneOrderInputDto: GetOneOrderInputDto,
   ): Promise<GetOneOrderOutputDto> {
     return await this.orders.getOneOrder(authUser, getOneOrderInputDto)
+  }
+
+  @Mutation((returns) => EditOrderOutputDto)
+  async editOrder(
+    @AuthUser() authUser: UsersEntity,
+    @Args('input') editOrderInputDto: EditOrderInputDto,
+  ): Promise<EditOrderOutputDto> {
+    return await this.editOrder(authUser, editOrderInputDto)
   }
 }

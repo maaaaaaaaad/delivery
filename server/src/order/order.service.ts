@@ -15,6 +15,7 @@ import {
   GetOneOrderInputDto,
   GetOneOrderOutputDto,
 } from './dtos/get-one-order.dto'
+import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 
 @Injectable()
 export class OrderService {
@@ -184,6 +185,19 @@ export class OrderService {
         access: true,
         order,
       }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async editOrder(
+    authUser: UsersEntity,
+    { id, progress }: EditOrderInputDto,
+  ): Promise<EditOrderOutputDto> {
+    try {
     } catch (e) {
       return {
         access: false,
