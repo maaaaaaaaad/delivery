@@ -103,6 +103,16 @@ type EditFoodOutputDto {
   errorMessage: String
 }
 
+input EditOrderInputDto {
+  id: Float!
+  progress: String = "Waiting"
+}
+
+type EditOrderOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input EditProfileInputDto {
   email: String
   nickname: String
@@ -245,6 +255,7 @@ type Mutation {
   deleteFood(input: DeleteFoodInputDto!): DeleteFoodOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
   editFood(input: EditFoodInputDto!): EditFoodOutputDto!
+  editOrder(input: EditOrderInputDto!): EditOrderOutputDto!
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   editStore(input: EditStoreInputDto!): EditStoreOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!

@@ -15,6 +15,7 @@ import {
   GetOneOrderOutputDto,
 } from './dtos/get-one-order.dto'
 import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
+import { AuthGuard } from '../auth/auth.guard'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -29,6 +30,7 @@ export class OrderResolver {
     return await this.orders.createOrder(client, createOrderInputDto)
   }
 
+  @UseGuards(AuthGuard)
   @Query((returns) => GetAllOrderOutputDto)
   async getAllOrder(
     @AuthUser() authUser: UsersEntity,
@@ -37,6 +39,7 @@ export class OrderResolver {
     return await this.orders.getAllOrder(authUser, getAllOrderInputDto)
   }
 
+  @UseGuards(AuthGuard)
   @Query((returns) => GetOneOrderOutputDto)
   async getOneOrder(
     @AuthUser() authUser: UsersEntity,
@@ -45,6 +48,7 @@ export class OrderResolver {
     return await this.orders.getOneOrder(authUser, getOneOrderInputDto)
   }
 
+  @UseGuards(AuthGuard)
   @Mutation((returns) => EditOrderOutputDto)
   async editOrder(
     @AuthUser() authUser: UsersEntity,

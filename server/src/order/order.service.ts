@@ -198,6 +198,14 @@ export class OrderService {
     { id, progress }: EditOrderInputDto,
   ): Promise<EditOrderOutputDto> {
     try {
+      const order = await this.orders.findOne({ id })
+
+      if (!order) {
+        return {
+          access: false,
+          errorMessage: 'Not found this order',
+        }
+      }
     } catch (e) {
       return {
         access: false,
