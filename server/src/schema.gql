@@ -245,6 +245,7 @@ type LoginOutputDto {
 }
 
 type Mutation {
+  addComment: Boolean!
   checkAccountId(input: String!): Boolean!
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!
@@ -327,6 +328,10 @@ type StoreEntity {
   orders: [OrderEntity!]!
   owner: UsersEntity!
   updateAt: DateTime!
+}
+
+type Subscription {
+  commentAdded: String!
 }
 
 """The `Upload` scalar type represents a file upload."""

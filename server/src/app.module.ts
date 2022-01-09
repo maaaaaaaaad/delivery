@@ -46,6 +46,7 @@ import { OrderItemEntity } from './order/entites/item.entity'
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      installSubscriptionHandlers: true,
       context: ({ req }) => ({ user: req['user'] }),
     }),
     JwtModule.forRoot({

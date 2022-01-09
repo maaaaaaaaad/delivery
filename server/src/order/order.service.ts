@@ -252,8 +252,6 @@ export class OrderService {
         },
       ])
 
-      console.log(order)
-
       return {
         access: true,
       }
