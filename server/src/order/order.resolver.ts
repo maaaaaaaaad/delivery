@@ -60,6 +60,7 @@ export class OrderResolver {
     return await this.orders.editOrder(authUser, editOrderInputDto)
   }
 
+  @UseGuards(AuthGuard)
   @Mutation((returns) => Boolean)
   addComment() {
     pubSub.publish('commentAdded', {

@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GraphQLModule } from '@nestjs/graphql'
 import { join } from 'path'
@@ -11,7 +6,6 @@ import { UsersModule } from './users/users.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UsersEntity } from './users/entities/users.entity'
 import { JwtModule } from './jwt/jwt.module'
-import { JwtMiddleware } from './jwt/jwt.middleware'
 import { StoresModule } from './stores/stores.module'
 import { StoreEntity } from './stores/entities/store.entity'
 import { CategoryEntity } from './stores/entities/category.entity'
@@ -49,12 +43,12 @@ import { OrderItemEntity } from './order/entites/item.entity'
       installSubscriptionHandlers: true,
       subscriptions: {
         'subscriptions-transport-ws': {
-          onConnect: (connectParams: any) => ({
-            token: connectParams['access_token'],
+          onConnect: (connectionParams: any) => ({
+            token: connectionParams['access_token'],
           }),
         },
       },
-      context: ({ req }) => ({ user: req['user'] }),
+      context: ({ req }) => ({ token: req.headers['access_token'] }),
     }),
     JwtModule.forRoot({
       jwtSecretKey: process.env.JWT_SECRET_KEY,
@@ -66,11 +60,4 @@ import { OrderItemEntity } from './order/entites/item.entity'
   controllers: [],
   providers: [],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtMiddleware).forRoutes({
-      path: '/graphql',
-      method: RequestMethod.POST,
-    })
-  }
-}
+export class AppModule {}
