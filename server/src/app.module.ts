@@ -47,6 +47,13 @@ import { OrderItemEntity } from './order/entites/item.entity'
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       installSubscriptionHandlers: true,
+      subscriptions: {
+        'subscriptions-transport-ws': {
+          onConnect: (connectParams: any) => ({
+            token: connectParams['access_token'],
+          }),
+        },
+      },
       context: ({ req }) => ({ user: req['user'] }),
     }),
     JwtModule.forRoot({
