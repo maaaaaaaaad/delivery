@@ -62,15 +62,16 @@ export class OrderResolver {
 
   @UseGuards(AuthGuard)
   @Mutation((returns) => Boolean)
-  addComment() {
+  addComment(@AuthUser() authUser: UsersEntity) {
     pubSub.publish('commentAdded', {
       commentAdded: 'Hello',
     })
     return true
   }
 
+  @UseGuards(AuthGuard)
   @Subscription((returns) => String)
-  commentAdded() {
+  commentAdded(@AuthUser() authUser: UsersEntity) {
     return pubSub.asyncIterator('commentAdded')
   }
 }

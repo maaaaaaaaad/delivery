@@ -6,6 +6,7 @@ import { OrderEntity } from './entites/order.entity'
 import { StoreEntity } from '../stores/entities/store.entity'
 import { OrderItemEntity } from './entites/item.entity'
 import { FoodEntity } from '../stores/entities/food.entity'
+import { UsersModule } from '../users/users.module'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { FoodEntity } from '../stores/entities/food.entity'
       OrderItemEntity,
       FoodEntity,
     ]),
+    UsersModule,
   ],
   providers: [OrderService, OrderResolver],
 })
