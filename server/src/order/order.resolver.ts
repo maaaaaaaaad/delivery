@@ -2,7 +2,7 @@ import { Args, Mutation, Resolver, Query, Subscription } from '@nestjs/graphql'
 import { OrderService } from './order.service'
 import { OrderEntity } from './entites/order.entity'
 import { CreateOrderInputDto, CreateOrderOutputDto } from './dtos/create.dto'
-import { UseGuards } from '@nestjs/common'
+import { Inject, UseGuards } from '@nestjs/common'
 import { ClientGuard } from '../auth/client.guard'
 import { AuthUser } from '../auth/auth.decorator'
 import { UsersEntity } from '../users/entities/users.entity'
@@ -16,13 +16,15 @@ import {
 } from './dtos/get-one-order.dto'
 import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { AuthGuard } from '../auth/auth.guard'
+import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
-
-const pubSub = new PubSub()
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
-  constructor(private readonly orders: OrderService) {}
+  constructor(
+    private readonly orders: OrderService,
+    @Inject(PUB_SUB) private readonly pubSub: PubSub,
+  ) {}
 
   @UseGuards(ClientGuard)
   @Mutation((returns) => CreateOrderOutputDto)
@@ -63,7 +65,7 @@ export class OrderResolver {
   @UseGuards(AuthGuard)
   @Mutation((returns) => Boolean)
   addComment(@AuthUser() authUser: UsersEntity) {
-    pubSub.publish('commentAdded', {
+    this.pubSub.publish('commentAdded', {
       commentAdded: 'Hello',
     })
     return true
@@ -72,6 +74,6 @@ export class OrderResolver {
   @UseGuards(AuthGuard)
   @Subscription((returns) => String)
   commentAdded(@AuthUser() authUser: UsersEntity) {
-    return pubSub.asyncIterator('commentAdded')
+    return this.pubSub.asyncIterator('commentAdded')
   }
 }
