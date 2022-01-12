@@ -18,6 +18,7 @@ import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { AuthGuard } from '../auth/auth.guard'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
+import { NEW_ORDERS } from './constants'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -70,6 +71,6 @@ export class OrderResolver {
     },
   })
   waitingOrders() {
-    return this.pubSub.asyncIterator('new_orders')
+    return this.pubSub.asyncIterator(NEW_ORDERS)
   }
 }

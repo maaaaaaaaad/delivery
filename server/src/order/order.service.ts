@@ -19,6 +19,7 @@ import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { orderAccess } from './common/order-access'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
+import { NEW_ORDERS } from './constants'
 
 @Injectable()
 export class OrderService {
@@ -101,7 +102,7 @@ export class OrderService {
         }),
       )
 
-      await this.pubSub.publish('new_orders', {
+      await this.pubSub.publish(NEW_ORDERS, {
         waitingOrders: order,
       })
 
