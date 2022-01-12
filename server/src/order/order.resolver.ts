@@ -63,21 +63,13 @@ export class OrderResolver {
   }
 
   @UseGuards(AuthGuard)
-  @Mutation((returns) => Boolean)
-  async addComment(@Args('userId') userId: number) {
-    await this.pubSub.publish('test', {
-      commentAdded: userId,
-    })
-    return true
-  }
-
-  @UseGuards(AuthGuard)
-  @Subscription((returns) => String, {
-    filter: ({ commentAdded }, { subUserId }) => commentAdded === subUserId,
-    resolve: ({ commentAdded }) =>
-      `Ready to comment added user Id ${commentAdded}`,
+  @Subscription((returns) => OrderEntity, {
+    filter: (payload, variables, context) => {
+      console.log(payload, variables, context)
+      return true
+    },
   })
-  commentAdded(@Args('subUserId') subUserId: number) {
-    return this.pubSub.asyncIterator('test')
+  waitingOrders() {
+    return this.pubSub.asyncIterator('new_orders')
   }
 }

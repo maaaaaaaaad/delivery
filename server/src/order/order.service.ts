@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { OrderEntity } from './entites/order.entity'
 import { Repository } from 'typeorm'
@@ -17,6 +17,8 @@ import {
 } from './dtos/get-one-order.dto'
 import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { orderAccess } from './common/order-access'
+import { PUB_SUB } from '../common/common.constants'
+import { PubSub } from 'graphql-subscriptions'
 
 @Injectable()
 export class OrderService {
@@ -29,6 +31,7 @@ export class OrderService {
     private readonly orderItems: Repository<OrderItemEntity>,
     @InjectRepository(FoodEntity)
     private readonly foods: Repository<FoodEntity>,
+    @Inject(PUB_SUB) private readonly pubSub: PubSub,
   ) {}
 
   async createOrder(
@@ -89,7 +92,7 @@ export class OrderService {
         orderItemsArray.push(orderItem)
       }
 
-      await this.orders.save(
+      const order = await this.orders.save(
         await this.orders.create({
           consumer,
           store,
@@ -97,6 +100,10 @@ export class OrderService {
           orderItems: orderItemsArray,
         }),
       )
+
+      await this.pubSub.publish('new_orders', {
+        waitingOrders: order,
+      })
 
       return {
         access: true,
