@@ -103,7 +103,10 @@ export class OrderService {
       )
 
       await this.pubSub.publish(NEW_ORDERS, {
-        waitingOrders: order,
+        waitingOrders: {
+          order,
+          ownerId: store.ownerId,
+        },
       })
 
       return {
