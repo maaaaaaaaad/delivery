@@ -73,9 +73,9 @@ export class OrderResolver {
 
   @UseGuards(AuthGuard)
   @Subscription((returns) => String, {
-    filter: ({ commentAdded }, { subUserId }) => {
-      return commentAdded === subUserId
-    },
+    filter: ({ commentAdded }, { subUserId }) => commentAdded === subUserId,
+    resolve: ({ commentAdded }) =>
+      `Ready to comment added user Id ${commentAdded}`,
   })
   commentAdded(@Args('subUserId') subUserId: number) {
     return this.pubSub.asyncIterator('test')
