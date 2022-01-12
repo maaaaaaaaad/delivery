@@ -9,9 +9,11 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { StoreEntity } from './entities/store.entity'
 import { CategoryEntity } from './entities/category.entity'
 import { FoodEntity } from './entities/food.entity'
+import { UsersModule } from '../users/users.module'
 
 @Module({
   imports: [
+    UsersModule,
     TypeOrmModule.forFeature([StoreEntity, CategoryEntity, FoodEntity]),
   ],
   providers: [StoresService, StoresResolver, CategoryResolver, FoodResolver],

@@ -19,6 +19,7 @@ import { AuthGuard } from '../auth/auth.guard'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
 import { NEW_ORDERS } from './constants'
+import { OwnerGuard } from '../auth/owner.guard'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -63,7 +64,7 @@ export class OrderResolver {
     return await this.orders.editOrder(authUser, editOrderInputDto)
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(OwnerGuard)
   @Subscription((returns) => OrderEntity, {
     filter: (payload, variables, context) => {
       console.log(payload, variables, context)
