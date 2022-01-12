@@ -66,9 +66,8 @@ export class OrderResolver {
 
   @UseGuards(OwnerGuard)
   @Subscription((returns) => OrderEntity, {
-    filter: (payload, variables, context) => {
-      console.log(payload, variables, context)
-      return true
+    filter: ({ waitingOrders: { ownerId } }, _, { user }) => {
+      return ownerId === user.id
     },
   })
   waitingOrders() {
