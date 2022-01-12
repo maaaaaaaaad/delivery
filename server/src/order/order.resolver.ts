@@ -64,16 +64,20 @@ export class OrderResolver {
 
   @UseGuards(AuthGuard)
   @Mutation((returns) => Boolean)
-  addComment(@AuthUser() authUser: UsersEntity) {
-    this.pubSub.publish('commentAdded', {
-      commentAdded: 'Hello',
+  async addComment(@Args('userId') userId: number) {
+    await this.pubSub.publish('test', {
+      commentAdded: userId,
     })
     return true
   }
 
   @UseGuards(AuthGuard)
-  @Subscription((returns) => String)
-  commentAdded(@AuthUser() authUser: UsersEntity) {
-    return this.pubSub.asyncIterator('commentAdded')
+  @Subscription((returns) => String, {
+    filter: ({ commentAdded }, { subUserId }) => {
+      return commentAdded === subUserId
+    },
+  })
+  commentAdded(@Args('subUserId') subUserId: number) {
+    return this.pubSub.asyncIterator('test')
   }
 }
