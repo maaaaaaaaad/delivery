@@ -96,7 +96,6 @@ export class OrderResolver {
       ) {
         return false
       }
-      console.log(user)
       return updateOrder.id === id
     },
   })
