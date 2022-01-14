@@ -290,10 +290,12 @@ export class OrderService {
 
   async assignDriver(
     driver: UsersEntity,
-    { id }: AssignDriverInputDto,
+    { id: orderId }: AssignDriverInputDto,
   ): Promise<AssignDriverOutputDto> {
     try {
-      const order = await this.orders.findOne({ id: driver.id })
+      const order = await this.orders.findOne({ id: orderId })
+
+      console.log(order)
 
       if (!order) {
         return {
@@ -310,7 +312,7 @@ export class OrderService {
       }
 
       await this.orders.save({
-        id,
+        id: orderId,
         driver,
       })
 

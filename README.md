@@ -12,3 +12,4 @@
 - Auth: Json Web Token
 - CSS: tailwind css
 - Auth: JWT Module
+- Realtime: graphQl subscription(pub/sub)
