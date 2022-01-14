@@ -84,8 +84,20 @@ export class OrderResolver {
 
   @UseGuards(AuthGuard)
   @Subscription((returns) => OrderEntity, {
-    filter: ({ updateOrder: { id: orderId } }, { input: { id } }, { user }) => {
-      return orderId === id
+    filter: (
+      { updateOrder }: { updateOrder: OrderEntity },
+      { input: { id } },
+      { user }: { user: UsersEntity },
+    ) => {
+      if (
+        updateOrder.driverId !== user.id &&
+        updateOrder.consumerId !== user.id &&
+        updateOrder.store.ownerId !== user.id
+      ) {
+        return false
+      }
+      console.log(user)
+      return updateOrder.id === id
     },
   })
   updateOrder(@Args('input') updateOrderInputDto: UpdateOrderInputDto) {
