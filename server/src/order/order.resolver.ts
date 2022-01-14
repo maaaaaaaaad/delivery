@@ -18,8 +18,9 @@ import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { AuthGuard } from '../auth/auth.guard'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
-import { NEW_ORDERS } from './constants'
+import { NEW_MADE_ORDERS, NEW_ORDERS } from './constants'
 import { OwnerGuard } from '../auth/owner.guard'
+import { DriverGuard } from '../auth/driver.guard'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -72,5 +73,11 @@ export class OrderResolver {
   })
   waitingOrders() {
     return this.pubSub.asyncIterator(NEW_ORDERS)
+  }
+
+  @UseGuards(DriverGuard)
+  @Subscription((returns) => OrderEntity)
+  madeOrders() {
+    return this.pubSub.asyncIterator(NEW_MADE_ORDERS)
   }
 }

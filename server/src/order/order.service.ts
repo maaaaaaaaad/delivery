@@ -19,7 +19,7 @@ import { EditOrderInputDto, EditOrderOutputDto } from './dtos/edit.dto'
 import { orderAccess } from './common/order-access'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
-import { NEW_ORDERS } from './constants'
+import { NEW_MADE_ORDERS, NEW_ORDERS } from './constants'
 
 @Injectable()
 export class OrderService {
@@ -256,12 +256,21 @@ export class OrderService {
         }
       }
 
-      await this.orders.save([
-        {
-          id,
-          progress,
-        },
-      ])
+      await this.orders.save({
+        id,
+        progress,
+      })
+
+      if (authUser.role === 'owner') {
+        if (progress === 'Made') {
+          await this.pubSub.publish(NEW_MADE_ORDERS, {
+            madeOrders: {
+              ...order,
+              progress,
+            },
+          })
+        }
+      }
 
       return {
         access: true,

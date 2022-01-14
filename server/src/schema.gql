@@ -330,6 +330,7 @@ type StoreEntity {
 }
 
 type Subscription {
+  madeOrders: OrderEntity!
   waitingOrders: OrderEntity!
 }
 
