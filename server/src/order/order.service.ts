@@ -20,6 +20,10 @@ import { orderAccess } from './common/order-access'
 import { PUB_SUB } from '../common/common.constants'
 import { PubSub } from 'graphql-subscriptions'
 import { NEW_MADE_ORDERS, NEW_ORDERS, NEW_ORDERS_UPDATE } from './constants'
+import {
+  AssignDriverInputDto,
+  AssignDriverOutputDto,
+} from './dtos/assign-driver.dto'
 
 @Injectable()
 export class OrderService {
@@ -271,6 +275,47 @@ export class OrderService {
 
       await this.pubSub.publish(NEW_ORDERS_UPDATE, {
         updateOrder: newOrder,
+      })
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async assignDriver(
+    driver: UsersEntity,
+    { id }: AssignDriverInputDto,
+  ): Promise<AssignDriverOutputDto> {
+    try {
+      const order = await this.orders.findOne({ id: driver.id })
+
+      if (!order) {
+        return {
+          access: false,
+          errorMessage: 'Not found this order',
+        }
+      }
+
+      if (order.driver) {
+        return {
+          access: false,
+          errorMessage: 'Already to assign driver',
+        }
+      }
+
+      await this.orders.save({
+        id,
+        driver,
+      })
+
+      await this.pubSub.publish(NEW_ORDERS_UPDATE, {
+        updateOrder: { ...order, driver },
       })
 
       return {

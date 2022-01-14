@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AssignDriverInputDto {
+  id: Float!
+}
+
+type AssignDriverOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 type CategoryEntity {
   coverImage: String
   createAt: DateTime!
@@ -245,6 +254,7 @@ type LoginOutputDto {
 }
 
 type Mutation {
+  assignDriver(input: AssignDriverInputDto!): AssignDriverOutputDto!
   checkAccountId(input: String!): Boolean!
   checkEmail(input: String!): Boolean!
   checkNickname(input: String!): Boolean!

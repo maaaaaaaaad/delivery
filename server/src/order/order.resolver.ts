@@ -22,6 +22,10 @@ import { NEW_MADE_ORDERS, NEW_ORDERS, NEW_ORDERS_UPDATE } from './constants'
 import { OwnerGuard } from '../auth/owner.guard'
 import { DriverGuard } from '../auth/driver.guard'
 import { UpdateOrderInputDto } from './dtos/update.dto'
+import {
+  AssignDriverInputDto,
+  AssignDriverOutputDto,
+} from './dtos/assign-driver.dto'
 
 @Resolver((of) => OrderEntity)
 export class OrderResolver {
@@ -101,5 +105,14 @@ export class OrderResolver {
   })
   updateOrder(@Args('input') updateOrderInputDto: UpdateOrderInputDto) {
     return this.pubSub.asyncIterator(NEW_ORDERS_UPDATE)
+  }
+
+  @UseGuards(DriverGuard)
+  @Mutation((returns) => AssignDriverOutputDto)
+  async assignDriver(
+    @AuthUser() driver: UsersEntity,
+    @Args('input') assignDriverInputDto: AssignDriverInputDto,
+  ): Promise<AssignDriverOutputDto> {
+    return await this.orders.assignDriver(driver, assignDriverInputDto)
   }
 }
