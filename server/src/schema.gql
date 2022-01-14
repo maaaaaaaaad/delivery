@@ -331,7 +331,12 @@ type StoreEntity {
 
 type Subscription {
   madeOrders: OrderEntity!
+  updateOrder(input: UpdateOrderInputDto!): OrderEntity!
   waitingOrders: OrderEntity!
+}
+
+input UpdateOrderInputDto {
+  id: Float!
 }
 
 """The `Upload` scalar type represents a file upload."""
