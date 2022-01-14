@@ -83,7 +83,11 @@ export class OrderResolver {
   }
 
   @UseGuards(AuthGuard)
-  @Subscription((returns) => OrderEntity)
+  @Subscription((returns) => OrderEntity, {
+    filter: ({ updateOrder: { id: orderId } }, { input: { id } }, { user }) => {
+      return orderId === id
+    },
+  })
   updateOrder(@Args('input') updateOrderInputDto: UpdateOrderInputDto) {
     return this.pubSub.asyncIterator(NEW_ORDERS_UPDATE)
   }
