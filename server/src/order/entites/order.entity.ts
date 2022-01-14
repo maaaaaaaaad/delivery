@@ -21,6 +21,7 @@ export class OrderEntity extends RequiredEntity {
   @ManyToOne((type) => UsersEntity, (user) => user.orders, {
     onDelete: 'SET NULL',
     nullable: true,
+    eager: true,
   })
   @Field((returns) => UsersEntity, { nullable: true })
   consumer?: UsersEntity
@@ -28,6 +29,7 @@ export class OrderEntity extends RequiredEntity {
   @ManyToOne((type) => UsersEntity, (user) => user.drivers, {
     onDelete: 'SET NULL',
     nullable: true,
+    eager: true,
   })
   @Field((returns) => UsersEntity, { nullable: true })
   driver?: UsersEntity
@@ -35,11 +37,12 @@ export class OrderEntity extends RequiredEntity {
   @ManyToOne((type) => StoreEntity, (store) => store.orders, {
     onDelete: 'SET NULL',
     nullable: true,
+    eager: true,
   })
   @Field((returns) => StoreEntity, { nullable: true })
   store?: StoreEntity
 
-  @ManyToMany((type) => OrderItemEntity)
+  @ManyToMany((type) => OrderItemEntity, { eager: true })
   @Field((returns) => [OrderItemEntity])
   @JoinTable()
   orderItems: OrderItemEntity[]
