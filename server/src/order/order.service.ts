@@ -295,8 +295,6 @@ export class OrderService {
     try {
       const order = await this.orders.findOne({ id: orderId })
 
-      console.log(order)
-
       if (!order) {
         return {
           access: false,
@@ -307,7 +305,7 @@ export class OrderService {
       if (order.driver) {
         return {
           access: false,
-          errorMessage: 'Already to assign driver',
+          errorMessage: 'This order has exist driver',
         }
       }
 
