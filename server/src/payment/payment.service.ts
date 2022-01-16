@@ -8,6 +8,7 @@ import {
 } from './dtos/create.dto'
 import { UsersEntity } from '../users/entities/users.entity'
 import { StoreEntity } from '../stores/entities/store.entity'
+import { GetAllPaymentOutputDto } from './dtos/get-all-payment.dto'
 
 @Injectable()
 export class PaymentService {
@@ -50,6 +51,18 @@ export class PaymentService {
       return {
         access: true,
       }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getAllPayment(owner: UsersEntity): Promise<GetAllPaymentOutputDto> {
+    try {
+      const payments = await this.payments.find({ user: owner })
+
     } catch (e) {
       return {
         access: false,

@@ -206,6 +206,12 @@ type GetAllOrderOutputDto {
   orders: [OrderEntity!]
 }
 
+type GetAllPaymentOutputDto {
+  access: Boolean!
+  errorMessage: String
+  payments: [PaymentEntity!]
+}
+
 input GetAllStoreInputDto {
   page: Float = 1
 }
@@ -326,6 +332,7 @@ type PaymentEntity {
 type Query {
   getAllCategories: GetAllCategoryOutputDto!
   getAllOrder(input: GetAllOrderInputDto!): GetAllOrderOutputDto!
+  getAllPayment: GetAllPaymentOutputDto!
   getAllStore(input: GetAllStoreInputDto!): GetAllStoreOutputDto!
   getOneCategory(input: GetOneCategoryInputDto!): GetOneCategoryOutputDto!
   getOneOrder(input: GetOneOrderInputDto!): GetOneOrderOutputDto!
