@@ -9,6 +9,7 @@ import {
 import { UsersEntity } from '../users/entities/users.entity'
 import { StoreEntity } from '../stores/entities/store.entity'
 import { GetAllPaymentOutputDto } from './dtos/get-all-payment.dto'
+import { BASIC_PROMOTION_7 } from './constants/promotion_list'
 
 @Injectable()
 export class PaymentService {
@@ -47,6 +48,13 @@ export class PaymentService {
           store,
         }),
       )
+
+      const date = new Date()
+      date.setDate(date.getDate() + BASIC_PROMOTION_7)
+      store.isPromotion = true
+      store.promotionPeriod = date
+
+      await this.stores.save(store)
 
       return {
         access: true,
