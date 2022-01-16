@@ -365,7 +365,7 @@ type StoreEntity {
   name: String!
   orders: [OrderEntity!]!
   owner: UsersEntity!
-  promotionPeriod: DateTime!
+  promotionPeriod: DateTime
   updateAt: DateTime!
 }
 

@@ -53,6 +53,6 @@ export class StoreEntity extends RequiredEntity {
   isPromotion: boolean
 
   @Column({ nullable: true })
-  @Field((returns) => Date)
+  @Field((returns) => Date, { nullable: true })
   promotionPeriod: Date
 }

@@ -174,6 +174,9 @@ export class StoresService {
       const [stores, storeCount] = await this.stores.findAndCount({
         take: 10,
         skip: (page - 1) * 10,
+        order: {
+          isPromotion: 'DESC',
+        },
       })
 
       return {
