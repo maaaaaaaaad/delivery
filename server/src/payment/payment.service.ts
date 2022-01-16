@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { PaymentEntity } from './entites/payment.entity'
-import { Repository } from 'typeorm'
+import { LessThan, Repository } from 'typeorm'
 import {
   CreatePaymentInputDto,
   CreatePaymentOutputDto,
@@ -10,6 +10,7 @@ import { UsersEntity } from '../users/entities/users.entity'
 import { StoreEntity } from '../stores/entities/store.entity'
 import { GetAllPaymentOutputDto } from './dtos/get-all-payment.dto'
 import { BASIC_PROMOTION_7 } from './constants/promotion_list'
+import { Cron } from '@nestjs/schedule'
 
 @Injectable()
 export class PaymentService {
@@ -80,6 +81,24 @@ export class PaymentService {
         access: false,
         errorMessage: e.message,
       }
+    }
+  }
+
+  @Cron('0 0 0 * * *')
+  async checkPromotionStore() {
+    try {
+      const stores = await this.stores.find({
+        isPromotion: true,
+        promotionPeriod: LessThan(new Date()),
+      })
+
+      for (const store of stores) {
+        store.isPromotion = false
+        store.promotionPeriod = null
+        await this.stores.save(store)
+      }
+    } catch (e) {
+      return e.message
     }
   }
 }
