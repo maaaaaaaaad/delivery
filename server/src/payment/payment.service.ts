@@ -63,6 +63,10 @@ export class PaymentService {
     try {
       const payments = await this.payments.find({ user: owner })
 
+      return {
+        access: true,
+        payments,
+      }
     } catch (e) {
       return {
         access: false,
