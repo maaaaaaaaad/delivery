@@ -64,7 +64,7 @@ type CreateOutputDto {
 }
 
 input CreatePaymentInputDto {
-  dealId: Float!
+  dealId: String!
   storeId: Float!
 }
 
@@ -315,7 +315,7 @@ input OrderItemOptionsType {
 
 type PaymentEntity {
   createAt: DateTime!
-  dealId: Float!
+  dealId: String!
   id: Float!
   store: StoreEntity!
   storeId: Float!

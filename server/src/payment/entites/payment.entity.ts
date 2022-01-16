@@ -9,8 +9,8 @@ import { StoreEntity } from '../../stores/entities/store.entity'
 @Entity()
 export class PaymentEntity extends RequiredEntity {
   @Column()
-  @Field((returns) => Number)
-  dealId: number
+  @Field((returns) => String)
+  dealId: string
 
   @ManyToOne((type) => UsersEntity, (user) => user.payments)
   @Field((returns) => UsersEntity)
