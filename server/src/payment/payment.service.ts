@@ -2,11 +2,59 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { PaymentEntity } from './entites/payment.entity'
 import { Repository } from 'typeorm'
+import {
+  CreatePaymentInputDto,
+  CreatePaymentOutputDto,
+} from './dtos/create.dto'
+import { UsersEntity } from '../users/entities/users.entity'
+import { StoreEntity } from '../stores/entities/store.entity'
 
 @Injectable()
 export class PaymentService {
   constructor(
     @InjectRepository(PaymentEntity)
-    private readonly payment: Repository<PaymentEntity>,
+    private readonly payments: Repository<PaymentEntity>,
+    @InjectRepository(StoreEntity)
+    private readonly stores: Repository<StoreEntity>,
   ) {}
+
+  async createPayment(
+    owner: UsersEntity,
+    { dealId, storeId }: CreatePaymentInputDto,
+  ): Promise<CreatePaymentOutputDto> {
+    try {
+      const store = await this.stores.findOne({ id: storeId })
+
+      if (!store) {
+        return {
+          access: false,
+          errorMessage: 'Not found this store',
+        }
+      }
+
+      if (store.ownerId !== owner.id) {
+        return {
+          access: false,
+          errorMessage: 'No match primary key',
+        }
+      }
+
+      await this.payments.save(
+        await this.payments.create({
+          dealId,
+          user: owner,
+          store,
+        }),
+      )
+
+      return {
+        access: true,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
 }

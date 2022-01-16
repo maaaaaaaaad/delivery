@@ -63,6 +63,16 @@ type CreateOutputDto {
   errorMessage: String
 }
 
+input CreatePaymentInputDto {
+  dealId: Float!
+  storeId: Float!
+}
+
+type CreatePaymentOutputDto {
+  access: Boolean!
+  errorMessage: String
+}
+
 input CreateStoreInputDto {
   address: String!
   categoryName: String!
@@ -261,6 +271,7 @@ type Mutation {
   createAccount(input: CreateInputDto!): CreateOutputDto!
   createFood(input: CreateFoodInputDto!): CreateFoodOutputDto!
   createOrder(input: CreateOrderInputDto!): CreateOrderOutputDto!
+  createPayment(input: CreatePaymentInputDto!): CreatePaymentOutputDto!
   createStore(input: CreateStoreInputDto!): CreateStoreOutputDto!
   deleteFood(input: DeleteFoodInputDto!): DeleteFoodOutputDto!
   deleteStore(input: DeleteStoreInputDto!): DeleteStoreOutputDto!
