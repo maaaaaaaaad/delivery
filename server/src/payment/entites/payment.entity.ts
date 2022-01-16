@@ -16,10 +16,14 @@ export class PaymentEntity extends RequiredEntity {
   @Field((returns) => UsersEntity)
   user: UsersEntity
 
-  @RelationId((order: PaymentEntity) => order.user)
+  @RelationId((payment: PaymentEntity) => payment.user)
   userId: number
 
   @ManyToOne((type) => StoreEntity)
   @Field((returns) => StoreEntity)
   store: StoreEntity
+
+  @RelationId((payment: PaymentEntity) => payment.store)
+  @Field((returns) => Number)
+  storeId: number
 }
