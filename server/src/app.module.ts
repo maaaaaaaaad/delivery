@@ -13,8 +13,9 @@ import { FoodEntity } from './stores/entities/food.entity'
 import { OrderModule } from './order/order.module'
 import { OrderEntity } from './order/entites/order.entity'
 import { OrderItemEntity } from './order/entites/item.entity'
-import { CommonModule } from './common/common.module';
-import { PaymentModule } from './payment/payment.module';
+import { CommonModule } from './common/common.module'
+import { PaymentModule } from './payment/payment.module'
+import { PaymentEntity } from './payment/entites/payment.entity'
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { PaymentModule } from './payment/payment.module';
         FoodEntity,
         OrderEntity,
         OrderItemEntity,
+        PaymentEntity,
       ],
     }),
     GraphQLModule.forRoot({

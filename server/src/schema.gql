@@ -302,6 +302,15 @@ input OrderItemOptionsType {
   subject: String!
 }
 
+type PaymentEntity {
+  createAt: DateTime!
+  dealId: Float!
+  id: Float!
+  store: StoreEntity!
+  updateAt: DateTime!
+  user: UsersEntity!
+}
+
 type Query {
   getAllCategories: GetAllCategoryOutputDto!
   getAllOrder(input: GetAllOrderInputDto!): GetAllOrderOutputDto!
@@ -361,6 +370,7 @@ type UsersEntity {
   nickname: String!
   orders: [OrderEntity!]!
   password: String!
+  payments: [PaymentEntity!]!
   role: String!
   stores: [StoreEntity!]!
   updateAt: DateTime!
