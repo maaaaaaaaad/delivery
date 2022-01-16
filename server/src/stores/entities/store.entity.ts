@@ -47,4 +47,12 @@ export class StoreEntity extends RequiredEntity {
   @OneToMany((type) => OrderEntity, (order) => order.store)
   @Field((returns) => [OrderEntity])
   orders: OrderEntity[]
+
+  @Column({ default: false })
+  @Field((returns) => Boolean)
+  isPromotion: boolean
+
+  @Column({ nullable: true })
+  @Field((returns) => Date)
+  promotionPeriod: Date
 }

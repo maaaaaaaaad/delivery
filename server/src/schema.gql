@@ -360,10 +360,12 @@ type StoreEntity {
   coverImage: String
   createAt: DateTime!
   id: Float!
+  isPromotion: Boolean!
   menu: [FoodEntity!]!
   name: String!
   orders: [OrderEntity!]!
   owner: UsersEntity!
+  promotionPeriod: DateTime!
   updateAt: DateTime!
 }
 
