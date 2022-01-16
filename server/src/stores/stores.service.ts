@@ -211,6 +211,9 @@ export class StoresService {
         where: { category },
         take: 10,
         skip: (page - 1) * 10,
+        order: {
+          isPromotion: 'DESC',
+        },
       })
 
       const storeCount = await this.storeCount(category)
