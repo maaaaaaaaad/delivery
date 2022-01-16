@@ -14,6 +14,7 @@ import { OrderModule } from './order/order.module'
 import { OrderEntity } from './order/entites/order.entity'
 import { OrderItemEntity } from './order/entites/item.entity'
 import { CommonModule } from './common/common.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { CommonModule } from './common/common.module';
     StoresModule,
     OrderModule,
     CommonModule,
+    PaymentModule,
   ],
   controllers: [],
   providers: [],

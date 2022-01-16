@@ -7,6 +7,7 @@ import { InternalServerErrorException } from '@nestjs/common'
 import * as bcrypt from 'bcrypt'
 import { StoreEntity } from '../../stores/entities/store.entity'
 import { OrderEntity } from '../../order/entites/order.entity'
+import { PaymentEntity } from '../../payment/entites/payment.entity'
 
 @InputType('UserInputEntity', { isAbstract: true })
 @ObjectType()
@@ -40,13 +41,17 @@ export class UsersEntity extends RequiredEntity {
   @Field((type) => [StoreEntity])
   stores: StoreEntity[]
 
-  @OneToMany((type) => OrderEntity, (order) => order.consumer)
-  @Field((returns) => [OrderEntity])
-  orders: OrderEntity[]
+  @OneToMany((type) => PaymentEntity, (payment) => payment.user)
+  @Field((returns) => [PaymentEntity])
+  payments: PaymentEntity[]
 
   @OneToMany((type) => OrderEntity, (order) => order.driver)
   @Field((returns) => [OrderEntity])
   drivers: OrderEntity[]
+
+  @OneToMany((type) => OrderEntity, (order) => order.consumer)
+  @Field((returns) => [OrderEntity])
+  orders: OrderEntity[]
 
   @BeforeInsert()
   @BeforeUpdate()
