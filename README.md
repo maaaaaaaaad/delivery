@@ -11,5 +11,5 @@
 - State Management: apollo client
 - Auth: Json Web Token
 - CSS: tailwind css
-- Auth: JWT Module
 - Realtime: graphQl subscription(pub/sub)
+- Utils: node.js-cron react-snackbar paddle(payment)

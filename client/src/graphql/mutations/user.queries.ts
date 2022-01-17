@@ -12,3 +12,32 @@ export const USER_STATE = gql`
     }
   }
 `
+
+export const GET_ALL_CATEGORIES_STORES = gql`
+  query getAllCategories($page: Int!) {
+    getAllCategories {
+      access
+      errorMessage
+      categories {
+        id
+        name
+        coverImage
+        storeCount
+      }
+    }
+    getAllStore(input: { page: $page }) {
+      access
+      errorMessage
+      resultCount
+      totalPages
+      stores {
+        id
+        name
+        address
+        category
+        coverImage
+        isPromotion
+      }
+    }
+  }
+`
