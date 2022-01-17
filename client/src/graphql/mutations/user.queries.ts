@@ -36,6 +36,9 @@ export const GET_ALL_CATEGORIES_STORES = gql`
         address
         coverImage
         isPromotion
+        category {
+          name
+        }
       }
     }
   }

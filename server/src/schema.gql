@@ -356,7 +356,7 @@ type SearchStoreOutputDto {
 
 type StoreEntity {
   address: String!
-  category: String!
+  category: CategoryEntity!
   coverImage: String
   createAt: DateTime!
   id: Float!

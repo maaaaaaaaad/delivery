@@ -25,7 +25,7 @@ export class StoreEntity extends RequiredEntity {
     onDelete: 'SET NULL',
     eager: true,
   })
-  @Field((type) => String)
+  @Field((type) => CategoryEntity)
   category: CategoryEntity
 
   @Column({ nullable: true })
