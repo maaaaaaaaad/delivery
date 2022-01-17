@@ -2,8 +2,18 @@ import React, { useState } from 'react'
 import JoinModal from '../modals/Join.modal'
 import { isLoggedInVar, me } from '../apollo'
 import { Link } from 'react-router-dom'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_CATEGORIES_STORES } from '../graphql/mutations/user.queries'
 
 const IntroSection = () => {
+  const { data, loading, error } = useQuery(GET_ALL_CATEGORIES_STORES, {
+    variables: {
+      input: { page: 1 },
+    },
+  })
+
+  !loading && console.log(data)
+
   const [onModal, setOnModal] = useState<boolean>(false)
 
   const onOpenSignModal = () => {

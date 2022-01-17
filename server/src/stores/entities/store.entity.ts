@@ -23,6 +23,7 @@ export class StoreEntity extends RequiredEntity {
 
   @ManyToOne((type) => CategoryEntity, (category) => category.store, {
     onDelete: 'SET NULL',
+    eager: true,
   })
   @Field((type) => String)
   category: CategoryEntity

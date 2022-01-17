@@ -14,7 +14,7 @@ export const USER_STATE = gql`
 `
 
 export const GET_ALL_CATEGORIES_STORES = gql`
-  query getAllCategories($page: Int!) {
+  query getAllCategoriesAndStores($page: Float) {
     getAllCategories {
       access
       errorMessage
@@ -28,13 +28,12 @@ export const GET_ALL_CATEGORIES_STORES = gql`
     getAllStore(input: { page: $page }) {
       access
       errorMessage
-      resultCount
       totalPages
+      resultCount
       stores {
         id
         name
         address
-        category
         coverImage
         isPromotion
       }
