@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { IUser } from '../common/interfaces/entites.interface'
 import { useMutation } from '@apollo/client'
 import { CreateAccountOutput } from '../graphql/interfaces/output.interface'
-import { CREATE_ACCOUNT } from '../graphql/mutations/user.mutation'
+import { CREATE_ACCOUNT } from '../graphql/mutations/mutations'
 import { useSnackbar } from 'notistack'
 import { SUCCESS_SIGN_UP } from '../common/constatns'
 

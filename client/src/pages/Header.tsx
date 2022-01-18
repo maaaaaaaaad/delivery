@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Search from '../components/search/Search'
 import { useQuery } from '@apollo/client'
-import { GET_ALL_CATEGORIES } from '../graphql/mutations/user.queries'
+import { GET_ALL_CATEGORIES } from '../graphql/queries/queries'
 import { GetAllCategories } from '../graphql/interfaces/output.interface'
 import Categories from '../components/categories/Categories'
 
