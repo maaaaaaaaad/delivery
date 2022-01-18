@@ -21,12 +21,10 @@ const ConfirmLogOut: React.FC<ConfirmProp> = ({ title, onModal }) => {
   }
 
   return (
-    <section className="bg-black h-screen w-full center z-50">
-      <div className="w-1/3 h-1/4 center flex-col">
+    <section className="profile h-screen w-full center z-50">
+      <div className="overlay w-full center flex-col">
         <p className="p-5">
-          <span className="text-4xl text-green-500 tracking-widest">
-            {title}
-          </span>
+          <span className="text-4xl text-white tracking-widest">{title}</span>
         </p>
         <div>
           <button onClick={onSignOK} className="utilBtn">

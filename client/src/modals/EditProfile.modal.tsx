@@ -66,10 +66,10 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
   }
 
   return (
-    <section className="bg-black h-screen w-full center">
-      <div className="w-1/2 h-1/2 bg-white center flex-col rounded-2xl">
+    <section className="profile h-screen w-full center">
+      <div className="overlay w-full center flex-col rounded-2xl">
         <h1 className="font-bold text-green-500 text-4xl">
-          DELIVER <span className="text-black text-2xl">EDIT PROFILE</span>
+          DELIVER <span className="text-white text-2xl">EDIT PROFILE</span>
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
           <div className="w-full">

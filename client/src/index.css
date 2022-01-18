@@ -76,6 +76,17 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
+.profile {
+  height: 100vh;
+  background: url('https://img.freepik.com/free-vector/delivery-man-driving-on-the-way_56104-669.jpg?size=626&ext=jpg')
+    no-repeat center/cover;
+}
+
+.profile .overlay {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 .router-link {
   @apply text-3xl;
 }

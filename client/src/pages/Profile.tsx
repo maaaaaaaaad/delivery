@@ -44,8 +44,8 @@ const Profile = () => {
           {modal ? (
             <ConfirmLogOut title={'Confirm Log out!'} onModal={onModal} />
           ) : (
-            <section className="bg-black text-white h-screen center flex-col">
-              <div className="center">
+            <section className="profile w-full text-white h-screen center flex-col">
+              <div className="center overlay w-full">
                 <Avatar image={defaultAvatar} title={'default-avatar-image'} />
                 <div className="p-5">
                   <p className="text-4xl font-bold pb-5">

@@ -15,12 +15,12 @@ const IntroSection = () => {
       {onModal && <JoinModal onOpenSignModal={onOpenSignModal} />}
       <div className="overlay center">
         <div className="center flex-col">
-          <h1 className="text-5xl font-bold mb-5">
+          <div className="text-5xl font-bold mb-5">
             <span className="text-green-500 font">DELIVERY</span>
             <span className="text-3xl ml-3">by MAD</span>
-          </h1>
+          </div>
 
-          <div className="m-5">
+          <div>
             {isLoggedInVar() && me() ? (
               <div>
                 <Link
