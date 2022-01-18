@@ -1,7 +1,7 @@
 import React from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
-import { User } from '../common/interfaces/user.interface'
+import { IUser } from '../common/interfaces/entites.interface'
 import { useMutation } from '@apollo/client'
 import { LOGIN_ACCOUNT } from '../graphql/mutations/user.mutation'
 import { LoginAccountOutput } from '../graphql/interfaces/output.interface'
@@ -9,7 +9,7 @@ import { isLoggedInVar, me } from '../apollo'
 import { ACCESS_TOKEN, SUCCESS_SIGN_IN } from '../common/constatns'
 import { useSnackbar } from 'notistack'
 
-interface SignInInputForm extends Pick<User, 'accountId' | 'password'> {}
+interface SignInInputForm extends Pick<IUser, 'accountId' | 'password'> {}
 
 interface OnModalProp {
   onOpenSignModal: () => void

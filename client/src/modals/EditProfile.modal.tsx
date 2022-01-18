@@ -1,7 +1,7 @@
 import React from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
-import { User } from '../common/interfaces/user.interface'
+import { IUser } from '../common/interfaces/entites.interface'
 import { useMutation } from '@apollo/client'
 import { EDIT_PROFILE } from '../graphql/mutations/user.mutation'
 import { EditProfileOutput } from '../graphql/interfaces/output.interface'
@@ -10,7 +10,7 @@ import { useSnackbar } from 'notistack'
 import { FAIL_EDIT_PROFILE, SUCCESS_EDIT_PROFILE } from '../common/constatns'
 
 interface EditProfileInputForm
-  extends Pick<User, 'password' | 'email' | 'nickname'> {
+  extends Pick<IUser, 'password' | 'email' | 'nickname'> {
   confirmPassword: string
 }
 

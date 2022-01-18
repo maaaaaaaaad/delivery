@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_CATEGORIES_STORES } from '../graphql/mutations/user.queries'
 import StoresSlider from '../components/slider/stores.slider'
+import { IStore } from '../common/interfaces/entites.interface'
 
 const IntroSection = () => {
   const { data, loading, error } = useQuery(GET_ALL_CATEGORIES_STORES, {
@@ -26,7 +27,7 @@ const IntroSection = () => {
         <div>
           {!loading && !error && data && (
             <section className="center">
-              {data.getAllStore.stores.map((store: any) => (
+              {data.getAllStore.stores.map((store: IStore) => (
                 <StoresSlider key={store.id} store={store} />
               ))}
             </section>

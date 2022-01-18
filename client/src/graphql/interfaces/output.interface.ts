@@ -1,5 +1,5 @@
 import { CommonOutput } from '../../common/interfaces/commonOutput.interface'
-import { User } from '../../common/interfaces/user.interface'
+import { IUser } from '../../common/interfaces/entites.interface'
 
 export interface CreateAccountOutput {
   createAccount: CommonOutput
@@ -10,7 +10,7 @@ export interface LoginAccountOutput {
 }
 
 export interface UserStateOutput {
-  userState: Omit<User, 'password'>
+  userState: Omit<IUser, 'password'>
 }
 
 export interface EditProfileOutput {

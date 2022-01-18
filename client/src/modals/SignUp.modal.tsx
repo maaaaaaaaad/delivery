@@ -1,7 +1,7 @@
 import React from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
-import { User } from '../common/interfaces/user.interface'
+import { IUser } from '../common/interfaces/entites.interface'
 import { useMutation } from '@apollo/client'
 import { CreateAccountOutput } from '../graphql/interfaces/output.interface'
 import { CREATE_ACCOUNT } from '../graphql/mutations/user.mutation'
@@ -12,7 +12,7 @@ interface ChangeFormProp {
   onChangeForm: () => void
 }
 
-interface SignUpInputForm extends User {
+interface SignUpInputForm extends IUser {
   confirmPassword: string
 }
 
