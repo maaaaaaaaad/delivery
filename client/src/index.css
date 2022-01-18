@@ -45,7 +45,8 @@
 
 .intro {
   height: 100vh;
-  background: url('./images/test.jpeg') no-repeat center/cover;
+  background: url('https://rightoncorpus.com/wp-content/uploads/2018/12/Food-Delivery-App.jpg')
+    no-repeat center/cover;
 }
 
 .intro .overlay {
@@ -55,10 +56,22 @@
 
 .second {
   height: 100vh;
-  background: url('./images/secondCover.jpeg') no-repeat center/cover;
+  background: url('https://www.institutoqualibest.com/wp-content/uploads/2019/01/background-delivery-1200x900.jpg')
+    no-repeat center/cover;
 }
 
 .second .overlay {
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.footer {
+  height: 100vh;
+  background: url('https://conteudo.solutudo.com.br/wp-content/uploads/2020/03/delivery-significado-1.jpg')
+    no-repeat center/cover;
+}
+
+.footer .overlay {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
