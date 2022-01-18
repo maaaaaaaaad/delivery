@@ -13,6 +13,21 @@ export const USER_STATE = gql`
   }
 `
 
+export const GET_ALL_CATEGORIES = gql`
+  query getAllCategories {
+    getAllCategories {
+      access
+      errorMessage
+      categories {
+        id
+        name
+        coverImage
+        storeCount
+      }
+    }
+  }
+`
+
 export const GET_ALL_CATEGORIES_STORES = gql`
   query getAllCategoriesAndStores($page: Float) {
     getAllCategories {

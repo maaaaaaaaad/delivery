@@ -1,5 +1,5 @@
 import { CommonOutput } from '../../common/interfaces/commonOutput.interface'
-import { IUser } from '../../common/interfaces/entites.interface'
+import { ICategories, IUser } from '../../common/interfaces/entites.interface'
 
 export interface CreateAccountOutput {
   createAccount: CommonOutput
@@ -15,4 +15,8 @@ export interface UserStateOutput {
 
 export interface EditProfileOutput {
   editProfile: CommonOutput
+}
+
+export interface GetAllCategories {
+  getAllCategories: ICategories
 }

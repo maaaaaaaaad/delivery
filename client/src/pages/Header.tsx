@@ -1,24 +1,38 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Search from '../components/search/Search'
+import { useQuery } from '@apollo/client'
+import { GET_ALL_CATEGORIES } from '../graphql/mutations/user.queries'
+import { GetAllCategories } from '../graphql/interfaces/output.interface'
+import Categories from '../components/categories/Categories'
 
 const Header = () => {
   const router = useNavigate()
 
-  const onClick = () => {
+  const onClickGoHome = () => {
     router('/')
   }
 
+  const { data, loading, error } =
+    useQuery<GetAllCategories>(GET_ALL_CATEGORIES)
+
   return (
     <>
-      <header className="flex justify-between px-5 py-3 absolute w-full text-white">
+      <header className="flex justify-between px-5 py-3 absolute w-full text-white font">
         <div className="logo center">
           <h2 className="text-4xl">
-            <button onClick={onClick}>HOME</button>
+            <button onClick={onClickGoHome}>HOME</button>
           </h2>
           <div className="ml-5">
             <Search />
           </div>
+          {!loading && !error && data && (
+            <div className="ml-5 center">
+              {data.getAllCategories.categories.map((category) => {
+                return <Categories key={category.id} category={category} />
+              })}
+            </div>
+          )}
         </div>
 
         <nav>

@@ -8,15 +8,21 @@ export interface IUser extends ICommon {
   role: string
 }
 
-export interface ICategory extends ICommon {
+export interface Category extends ICommon {
   name: string
   coverImage: string
+  storeCount: number
+  store: IStore[]
+}
+
+export interface ICategories extends ICommon {
+  categories: Category[]
 }
 
 export interface IStore extends ICommon {
   name: string
   address: string
-  category: ICategory
+  category: ICategories
   coverImage: string
   isPromotion: boolean
   promotionPeriod: String
