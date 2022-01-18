@@ -10,7 +10,7 @@ export interface LoginAccountOutput {
 }
 
 export interface UserStateOutput {
-  userState: Omit<IUser, 'password'>
+  userState: Omit<IUser, 'id' | 'password'>
 }
 
 export interface EditProfileOutput {
