@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import Search from '../components/search/Search'
 
 const Header = () => {
   const router = useNavigate()
@@ -11,10 +12,13 @@ const Header = () => {
   return (
     <>
       <header className="flex justify-between px-5 py-3 absolute w-full text-white">
-        <div className="logo">
+        <div className="logo center">
           <h2 className="text-4xl">
             <button onClick={onClick}>HOME</button>
           </h2>
+          <div className="ml-5">
+            <Search />
+          </div>
         </div>
 
         <nav>

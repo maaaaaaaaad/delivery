@@ -29,10 +29,6 @@ const IntroSection = () => {
         </h1>
 
         <div className="m-5">
-          <Search />
-        </div>
-
-        <div className="m-5">
           {isLoggedInVar() && me() ? (
             <div>
               <Link
