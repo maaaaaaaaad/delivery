@@ -20,7 +20,7 @@ const Header = () => {
         <nav>
           <ul className="flex">
             <li className="mr-5 router-link">
-              <Link to="/">Lorem1</Link>
+              <Link to="/stores">STORES</Link>
             </li>
             <li className="mr-5 router-link">
               <Link to="/">Lorem2</Link>
