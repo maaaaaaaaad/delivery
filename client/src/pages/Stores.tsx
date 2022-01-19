@@ -1,31 +1,19 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import Empty from '../components/block/empty'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_STORES } from '../graphql/queries/queries'
 import { GetAllStores } from '../graphql/interfaces/output.interface'
 import { IStore } from '../common/interfaces/entites.interface'
+import { DEFAULT_STORE_IMAGE, HELMET_TITLE } from '../common/constatns'
 
 const Stores = () => {
-  const [page, setPage] = useState<number>(1)
-
-  const { data, loading, error, fetchMore } = useQuery<GetAllStores>(
-    GET_ALL_STORES,
-    {
-      variables: {
-        input: {
-          page: 1,
-        },
-      },
-    },
-  )
-
-  const onNextPageClick = () => setPage((current) => current + 1)
+  const { data, loading, error } = useQuery<GetAllStores>(GET_ALL_STORES)
 
   return (
     <section className="p-5">
       <Helmet>
-        <title>STORES | DELIVERY</title>
+        <title>STORES | {HELMET_TITLE}</title>
       </Helmet>
       <Empty />
       <main className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10 px-32">
@@ -41,10 +29,10 @@ const Stores = () => {
                       backgroundImage: `url(${
                         store.coverImage
                           ? store.coverImage
-                          : 'https://www.freeiconspng.com/uploads/no-image-icon-11.PNG'
+                          : DEFAULT_STORE_IMAGE
                       })`,
                     }}
-                    className="bg-red-500 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
+                    className="bg-gray-700 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
                   />
                   <article className="absolute left-2 top-2">
                     {store.isPromotion && (

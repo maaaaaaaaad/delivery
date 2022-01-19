@@ -1,4 +1,6 @@
 export const HELMET_TITLE = 'DELIVERY'
+export const DEFAULT_STORE_IMAGE =
+  'https://www.freeiconspng.com/uploads/no-image-icon-11.PNG'
 
 export const ACCESS_TOKEN = 'token'
 export const SUCCESS_SIGN_UP = 'Success Sign Up!'
