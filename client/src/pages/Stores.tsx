@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Empty from '../components/block/empty'
 import { useQuery } from '@apollo/client'
@@ -8,7 +8,17 @@ import { IStore } from '../common/interfaces/entites.interface'
 import { DEFAULT_STORE_IMAGE, HELMET_TITLE } from '../common/constatns'
 
 const Stores = () => {
-  const { data, loading, error } = useQuery<GetAllStores>(GET_ALL_STORES)
+  const [page, setPage] = useState<number>(1)
+
+  const { data, loading, error } = useQuery<GetAllStores>(GET_ALL_STORES, {
+    variables: {
+      page,
+    },
+  })
+
+  const onNextPage = () => {
+    setPage((page) => page + 1)
+  }
 
   return (
     <section className="p-5">
@@ -67,6 +77,18 @@ const Stores = () => {
             )
           })}
       </main>
+      <div className="w-full text-center m-12">
+        {page !== data?.getAllStore.totalPages ? (
+          <button
+            onClick={onNextPage}
+            className="bg-green-500 px-5 py-2 rounded-lg"
+          >
+            <span className="text-white font-semibold">NEXT</span>
+          </button>
+        ) : (
+          <div />
+        )}
+      </div>
     </section>
   )
 }
