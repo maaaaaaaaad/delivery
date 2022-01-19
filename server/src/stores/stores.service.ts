@@ -172,8 +172,8 @@ export class StoresService {
   }: GetAllStoreInputDto): Promise<GetAllStoreOutputDto> {
     try {
       const [stores, storeCount] = await this.stores.findAndCount({
-        take: 10,
-        skip: (page - 1) * 10,
+        take: 30,
+        skip: (page - 1) * 30,
         order: {
           isPromotion: 'DESC',
         },
@@ -182,7 +182,7 @@ export class StoresService {
       return {
         access: true,
         stores,
-        totalPages: Math.ceil(storeCount / 10),
+        totalPages: Math.ceil(storeCount / 30),
         resultCount: storeCount,
       }
     } catch (e) {
@@ -209,8 +209,8 @@ export class StoresService {
 
       category.store = await this.stores.find({
         where: { category },
-        take: 10,
-        skip: (page - 1) * 10,
+        take: 30,
+        skip: (page - 1) * 30,
         order: {
           isPromotion: 'DESC',
         },
@@ -221,7 +221,7 @@ export class StoresService {
       return {
         access: true,
         category,
-        totalPages: Math.ceil(storeCount / 10),
+        totalPages: Math.ceil(storeCount / 30),
         resultCount: storeCount,
       }
     } catch (e) {
@@ -266,15 +266,15 @@ export class StoresService {
         where: {
           name: ILike(`%${keyword}%`),
         },
-        take: 10,
-        skip: (page - 1) * 10,
+        take: 30,
+        skip: (page - 1) * 30,
         relations: ['menu'],
       })
 
       return {
         access: true,
         stores,
-        totalPages: Math.ceil(storeCount / 10),
+        totalPages: Math.ceil(storeCount / 30),
         resultCount: storeCount,
       }
     } catch (e) {

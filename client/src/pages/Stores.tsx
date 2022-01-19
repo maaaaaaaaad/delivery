@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Empty from '../components/block/empty'
 import { useQuery } from '@apollo/client'
@@ -7,13 +7,20 @@ import { GetAllStores } from '../graphql/interfaces/output.interface'
 import { IStore } from '../common/interfaces/entites.interface'
 
 const Stores = () => {
-  const { data, loading, error } = useQuery<GetAllStores>(GET_ALL_STORES, {
-    variables: {
-      input: {
-        page: 1,
+  const [page, setPage] = useState<number>(1)
+
+  const { data, loading, error, fetchMore } = useQuery<GetAllStores>(
+    GET_ALL_STORES,
+    {
+      variables: {
+        input: {
+          page: 1,
+        },
       },
     },
-  })
+  )
+
+  const onNextPageClick = () => setPage((current) => current + 1)
 
   return (
     <section className="p-5">
@@ -21,7 +28,7 @@ const Stores = () => {
         <title>STORES | DELIVERY</title>
       </Helmet>
       <Empty />
-      <main className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10">
+      <main className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10 px-32">
         {!loading &&
           !error &&
           data &&
@@ -30,7 +37,13 @@ const Stores = () => {
               <div key={store.id}>
                 <div className="ml-2 font relative">
                   <article
-                    style={{ backgroundImage: `url(${store.coverImage})` }}
+                    style={{
+                      backgroundImage: `url(${
+                        store.coverImage
+                          ? store.coverImage
+                          : 'https://www.freeiconspng.com/uploads/no-image-icon-11.PNG'
+                      })`,
+                    }}
                     className="bg-red-500 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
                   />
                   <article className="absolute left-2 top-2">
@@ -51,7 +64,13 @@ const Stores = () => {
                       }}
                     />
                     <article className="ml-2">
-                      <h3 className="text-xl font-bold">{store.name}</h3>
+                      {store.isPromotion ? (
+                        <h3 className="text-xl font-bold text-green-500">
+                          {store.name}
+                        </h3>
+                      ) : (
+                        <h3 className="text-xl font-bold">{store.name}</h3>
+                      )}
                       <h3>{store.address}</h3>
                     </article>
                   </article>

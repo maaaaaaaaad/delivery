@@ -20,6 +20,7 @@ export const GET_ALL_CATEGORIES = gql`
       errorMessage
       categories {
         id
+
         name
         coverImage
         storeCount
