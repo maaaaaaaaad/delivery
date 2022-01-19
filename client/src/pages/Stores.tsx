@@ -16,9 +16,8 @@ const Stores = () => {
     },
   })
 
-  const onNextPage = () => {
-    setPage((page) => page + 1)
-  }
+  const onNextPage = () => setPage((page) => page + 1)
+  const onPrevPage = () => setPage((page) => page - 1)
 
   return (
     <section className="p-5">
@@ -88,6 +87,23 @@ const Stores = () => {
         ) : (
           <div />
         )}
+
+        {page > 1 ? (
+          <button
+            onClick={onPrevPage}
+            className="bg-green-500 px-5 py-2 rounded-lg"
+          >
+            <span className="text-white font-semibold">PREV</span>
+          </button>
+        ) : (
+          <div />
+        )}
+
+        <div>
+          <h3 className="font-semibold p-2">
+            {page} of {data?.getAllStore.totalPages}
+          </h3>
+        </div>
       </div>
     </section>
   )
