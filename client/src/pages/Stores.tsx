@@ -1,5 +1,6 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import Empty from '../components/block/empty'
 
 const Stores = () => {
   return (
@@ -7,7 +8,7 @@ const Stores = () => {
       <Helmet>
         <title>STORES | DELIVERY</title>
       </Helmet>
-      <div className="px-5 py-9 w-full" />
+      <Empty />
       <main>Stores</main>
     </section>
   )
