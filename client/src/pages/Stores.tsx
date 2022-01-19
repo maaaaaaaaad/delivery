@@ -28,11 +28,21 @@ const Stores = () => {
           data.getAllStore.stores.map((store: IStore) => {
             return (
               <div key={store.id}>
-                <div className="ml-2 font">
+                <div className="ml-2 font relative">
                   <article
                     style={{ backgroundImage: `url(${store.coverImage})` }}
                     className="bg-red-500 bg-cover bg-center mb-3 px-16 py-28 rounded-lg"
                   />
+                  <article className="absolute left-2 top-2">
+                    {store.isPromotion && (
+                      <>
+                        <span className="text-green-500">SUPER STORE</span>
+                        <span className="ml-2 text-white">
+                          {store.promotionPeriod}
+                        </span>
+                      </>
+                    )}
+                  </article>
                   <article className="flex items-center">
                     <article
                       className="bg-cover bg-center p-2 rounded-full w-8 h-8"

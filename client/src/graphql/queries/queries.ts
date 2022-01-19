@@ -41,6 +41,7 @@ export const GET_ALL_STORES = gql`
         address
         coverImage
         isPromotion
+        promotionPeriod
         category {
           name
           coverImage
