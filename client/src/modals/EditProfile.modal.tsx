@@ -71,9 +71,9 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
         <h1 className="font-bold text-green-500 text-4xl">
           DELIVER <span className="text-white text-2xl">EDIT PROFILE</span>
         </h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-1/3">
           <div className="w-full">
-            <div className="mt-5">
+            <div className="mt-8">
               <input
                 {...register('password', {
                   pattern: {
@@ -91,7 +91,7 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
                 <FormError errorMessage={errors.password.message!} />
               )}
             </div>
-            <div className="mt-5">
+            <div className="mt-8">
               <input
                 {...register('confirmPassword', {
                   validate: (v) =>
@@ -106,7 +106,7 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
                 <FormError errorMessage={errors.confirmPassword.message!} />
               )}
             </div>
-            <div className="mt-5">
+            <div className="mt-8">
               <input
                 {...register('email', {
                   pattern: {
@@ -123,7 +123,7 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
                 <FormError errorMessage={errors.email.message!} />
               )}
             </div>
-            <div className="mt-5">
+            <div className="mt-8">
               <input
                 {...register('nickname', {
                   pattern: {
@@ -142,7 +142,7 @@ const EditProfile: React.FC<OnEditProfileModalProp> = ({
             </div>
           </div>
 
-          <div className="center mt-5">
+          <div className="center mt-8">
             <input className="signBtn" type="submit" value="SAVE" />
           </div>
         </form>

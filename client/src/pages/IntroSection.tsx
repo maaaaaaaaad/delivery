@@ -41,7 +41,7 @@ const IntroSection = () => {
         <div>
           <img
             src="https://pomokata.com/wp-content/uploads/2019/07/pomodoro-delivery-logo.png"
-            alt="image"
+            alt="delivery-guy"
           />
         </div>
       </div>
