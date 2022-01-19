@@ -1,1 +1,6 @@
-export type CategoryValues = 'hamburger' | 'fries' | 'noodle' | 'drink'
+export type CategoryValues =
+  | 'hamburger'
+  | 'fries'
+  | 'noodle'
+  | 'drink'
+  | 'pizza'

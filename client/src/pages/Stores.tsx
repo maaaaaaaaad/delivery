@@ -31,12 +31,12 @@ const Stores = () => {
                 <div className="ml-2 font relative">
                   <article
                     style={{ backgroundImage: `url(${store.coverImage})` }}
-                    className="bg-red-500 bg-cover bg-center mb-3 px-16 py-28 rounded-lg"
+                    className="bg-red-500 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
                   />
                   <article className="absolute left-2 top-2">
                     {store.isPromotion && (
                       <>
-                        <span className="text-green-500">SUPER STORE</span>
+                        <span className="text-green-500">PROMOTION STORE</span>
                         <span className="ml-2 text-white">
                           {store.promotionPeriod}
                         </span>
