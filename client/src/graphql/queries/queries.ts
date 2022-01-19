@@ -28,6 +28,28 @@ export const GET_ALL_CATEGORIES = gql`
   }
 `
 
+export const GET_ALL_STORES = gql`
+  query getAllStores($page: Float) {
+    getAllStore(input: { page: $page }) {
+      access
+      errorMessage
+      totalPages
+      resultCount
+      stores {
+        id
+        name
+        address
+        coverImage
+        isPromotion
+        category {
+          name
+          coverImage
+        }
+      }
+    }
+  }
+`
+
 export const GET_ALL_CATEGORIES_STORES = gql`
   query getAllCategoriesAndStores($page: Float) {
     getAllCategories {

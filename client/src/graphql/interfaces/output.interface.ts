@@ -1,5 +1,9 @@
 import { CommonOutput } from '../../common/interfaces/commonOutput.interface'
-import { ICategories, IUser } from '../../common/interfaces/entites.interface'
+import {
+  ICategories,
+  IStore,
+  IUser,
+} from '../../common/interfaces/entites.interface'
 
 export interface CreateAccountOutput {
   createAccount: CommonOutput
@@ -19,4 +23,14 @@ export interface EditProfileOutput {
 
 export interface GetAllCategories {
   getAllCategories: ICategories
+}
+
+export interface GetAllStores {
+  getAllStore: {
+    access: boolean
+    errorMessage: string
+    resultCount: number
+    stores: IStore[]
+    totalPages: number
+  }
 }

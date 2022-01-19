@@ -22,7 +22,7 @@ export interface ICategories extends ICommon {
 export interface IStore extends ICommon {
   name: string
   address: string
-  category: ICategories
+  category: Category
   coverImage: string
   isPromotion: boolean
   promotionPeriod: String
