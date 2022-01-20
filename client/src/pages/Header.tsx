@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import Search from '../components/search/Search'
+import SearchForm from '../components/search-form/SearchForm'
 import { useQuery } from '@apollo/client'
 import { GET_ALL_CATEGORIES } from '../graphql/queries/queries'
 import { GetAllCategories } from '../graphql/interfaces/output.interface'
@@ -24,7 +24,7 @@ const Header = () => {
             <button onClick={onClickGoHome}>HOME</button>
           </h2>
           <div className="ml-5">
-            <Search />
+            <SearchForm />
           </div>
           {!loading && !error && data && (
             <div className="ml-5 center">
