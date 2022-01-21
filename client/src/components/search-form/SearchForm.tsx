@@ -9,11 +9,16 @@ interface ISearchForm {
 const SearchForm = () => {
   const navigate = useNavigate()
 
-  const { register, getValues, handleSubmit } = useForm<ISearchForm>()
+  const { register, getValues, handleSubmit, setFocus } = useForm<ISearchForm>()
 
   const onSubmit = () => {
     const { searchValue } = getValues()
-    navigate(`/search?value=${searchValue}`)
+
+    navigate({
+      pathname: '/search',
+      search: `?query=${searchValue}`,
+    })
+    setFocus('searchValue')
   }
 
   return (
@@ -24,7 +29,8 @@ const SearchForm = () => {
         })}
         type="search"
         className="signField"
-        placeholder="SearchForm stores"
+        placeholder="Search store (category)"
+        autoComplete="off"
       />
     </form>
   )
