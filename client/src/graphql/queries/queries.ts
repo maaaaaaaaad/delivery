@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client'
+import { STORE_FRAGMENT } from '../fragments'
 
 export const USER_STATE = gql`
   query userState {
@@ -30,6 +31,7 @@ export const GET_ALL_CATEGORIES = gql`
 `
 
 export const GET_ALL_STORES = gql`
+  ${STORE_FRAGMENT}
   query getAllStores($page: Float) {
     getAllStore(input: { page: $page }) {
       access
@@ -37,22 +39,14 @@ export const GET_ALL_STORES = gql`
       totalPages
       resultCount
       stores {
-        id
-        name
-        address
-        coverImage
-        isPromotion
-        promotionPeriod
-        category {
-          name
-          coverImage
-        }
+        ...StoreParts
       }
     }
   }
 `
 
 export const GET_SEARCH_STORES = gql`
+  ${STORE_FRAGMENT}
   query getSearchStores($page: Float, $keyword: String!) {
     searchStore(input: { page: $page, keyword: $keyword }) {
       access
@@ -60,16 +54,7 @@ export const GET_SEARCH_STORES = gql`
       totalPages
       resultCount
       stores {
-        id
-        name
-        address
-        coverImage
-        isPromotion
-        promotionPeriod
-        category {
-          name
-          coverImage
-        }
+        ...StoreParts
       }
     }
   }
