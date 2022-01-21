@@ -52,6 +52,29 @@ export const GET_ALL_STORES = gql`
   }
 `
 
+export const GET_SEARCH_STORES = gql`
+  query getSearchStores($page: Float, $keyword: String!) {
+    searchStore(input: { page: $page, keyword: $keyword }) {
+      access
+      errorMessage
+      totalPages
+      resultCount
+      stores {
+        id
+        name
+        address
+        coverImage
+        isPromotion
+        promotionPeriod
+        category {
+          name
+          coverImage
+        }
+      }
+    }
+  }
+`
+
 export const GET_ALL_CATEGORIES_STORES = gql`
   query getAllCategoriesAndStores($page: Float) {
     getAllCategories {

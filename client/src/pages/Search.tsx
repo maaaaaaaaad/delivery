@@ -10,7 +10,7 @@ const Search = () => {
   useEffect(() => {
     const [_, query] = window.location.search.split('?query=')
     if (!query) {
-      navigate('/', {
+      return navigate('/', {
         replace: true,
       })
     }
