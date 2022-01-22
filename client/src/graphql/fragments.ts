@@ -8,9 +8,5 @@ export const STORE_FRAGMENT = gql`
     coverImage
     isPromotion
     promotionPeriod
-    category {
-      name
-      coverImage
-    }
   }
 `

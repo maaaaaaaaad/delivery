@@ -30,6 +30,27 @@ export const GET_ALL_CATEGORIES = gql`
   }
 `
 
+export const GET_ONE_CATEGORY = gql`
+  ${STORE_FRAGMENT}
+  query getOneCategory($page: Float, $name: String!) {
+    getOneCategory(input: { page: $page, name: $name }) {
+      access
+      errorMessage
+      totalPages
+      resultCount
+      category {
+        id
+        name
+        coverImage
+        storeCount
+        store {
+          ...StoreParts
+        }
+      }
+    }
+  }
+`
+
 export const GET_ALL_STORES = gql`
   ${STORE_FRAGMENT}
   query getAllStores($page: Float) {
@@ -40,6 +61,10 @@ export const GET_ALL_STORES = gql`
       resultCount
       stores {
         ...StoreParts
+        category {
+          name
+          coverImage
+        }
       }
     }
   }
@@ -55,6 +80,10 @@ export const GET_SEARCH_STORES = gql`
       resultCount
       stores {
         ...StoreParts
+        category {
+          name
+          coverImage
+        }
       }
     }
   }

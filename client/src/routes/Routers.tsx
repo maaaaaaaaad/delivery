@@ -5,6 +5,7 @@ import NotFoundPage from '../pages/404'
 import Profile from '../pages/Profile'
 import Stores from '../pages/Stores'
 import Search from '../pages/Search'
+import Category from '../pages/Category'
 
 const Routers: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const Routers: React.FC = () => {
       <Route path="/me/:nickname" element={<Profile />} />
       <Route path="/stores" element={<Stores />} />
       <Route path="/search" element={<Search />} />
+      <Route path="/category/:name" element={<Category />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
