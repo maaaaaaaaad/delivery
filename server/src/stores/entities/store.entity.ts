@@ -42,7 +42,9 @@ export class StoreEntity extends RequiredEntity {
   ownerId: number
 
   @Field((returns) => [FoodEntity])
-  @OneToMany((type) => FoodEntity, (food) => food.store)
+  @OneToMany((type) => FoodEntity, (food) => food.store, {
+    eager: true,
+  })
   menu: FoodEntity[]
 
   @OneToMany((type) => OrderEntity, (order) => order.store)

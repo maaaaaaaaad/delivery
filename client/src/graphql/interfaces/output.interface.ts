@@ -3,6 +3,7 @@ import {
   ICategories,
   IStore,
   IUser,
+  Menu,
 } from '../../common/interfaces/entites.interface'
 
 export interface CreateAccountOutput {
@@ -32,5 +33,6 @@ export interface GetAllStores {
     resultCount: number
     stores: IStore[]
     totalPages: number
+    menu: Menu[]
   }
 }

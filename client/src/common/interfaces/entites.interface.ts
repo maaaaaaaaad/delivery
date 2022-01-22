@@ -19,11 +19,31 @@ export interface ICategories extends ICommon {
   categories: Category[]
 }
 
+export interface FoodChoiceOptions {
+  subject: string
+  extraCharge?: number
+}
+
+export interface FoodOptions {
+  subject: string
+  selection: FoodChoiceOptions[]
+  extraCharge?: number
+}
+
+export interface Menu extends ICommon {
+  name: string
+  price: number
+  image: string
+  description: string
+  option: FoodOptions[]
+}
+
 export interface IStore extends ICommon {
   name: string
   address: string
   category: Category
   coverImage: string
   isPromotion: boolean
-  promotionPeriod: String
+  promotionPeriod: string
+  menu: Menu[]
 }

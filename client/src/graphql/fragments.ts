@@ -8,5 +8,19 @@ export const STORE_FRAGMENT = gql`
     coverImage
     isPromotion
     promotionPeriod
+    menu {
+      name
+      description
+      image
+      price
+      options {
+        subject
+        selection {
+          subject
+          extraCharge
+        }
+        extraCharge
+      }
+    }
   }
 `
