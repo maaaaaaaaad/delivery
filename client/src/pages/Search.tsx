@@ -10,7 +10,7 @@ const Search = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [getSearchResult, { loading, error, called }] =
+  const [getSearchResult, { loading, error, called, data }] =
     useLazyQuery(GET_SEARCH_STORES)
 
   useEffect(() => {
@@ -27,17 +27,18 @@ const Search = () => {
         page: 1,
         keyword: query,
       },
-    }).then((res) => console.log(res.data.searchStore.stores))
+    }).then((res) => console.log(res))
   }, [navigate, location])
 
-  console.log(loading, error, called)
-
   return (
-    <section>
+    <section className="p-5">
       <Helmet>
         <title>Search | {HELMET_TITLE}</title>
       </Helmet>
       <Empty />
+      <main>
+
+      </main>
     </section>
   )
 }

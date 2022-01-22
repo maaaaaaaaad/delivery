@@ -6,6 +6,7 @@ import { GET_ALL_STORES } from '../graphql/queries/queries'
 import { GetAllStores } from '../graphql/interfaces/output.interface'
 import { IStore } from '../common/interfaces/entites.interface'
 import { DEFAULT_STORE_IMAGE, HELMET_TITLE } from '../common/constatns'
+import LoadStores from '../components/store/LoadStores'
 
 const Stores = () => {
   const [page, setPage] = useState<number>(1)
@@ -30,50 +31,7 @@ const Stores = () => {
           !error &&
           data &&
           data.getAllStore.stores.map((store: IStore) => {
-            return (
-              <div key={store.id}>
-                <div className="ml-2 font relative">
-                  <article
-                    style={{
-                      backgroundImage: `url(${
-                        store.coverImage
-                          ? store.coverImage
-                          : DEFAULT_STORE_IMAGE
-                      })`,
-                    }}
-                    className="bg-gray-700 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
-                  />
-                  <article className="absolute left-2 top-2">
-                    {store.isPromotion && (
-                      <>
-                        <span className="text-green-500">PROMOTION STORE</span>
-                        <span className="ml-2 text-white">
-                          {store.promotionPeriod}
-                        </span>
-                      </>
-                    )}
-                  </article>
-                  <article className="flex items-center">
-                    <article
-                      className="bg-cover bg-center p-2 rounded-full w-8 h-8"
-                      style={{
-                        backgroundImage: `url(${store.category.coverImage})`,
-                      }}
-                    />
-                    <article className="ml-2">
-                      {store.isPromotion ? (
-                        <h3 className="text-xl font-bold text-green-500">
-                          {store.name}
-                        </h3>
-                      ) : (
-                        <h3 className="text-xl font-bold">{store.name}</h3>
-                      )}
-                      <h3>{store.address}</h3>
-                    </article>
-                  </article>
-                </div>
-              </div>
-            )
+            return <LoadStores key={store.id} store={store} />
           })}
       </main>
       <div className="w-full text-center m-12">
