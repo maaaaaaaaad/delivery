@@ -1,22 +1,40 @@
 import React from 'react'
 import { DEFAULT_STORE_IMAGE } from '../../common/constatns'
 import { IStore } from '../../common/interfaces/entites.interface'
+import { useNavigate } from 'react-router-dom'
 
 interface Prop {
   store: IStore
 }
 
 const LoadStores: React.FC<Prop> = ({ store }) => {
+  const navigate = useNavigate()
+
+  const onClick = () => {
+    navigate(
+      {
+        pathname: '/store',
+        search: `?detail=${store.name}`,
+      },
+      {
+        state: {
+          store,
+        },
+      },
+    )
+  }
+
   return (
     <div key={store.id}>
       <div className="ml-2 font relative">
         <article
+          onClick={onClick}
           style={{
             backgroundImage: `url(${
               store.coverImage ? store.coverImage : DEFAULT_STORE_IMAGE
             })`,
           }}
-          className="bg-gray-700 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl"
+          className="bg-gray-700 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl cursor-pointer"
         />
         <article className="absolute left-2 top-2">
           {store.isPromotion && (
