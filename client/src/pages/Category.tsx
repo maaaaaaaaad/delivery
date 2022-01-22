@@ -16,8 +16,6 @@ const Category = () => {
     },
   })
 
-  !loading && !error && data && console.log(data.getOneCategory)
-
   return (
     <section>
       <Empty />

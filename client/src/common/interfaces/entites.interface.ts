@@ -35,7 +35,7 @@ export interface Menu extends ICommon {
   price: number
   image: string
   description: string
-  option: FoodOptions[]
+  options: FoodOptions[]
 }
 
 export interface IStore extends ICommon {
