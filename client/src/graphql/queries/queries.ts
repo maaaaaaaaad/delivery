@@ -43,8 +43,12 @@ export const GET_ONE_CATEGORY = gql`
         name
         coverImage
         storeCount
-        store {
+        stores {
           ...StoreParts
+          category {
+            name
+            coverImage
+          }
         }
       }
     }

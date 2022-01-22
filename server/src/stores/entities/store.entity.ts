@@ -21,7 +21,7 @@ export class StoreEntity extends RequiredEntity {
   @IsString()
   address: string
 
-  @ManyToOne((type) => CategoryEntity, (category) => category.store, {
+  @ManyToOne((type) => CategoryEntity, (category) => category.stores, {
     onDelete: 'SET NULL',
     eager: true,
   })

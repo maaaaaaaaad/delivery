@@ -16,8 +16,8 @@ type CategoryEntity {
   createAt: DateTime!
   id: Float!
   name: String!
-  store: [StoreEntity!]
   storeCount: Float!
+  stores: [StoreEntity!]
   updateAt: DateTime!
 }
 

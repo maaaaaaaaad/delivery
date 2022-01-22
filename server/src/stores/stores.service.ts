@@ -207,7 +207,7 @@ export class StoresService {
         }
       }
 
-      category.store = await this.stores.find({
+      category.stores = await this.stores.find({
         where: { category },
         take: 9,
         skip: (page - 1) * 9,
@@ -269,6 +269,9 @@ export class StoresService {
         take: 9,
         skip: (page - 1) * 9,
         relations: ['menu'],
+        order: {
+          isPromotion: 'DESC',
+        },
       })
 
       return {

@@ -3,6 +3,8 @@ import Empty from '../components/block/empty'
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { GET_ONE_CATEGORY } from '../graphql/queries/queries'
+import { IStore } from '../common/interfaces/entites.interface'
+import LoadStores from '../components/store/LoadStores'
 
 const Category = () => {
   const params = useParams()
@@ -14,12 +16,19 @@ const Category = () => {
     },
   })
 
-  !loading && !error && data && console.log(data.getOneCategory.category)
+  !loading && !error && data && console.log(data.getOneCategory)
 
   return (
     <section>
       <Empty />
-      Category
+      <main className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10 px-32">
+        {!loading &&
+          !error &&
+          data &&
+          data.getOneCategory.category.stores.map((store: IStore) => {
+            return <LoadStores key={store.id} store={store} />
+          })}
+      </main>
     </section>
   )
 }

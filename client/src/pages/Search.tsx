@@ -5,12 +5,14 @@ import { HELMET_TITLE } from '../common/constatns'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { GET_SEARCH_STORES } from '../graphql/queries/queries'
+import { IStore } from '../common/interfaces/entites.interface'
+import LoadStores from '../components/store/LoadStores'
 
 const Search = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [getSearchResult, { loading, error, called, data }] =
+  const [getSearchResult, { loading, error, data }] =
     useLazyQuery(GET_SEARCH_STORES)
 
   useEffect(() => {
@@ -27,7 +29,7 @@ const Search = () => {
         page: 1,
         keyword: query,
       },
-    }).then((res) => console.log(res))
+    }).then()
   }, [navigate, location])
 
   return (
@@ -36,8 +38,13 @@ const Search = () => {
         <title>Search | {HELMET_TITLE}</title>
       </Helmet>
       <Empty />
-      <main>
-
+      <main className="grid mt-10 grid-cols-3 gap-x-5 gap-y-10 px-32">
+        {!loading &&
+          !error &&
+          data &&
+          data.searchStore.stores.map((store: IStore) => {
+            return <LoadStores key={store.id} store={store} />
+          })}
       </main>
     </section>
   )

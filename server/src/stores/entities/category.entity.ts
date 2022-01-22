@@ -20,5 +20,5 @@ export class CategoryEntity extends RequiredEntity {
 
   @OneToMany((type) => StoreEntity, (store) => store.category)
   @Field((type) => [StoreEntity], { nullable: true })
-  store: StoreEntity[]
+  stores: StoreEntity[]
 }

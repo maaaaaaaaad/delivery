@@ -5,6 +5,7 @@ import {
 } from '../../common/dtos/pagination.dto'
 import { CategoryValues } from '../type/category.type'
 import { CategoryEntity } from '../entities/category.entity'
+import { StoreEntity } from '../entities/store.entity'
 
 @InputType()
 export class GetOneCategoryInputDto extends PaginationInputDto {
