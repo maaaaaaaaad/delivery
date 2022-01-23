@@ -9,7 +9,11 @@ import { OrderEntity } from '../../order/entites/order.entity'
 
 @InputType('StoreInputEntity', { isAbstract: true })
 @ObjectType()
-@Entity()
+@Entity({
+  orderBy: {
+    isPromotion: 'DESC',
+  },
+})
 export class StoreEntity extends RequiredEntity {
   @Column()
   @Field((type) => String)

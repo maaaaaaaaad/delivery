@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="absolute flex justify-between px-5 py-3 w-full text-white font bg-gray-900 bg-opacity-40">
+      <header className="fixed flex justify-between px-5 py-3 w-full text-white font bg-gray-900 bg-opacity-40 z-50">
         <div className="logo center">
           <h2 className="text-4xl">
             <button onClick={onClickGoHome}>HOME</button>
