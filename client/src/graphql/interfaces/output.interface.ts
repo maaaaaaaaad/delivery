@@ -30,9 +30,17 @@ export interface GetAllStores {
   getAllStore: {
     access: boolean
     errorMessage: string
-    resultCount: number
     stores: IStore[]
+    resultCount: number
     totalPages: number
     menu: Menu[]
+  }
+}
+
+export interface GetMyStores {
+  getMyStores: {
+    access: boolean
+    errorMessage: string
+    stores: IStore[]
   }
 }

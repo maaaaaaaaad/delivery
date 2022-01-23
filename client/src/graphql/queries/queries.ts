@@ -55,6 +55,23 @@ export const GET_ONE_CATEGORY = gql`
   }
 `
 
+export const GET_MY_STORES = gql`
+  ${STORE_FRAGMENT}
+  query getMyStores {
+    getMyStores {
+      access
+      errorMessage
+      stores {
+        ...StoreParts
+        category {
+          name
+          coverImage
+        }
+      }
+    }
+  }
+`
+
 export const GET_ALL_STORES = gql`
   ${STORE_FRAGMENT}
   query getAllStores($page: Float) {
