@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import Empty from '../../components/block/empty'
 import { IUser } from '../../common/interfaces/entites.interface'
 import { useNavigate, useParams } from 'react-router-dom'
 import { me } from '../../apollo'
@@ -24,14 +23,11 @@ const Dashboard = () => {
   }, [params, user])
 
   return (
-    <section>
-      <Empty />
-      <main>
-        {user.role === 'client' && <Client />}
-        {user.role === 'owner' && <Owner />}
-        {user.role === 'driver' && <Driver />}
-      </main>
-    </section>
+    <>
+      {user.role === 'client' && <Client />}
+      {user.role === 'owner' && <Owner />}
+      {user.role === 'driver' && <Driver />}
+    </>
   )
 }
 
