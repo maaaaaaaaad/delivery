@@ -7,6 +7,7 @@ import Stores from '../pages/Stores'
 import Search from '../pages/Search'
 import Category from '../pages/Category'
 import StoreDetail from '../pages/StoreDetail'
+import Dashboard from '../pages/dashboard/Dashboard'
 
 const Routers: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const Routers: React.FC = () => {
       <Route path="/store" element={<StoreDetail />} />
       <Route path="/search" element={<Search />} />
       <Route path="/category/:name" element={<Category />} />
+      <Route path="/user/:role/:nickname" element={<Dashboard />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

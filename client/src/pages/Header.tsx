@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client'
 import { GET_ALL_CATEGORIES } from '../graphql/queries/queries'
 import { GetAllCategories } from '../graphql/interfaces/output.interface'
 import Categories from '../components/categories/Categories'
+import { me } from '../apollo'
 
 const Header = () => {
   const router = useNavigate()
@@ -12,6 +13,8 @@ const Header = () => {
   const onClickGoHome = () => {
     router('/')
   }
+
+  const user = me()
 
   const { data, loading, error } =
     useQuery<GetAllCategories>(GET_ALL_CATEGORIES)
@@ -35,18 +38,14 @@ const Header = () => {
           )}
         </div>
 
-        <nav>
+        <nav className="flex items-center">
           <ul className="flex">
             <li className="mr-5 router-link">
               <Link to="/stores">STORES</Link>
             </li>
+
             <li className="mr-5 router-link">
-              <Link to="/">Lorem2</Link>
-            </li>
-            <li>
-              <Link className="router-link" to="/">
-                Lorem3
-              </Link>
+              <Link to={`/user/${user.role}/${user.nickname}`}>DASHBOARD</Link>
             </li>
           </ul>
         </nav>

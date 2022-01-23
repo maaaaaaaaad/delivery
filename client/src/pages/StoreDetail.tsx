@@ -1,7 +1,8 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { DEFAULT_STORE_IMAGE } from '../common/constatns'
+import { DEFAULT_STORE_IMAGE, HELMET_TITLE } from '../common/constatns'
 import { IStore } from '../common/interfaces/entites.interface'
+import { Helmet } from 'react-helmet-async'
 
 const StoreDetail = () => {
   const location = useLocation()
@@ -9,12 +10,15 @@ const StoreDetail = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>
+          {store.name} | {HELMET_TITLE}
+        </title>
+      </Helmet>
       <main className="font">
         <article
           style={{
-            backgroundImage: `url(${
-              store.coverImage ? store.coverImage : DEFAULT_STORE_IMAGE
-            })`,
+            backgroundImage: `url(${store.coverImage ?? DEFAULT_STORE_IMAGE})`,
           }}
           className="bg-gray-700 bg-cover bg-center px-16 py-72"
         />
@@ -43,8 +47,13 @@ const StoreDetail = () => {
           {store.menu.map((food, index) => (
             <div key={index}>
               <article
-                style={{ backgroundImage: `url(${DEFAULT_STORE_IMAGE})` }}
-                className="bg-center bg-cover px-12 py-28 rounded-lg text-white text-shadow-md cursor-pointer"
+                style={{
+                  backgroundImage: `url(${
+                    food.image !== 'No img' ? food.image : DEFAULT_STORE_IMAGE
+                  })`,
+                }}
+                className="hover:text-green-500 bg-center bg-cover px-12 py-28
+                rounded-lg text-white text-shadow-md cursor-pointer h-full"
               >
                 <h1 className="text-3xl">{food.name}</h1>
                 <h3 className="text-lg">

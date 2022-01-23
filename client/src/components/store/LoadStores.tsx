@@ -36,6 +36,7 @@ const LoadStores: React.FC<Prop> = ({ store }) => {
           }}
           className="bg-gray-700 bg-cover bg-center mb-3 px-16 py-28 rounded-lg shadow-2xl cursor-pointer"
         />
+
         <article className="absolute left-2 top-2">
           {store.isPromotion && (
             <>
@@ -44,7 +45,8 @@ const LoadStores: React.FC<Prop> = ({ store }) => {
             </>
           )}
         </article>
-        <article className="flex items-center">
+
+        <div className="flex items-center">
           <article
             className="bg-cover bg-center p-2 rounded-full w-8 h-8"
             style={{
@@ -59,7 +61,7 @@ const LoadStores: React.FC<Prop> = ({ store }) => {
             )}
             <h3>{store.address}</h3>
           </article>
-        </article>
+        </div>
       </div>
     </div>
   )

@@ -51,7 +51,7 @@ const SignInModal: React.FC<OnModalProp> = ({ onOpenSignModal }) => {
         }
         me(userSave)
         enqueueSnackbar(SUCCESS_SIGN_IN)
-        onOpenSignModal()
+        window.location.reload()
       }
     },
     onError: (error) => {

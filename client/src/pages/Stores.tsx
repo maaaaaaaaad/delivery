@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client'
 import { GET_ALL_STORES } from '../graphql/queries/queries'
 import { GetAllStores } from '../graphql/interfaces/output.interface'
 import { IStore } from '../common/interfaces/entites.interface'
-import { DEFAULT_STORE_IMAGE, HELMET_TITLE } from '../common/constatns'
+import { HELMET_TITLE } from '../common/constatns'
 import LoadStores from '../components/store/LoadStores'
 
 const Stores = () => {

@@ -12,8 +12,8 @@ import { HELMET_TITLE } from './common/constatns'
 const App = () => {
   const { data, loading } = useQuery<UserStateOutput>(USER_STATE)
 
-  if (isLoggedInVar() && !loading) {
-    me(data!.userState)
+  if (isLoggedInVar() && !loading && data) {
+    me(data.userState)
   }
 
   return (
