@@ -28,6 +28,7 @@ import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
 import { FoodEntity } from './entities/food.entity'
 import { EditFoodInputDto, EditFoodOutputDto } from './dto/edit-food.dto'
 import { DeleteFoodInputDto, DeleteFoodOutputDto } from './dto/delete-food.dto'
+import { GetMyStoresOutputDto } from './dto/get-my-stores.dto'
 
 @Injectable()
 export class StoresService {
@@ -158,6 +159,29 @@ export class StoresService {
       return {
         access: true,
         categories,
+      }
+    } catch (e) {
+      return {
+        access: false,
+        errorMessage: e.message,
+      }
+    }
+  }
+
+  async getMyStores(owner: UsersEntity): Promise<GetMyStoresOutputDto> {
+    try {
+      const stores = await this.stores.find({ owner })
+
+      if (!stores) {
+        return {
+          access: false,
+          errorMessage: 'Not found your stores',
+        }
+      }
+
+      return {
+        access: true,
+        stores,
       }
     } catch (e) {
       return {

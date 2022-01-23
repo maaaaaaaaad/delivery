@@ -37,6 +37,7 @@ import { FoodEntity } from './entities/food.entity'
 import { CreateFoodInputDto, CreateFoodOutputDto } from './dto/create-food.dto'
 import { EditFoodInputDto, EditFoodOutputDto } from './dto/edit-food.dto'
 import { DeleteFoodInputDto, DeleteFoodOutputDto } from './dto/delete-food.dto'
+import { GetMyStoresOutputDto } from './dto/get-my-stores.dto'
 
 @Resolver((of) => StoreEntity)
 export class StoresResolver {
@@ -67,6 +68,14 @@ export class StoresResolver {
     @Args('input') deleteStoreInputDto: DeleteStoreInputDto,
   ): Promise<DeleteStoreOutputDto> {
     return await this.storesService.deleteStore(owner.id, deleteStoreInputDto)
+  }
+
+  @UseGuards(OwnerGuard)
+  @Query((returns) => GetMyStoresOutputDto)
+  async getMyStores(
+    @AuthUser() owner: UsersEntity,
+  ): Promise<GetMyStoresOutputDto> {
+    return await this.storesService.getMyStores(owner)
   }
 
   @Query((returns) => GetAllStoreOutputDto)
