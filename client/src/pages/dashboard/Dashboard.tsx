@@ -3,6 +3,9 @@ import Empty from '../../components/block/empty'
 import { IUser } from '../../common/interfaces/entites.interface'
 import { useNavigate, useParams } from 'react-router-dom'
 import { me } from '../../apollo'
+import Owner from './owner/Owner'
+import Client from './client/Client'
+import Driver from './driver/Driver'
 
 type Params = Pick<IUser, 'role' | 'nickname'>
 
@@ -24,8 +27,9 @@ const Dashboard = () => {
     <section>
       <Empty />
       <main>
-        <h1>{params.role}</h1>
-        <h2>{params.nickname}</h2>
+        {user.role === 'client' && <Client />}
+        {user.role === 'owner' && <Owner />}
+        {user.role === 'driver' && <Driver />}
       </main>
     </section>
   )
