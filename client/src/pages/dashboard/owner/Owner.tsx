@@ -9,6 +9,7 @@ import { Helmet } from 'react-helmet-async'
 import defaultAvatar from '../../../images/defaultImg.png'
 import Avatar from '../../../components/images/avatar'
 import Empty from '../../../components/block/empty'
+import CreateNewStoreModal from '../../../modals/CreateNewStore.modal'
 
 const Owner = () => {
   const user = me()
@@ -28,18 +29,7 @@ const Owner = () => {
       </Helmet>
 
       <div>
-        {modal && (
-          <section className="absolute top-0 left-0 w-screen h-screen center bg-black bg-opacity-60 z-50">
-            <div className="h-1/2 w-1/2 bg-white rounded-2xl center">
-              <div className="w-full h-full">
-                <article>CREATE NEW STORE</article>
-                <form>
-                  <input type="text" placeholder="Store name" />
-                </form>
-              </div>
-            </div>
-          </section>
-        )}
+        {modal && <CreateNewStoreModal />}
         <Empty />
         <header className="w-full px-5 py-28 shadow-2xl center bg-gray-700">
           <div className="pb-5 center">
