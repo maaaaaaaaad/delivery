@@ -44,3 +44,7 @@ export interface GetMyStores {
     stores: IStore[]
   }
 }
+
+export interface CreateStoreOutput {
+  createStore: CommonOutput
+}

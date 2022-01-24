@@ -59,3 +59,24 @@ export const EDIT_PROFILE = gql`
     }
   }
 `
+
+export const CREATE_STORE = gql`
+  mutation createStore(
+    $name: String!
+    $address: String!
+    $categoryName: String!
+    $coverImage: String
+  ) {
+    createStore(
+      input: {
+        name: $name
+        address: $address
+        categoryName: $categoryName
+        coverImage: $coverImage
+      }
+    ) {
+      access
+      errorMessage
+    }
+  }
+`

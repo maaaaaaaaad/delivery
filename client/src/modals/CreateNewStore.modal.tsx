@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@apollo/client'
+import { CREATE_STORE } from '../graphql/mutations/mutations'
+import { CreateStoreOutput } from '../graphql/interfaces/output.interface'
+import { useSnackbar } from 'notistack'
 
 interface CreateStoreInputForm {
   name: string
@@ -16,15 +20,47 @@ interface Prop {
 }
 
 const CreateNewStoreModal: React.FC<Prop> = ({ onClickAddStoreModal }) => {
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [createStore] = useMutation<CreateStoreOutput>(CREATE_STORE, {
+    onCompleted: ({ createStore }) => {
+      const { access, errorMessage } = createStore
+      if (!access) {
+        reset()
+        setFocus('name')
+        return enqueueSnackbar('failed')
+      }
+      onClickAddStoreModal()
+      return enqueueSnackbar('CREATED!')
+    },
+    onError: (error) => {
+      console.log(error)
+    },
+  })
+
   const {
     register,
     getValues,
     handleSubmit,
+    reset,
+    setFocus,
     formState: { errors },
   } = useForm<CreateStoreInputForm>({ mode: 'onChange' })
 
-  const onSubmit = () => {
-    console.log(getValues())
+  const onSubmit = async () => {
+    try {
+      const { name, address, categoryName, coverImage } = getValues()
+      await createStore({
+        variables: {
+          name,
+          address,
+          categoryName,
+          coverImage,
+        },
+      })
+    } catch (e: any) {
+      return enqueueSnackbar(e.message)
+    }
   }
 
   return (
@@ -89,6 +125,7 @@ const CreateNewStoreModal: React.FC<Prop> = ({ onClickAddStoreModal }) => {
                       {...register('categoryName', {
                         required: 'You must specify a category',
                       })}
+                      className="cursor-pointer"
                       type="radio"
                       name="categoryName"
                       value={category}
@@ -125,4 +162,4 @@ const CreateNewStoreModal: React.FC<Prop> = ({ onClickAddStoreModal }) => {
   )
 }
 
-export default CreateNewStoreModal
+export default memo(CreateNewStoreModal)
