@@ -18,7 +18,7 @@ const Owner = () => {
 
   const [modal, setModal] = useState<boolean>(false)
 
-  const onClickAddStore = () => {
+  const onClickAddStoreModal = () => {
     setModal((modal) => !modal)
   }
 
@@ -29,7 +29,9 @@ const Owner = () => {
       </Helmet>
 
       <div>
-        {modal && <CreateNewStoreModal />}
+        {modal && (
+          <CreateNewStoreModal onClickAddStoreModal={onClickAddStoreModal} />
+        )}
         <Empty />
         <header className="w-full px-5 py-28 shadow-2xl center bg-gray-700">
           <div className="pb-5 center">
@@ -51,7 +53,7 @@ const Owner = () => {
               </article>
 
               <article className="text-2xl font-semibold">
-                <button onClick={onClickAddStore} className="utilBtn">
+                <button onClick={onClickAddStoreModal} className="utilBtn">
                   ADD STORE
                 </button>
               </article>

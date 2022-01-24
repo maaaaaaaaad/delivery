@@ -11,7 +11,11 @@ interface CreateStoreInputForm {
 
 const categoryValues = ['hamburger', 'fries', 'noodle', 'drink', 'pizza']
 
-const CreateNewStoreModal = () => {
+interface Prop {
+  onClickAddStoreModal: () => void
+}
+
+const CreateNewStoreModal: React.FC<Prop> = ({ onClickAddStoreModal }) => {
   const {
     register,
     getValues,
@@ -108,7 +112,10 @@ const CreateNewStoreModal = () => {
           </form>
 
           <div className="mt-5">
-            <button className="w-52 py-2 rounded-lg bg-red-400">
+            <button
+              onClick={onClickAddStoreModal}
+              className="w-52 py-2 rounded-lg bg-red-400"
+            >
               <span className="text-white">CLOSE</span>
             </button>
           </div>
