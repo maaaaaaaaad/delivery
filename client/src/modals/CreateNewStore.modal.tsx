@@ -2,12 +2,26 @@ import React from 'react'
 import FormError from '../components/error/FormError'
 import { useForm } from 'react-hook-form'
 
+interface CreateStoreInputForm {
+  name: string
+  address: string
+  categoryName: string
+  coverImage?: string
+}
+
+const categoryValues = ['hamburger', 'fries', 'noodle', 'drink', 'pizza']
+
 const CreateNewStoreModal = () => {
   const {
     register,
     getValues,
+    handleSubmit,
     formState: { errors },
-  } = useForm()
+  } = useForm<CreateStoreInputForm>({ mode: 'onChange' })
+
+  const onSubmit = () => {
+    console.log(getValues())
+  }
 
   return (
     <section className="absolute top-0 left-0 w-screen h-screen center bg-black bg-opacity-60 z-50">
@@ -16,56 +30,88 @@ const CreateNewStoreModal = () => {
           <h1 className="font-bold text-green-500 text-4xl">
             CREATE <span className="text-black text-2xl">STORE</span>
           </h1>
-          <form className="w-1/2">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-1/2">
             <div className="w-full">
               <div className="mt-5">
                 <input
-                  {...register('accountId', {
-                    required: 'You must specify a account id',
+                  {...register('name', {
+                    required: 'You must specify a store name',
                     pattern: {
-                      value: /^[A-za-z0-9]{4,12}$/,
-                      message: 'Please insert a valid account id',
+                      value: /^[A-za-z0-9]{3,12}$/,
+                      message: 'Please insert a store name',
                     },
                   })}
-                  name="accountId"
+                  name="name"
                   className="signField"
                   type="text"
                   autoComplete="off"
-                  placeholder="Account ID (4~12 char)"
+                  placeholder="Store name (3~12 char)"
                 />
                 <article className="h-3">
-                  {errors.accountId && (
-                    <FormError errorMessage={errors.accountId.message!} />
+                  {errors.name && (
+                    <FormError errorMessage={errors.name.message!} />
                   )}
                 </article>
               </div>
+
               <div className="mt-5">
                 <input
-                  {...register('password', {
-                    required: 'You must specify a password',
+                  {...register('address', {
+                    required: 'You must specify a address',
                     pattern: {
-                      value: /(?=.*\d)(?=.*[a-z]).{8,20}/,
-                      message: 'Password must have at least 8~20 characters',
+                      value: /(?=.*\d)(?=.*[a-z]).{4,20}/,
+                      message: 'Address must have at least 4~20 characters',
                     },
                   })}
                   className="signField"
-                  name="password"
-                  type="password"
+                  name="address"
+                  type="text"
                   autoComplete="off"
-                  placeholder="Password (8~20 char)"
+                  placeholder="Address (4~20 char)"
                 />
                 <article className="h-3">
-                  {errors.accountId && (
-                    <FormError errorMessage={errors.accountId.message!} />
+                  {errors.address && (
+                    <FormError errorMessage={errors.address.message!} />
                   )}
                 </article>
               </div>
+            </div>
+
+            <div className="flex justify-evenly mt-5 center flex-col">
+              <div>
+                {categoryValues.map((category: string, index: number) => (
+                  <article className="inline-block mr-2" key={index}>
+                    <input
+                      {...register('categoryName', {
+                        required: 'You must specify a category',
+                      })}
+                      type="radio"
+                      name="categoryName"
+                      value={category}
+                    />
+                    <span className="text-black font-semibold ml-1">
+                      {category}
+                    </span>
+                  </article>
+                ))}
+              </div>
+              <article className="h-3">
+                {errors.categoryName && (
+                  <FormError errorMessage={errors.categoryName.message!} />
+                )}
+              </article>
             </div>
 
             <div className="center mt-5">
               <input className="signBtn" type="submit" value="CREATE" />
             </div>
           </form>
+
+          <div className="mt-5">
+            <button className="w-52 py-2 rounded-lg bg-red-400">
+              <span className="text-white">CLOSE</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
