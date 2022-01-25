@@ -1,38 +1,32 @@
 import { Controller, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
 import { FileInterceptor } from '@nestjs/platform-express'
 import * as AWS from 'aws-sdk'
+import * as multerS3 from 'multer-s3'
+import 'dotenv/config'
 
-const BUCKET_NAME = 'deliveryofmad1779'
+const s3 = new AWS.S3()
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: 'ap-northeast-2',
+})
 
 @Controller('uploads')
 export class UploadsController {
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file) {
-    AWS.config.update({
-      region: 'ap-northeast-2',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: process.env.AWS_SECRET_KEY,
-      },
-    })
-
-    try {
-      const objectKey = `${Date.now() + file.originalname}`
-
-      await new AWS.S3()
-        .putObject({
-          Body: file.buffer,
-          Bucket: BUCKET_NAME,
-          Key: objectKey,
-        })
-        .promise()
-
-      const image = `https://${BUCKET_NAME}.s3.amazonaws.com/${objectKey}`
-
-      return { image }
-    } catch (e) {
-      return null
-    }
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: multerS3({
+        s3: s3,
+        bucket: process.env.AWS_S3_BUCKET_NAME,
+        acl: 'public-read',
+        key: function (req, file, cb) {
+          cb(null, file.originalname)
+        },
+      }),
+    }),
+  )
+  async uploadFile(@UploadedFile() file: Express.Multer.File) {
+    console.log(file)
   }
 }
