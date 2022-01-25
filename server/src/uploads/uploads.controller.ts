@@ -21,12 +21,16 @@ export class UploadsController {
         bucket: process.env.AWS_S3_BUCKET_NAME,
         acl: 'public-read',
         key: function (req, file, cb) {
-          cb(null, file.originalname)
+          cb(null, Date.now() + file.originalname)
         },
       }),
     }),
   )
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    console.log(file)
+    try {
+      return file['location']
+    } catch (e) {
+      return null
+    }
   }
 }
