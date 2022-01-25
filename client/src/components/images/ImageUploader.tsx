@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { gql, useMutation } from '@apollo/client'
 
 interface AvatarProp {
-  image: any
+  image: string
   title: string
 }
 
@@ -12,7 +12,7 @@ const UPLOAD_AVATAR_IMAGE = gql`
   }
 `
 
-const Avatar: React.FC<AvatarProp> = ({ image, title }) => {
+const ImageUploader: React.FC<AvatarProp> = ({ image, title }) => {
   const fileRef = useRef<HTMLInputElement>(null)
 
   const [uploadAvatarImage] = useMutation(UPLOAD_AVATAR_IMAGE, {
@@ -51,4 +51,4 @@ const Avatar: React.FC<AvatarProp> = ({ image, title }) => {
   )
 }
 
-export default Avatar
+export default ImageUploader

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { me } from '../apollo'
 import { useNavigate } from 'react-router-dom'
 import defaultAvatar from '../images/defaultImg.png'
-import Avatar from '../components/images/avatar'
+import ImageUploader from '../components/images/ImageUploader'
 import ConfirmLogOut from '../components/modals/ConfirmLogOut'
 import EditProfile from '../modals/EditProfile.modal'
 import { useSnackbar } from 'notistack'
@@ -46,7 +46,7 @@ const Profile = () => {
           ) : (
             <section className="profile w-full text-white h-screen center flex-col">
               <div className="center overlay w-full">
-                <Avatar image={defaultAvatar} title={'default-avatar-image'} />
+                <ImageUploader image={defaultAvatar} title={'default-avatar-image'} />
                 <div className="p-5">
                   <p className="text-4xl font-bold pb-5">
                     <span className="text-green-500">{user!.role}</span>

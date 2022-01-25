@@ -7,7 +7,7 @@ import { IStore } from '../../../common/interfaces/entites.interface'
 import { me } from '../../../apollo'
 import { Helmet } from 'react-helmet-async'
 import defaultAvatar from '../../../images/defaultImg.png'
-import Avatar from '../../../components/images/avatar'
+import ImageUploader from '../../../components/images/ImageUploader'
 import Empty from '../../../components/block/empty'
 import CreateNewStoreModal from '../../../modals/CreateNewStore.modal'
 
@@ -35,7 +35,7 @@ const Owner = () => {
         <Empty />
         <header className="w-full px-5 py-28 shadow-2xl center bg-gray-700">
           <div className="pb-5 center">
-            <Avatar image={defaultAvatar} title={'default-avatar-image'} />
+            <ImageUploader image={defaultAvatar} title={'default-avatar-image'} />
 
             <div>
               <article className="text-4xl font-bold mb-5">
