@@ -17,8 +17,8 @@ import { CommonModule } from './common/common.module'
 import { PaymentModule } from './payment/payment.module'
 import { PaymentEntity } from './payment/entites/payment.entity'
 import { ScheduleModule } from '@nestjs/schedule'
-import { UploadsController } from './uploads/uploads.controller';
-import { UploadsModule } from './uploads/uploads.module';
+import { UploadsController } from './uploads/uploads.controller'
+import { UploadsModule } from './uploads/uploads.module'
 
 @Module({
   imports: [

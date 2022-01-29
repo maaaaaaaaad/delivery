@@ -37,6 +37,10 @@ export class UsersEntity extends RequiredEntity {
   @Field((type) => String, { defaultValue: 'client' })
   role: UserRole
 
+  @Column({ nullable: true })
+  @Field((type) => String, { nullable: true })
+  avatarImage?: string
+
   @OneToMany((type) => StoreEntity, (store) => store.owner)
   @Field((type) => [StoreEntity])
   stores: StoreEntity[]

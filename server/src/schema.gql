@@ -292,7 +292,6 @@ type Mutation {
   editProfile(input: EditProfileInputDto!): EditProfileOutputDto!
   editStore(input: EditStoreInputDto!): EditStoreOutputDto!
   loginAccount(input: LoginInputDto!): LoginOutputDto!
-  uploadAvatarImage(file: Upload!): Boolean!
 }
 
 type OrderEntity {
@@ -386,11 +385,9 @@ input UpdateOrderInputDto {
   id: Float!
 }
 
-"""The `Upload` scalar type represents a file upload."""
-scalar Upload
-
 type UsersEntity {
   accountId: String!
+  avatarImage: String
   createAt: DateTime!
   drivers: [OrderEntity!]!
   email: String!

@@ -7,8 +7,6 @@ import { UseGuards } from '@nestjs/common'
 import { AuthGuard } from '../auth/auth.guard'
 import { AuthUser } from '../auth/auth.decorator'
 import { EditProfileInputDto, EditProfileOutputDto } from './dtos/edit.dto'
-import { GraphQLUpload, FileUpload } from 'graphql-upload'
-import { createWriteStream } from 'fs'
 
 @Resolver()
 export class UsersResolver {
@@ -56,18 +54,5 @@ export class UsersResolver {
   @Mutation((returns) => Boolean)
   async checkNickname(@Args('input') nickname: string): Promise<boolean> {
     return await this.usersService.checkNickname(nickname)
-  }
-
-  @Mutation(() => Boolean)
-  async uploadAvatarImage(
-    @Args({ name: 'file', type: () => GraphQLUpload })
-    { createReadStream, filename }: FileUpload,
-  ): Promise<boolean> {
-    return new Promise(async (resolve, reject) =>
-      createReadStream()
-        .pipe(createWriteStream(`./uploads/avatar/${filename}`))
-        .on('finish', () => resolve(true))
-        .on('error', () => reject(false)),
-    )
   }
 }
