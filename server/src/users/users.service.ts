@@ -129,6 +129,12 @@ export class UsersService {
     }
   }
 
+  async updateProfileImage(primaryKey: number, fileLocation: string) {
+    const user = await this.users.findOne({ id: primaryKey })
+    user.avatarImage = fileLocation
+    await this.users.save(user)
+  }
+
   async findByTokenPk(primaryKey: number): Promise<UsersEntity> {
     return await this.users.findOne({ id: primaryKey })
   }

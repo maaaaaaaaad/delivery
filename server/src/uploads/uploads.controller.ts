@@ -10,6 +10,7 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import * as AWS from 'aws-sdk'
 import * as multerS3 from 'multer-s3'
 import 'dotenv/config'
+import { JwtService } from '../jwt/jwt.service'
 import { UsersService } from '../users/users.service'
 
 const s3 = new AWS.S3()
@@ -21,7 +22,10 @@ AWS.config.update({
 
 @Controller('upload')
 export class UploadsController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Post()
   @UseInterceptors(
@@ -42,9 +46,14 @@ export class UploadsController {
   ) {
     try {
       if (file && 'access_token' in req.headers) {
-        console.log(req.headers['access_token'])
+        const decode = await this.jwtService.decode(
+          req.headers['access_token'] as string,
+        )
+
+        await this.usersService.updateProfileImage(decode.id, file['location'])
+        return file['location']
       }
-      return file['location']
+      return null
     } catch (e) {
       return null
     }
