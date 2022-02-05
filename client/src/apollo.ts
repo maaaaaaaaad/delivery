@@ -18,6 +18,7 @@ export const me = makeVar<Omit<IUser, 'id' | 'password'>>({
   role: '',
   createAt: '',
   updateAt: '',
+  avatarImage: null,
 })
 
 const httpLink = createHttpLink({

@@ -10,6 +10,7 @@ export const USER_STATE = gql`
       createAt
       updateAt
       nickname
+      avatarImage
     }
   }
 `

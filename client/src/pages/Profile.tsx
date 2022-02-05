@@ -47,7 +47,7 @@ const Profile = () => {
             <section className="profile w-full text-white h-screen center flex-col">
               <div className="center overlay w-full">
                 <ImageUploader
-                  image={defaultAvatar}
+                  image={user.avatarImage ?? defaultAvatar}
                   title={'default-avatar-image'}
                 />
 

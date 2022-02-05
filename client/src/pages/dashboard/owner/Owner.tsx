@@ -35,9 +35,12 @@ const Owner = () => {
         <Empty />
         <header className="w-full px-5 py-28 shadow-2xl center bg-gray-700">
           <div className="pb-5 center">
-            <ImageUploader image={defaultAvatar} title={'default-avatar-image'} />
+            <ImageUploader
+              image={user.avatarImage ?? defaultAvatar}
+              title={'default-avatar-image'}
+            />
 
-            <div>
+            <div className="ml-3">
               <article className="text-4xl font-bold mb-5">
                 <span className="text-green-500">{user!.role}</span>
                 <span className="ml-5 tracking-wide text-white">

@@ -6,6 +6,7 @@ export interface IUser extends ICommon {
   email: string
   nickname: string
   role: string
+  avatarImage?: null | string
 }
 
 export interface Category extends ICommon {

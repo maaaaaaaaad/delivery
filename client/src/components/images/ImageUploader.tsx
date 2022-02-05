@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react'
 import axios from 'axios'
+import { me } from '../../apollo'
 
 interface AvatarProp {
   image: string
@@ -43,7 +44,7 @@ const ImageUploader: React.FC<AvatarProp> = ({ image, title }) => {
     imageFile && imageFormData.append('file', imageFile)
 
     e.preventDefault()
-    const { data } = await axios.post(
+    const { data: imageUrl } = await axios.post(
       `${process.env.REACT_APP_SERVER}/upload`,
       imageFormData,
       {
@@ -52,7 +53,10 @@ const ImageUploader: React.FC<AvatarProp> = ({ image, title }) => {
         },
       },
     )
-    console.log(data)
+    me({
+      ...me(),
+      avatarImage: imageUrl,
+    })
   }
 
   return (
@@ -81,8 +85,12 @@ const ImageUploader: React.FC<AvatarProp> = ({ image, title }) => {
           </article>
         </div>
       ) : (
-        <div onClick={onClick} className="p-0 m-0 rounded-full cursor-pointer">
-          <img className="w-64 h-64 hover:opacity-60" src={image} alt={title} />
+        <div onClick={onClick} className="p-0 m-0 cursor-pointer">
+          <img
+            className="rounded-full w-64 h-64 hover:opacity-60"
+            src={image}
+            alt={title}
+          />
         </div>
       )}
       <input
